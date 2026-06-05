@@ -163,6 +163,9 @@ body {
 }
 
 .app-root > *:not(.blob-arka-plan):not(.particle-bg) { position: relative; z-index: 1; }
+/* Navbar mutlaka sayfa icerinin uzerinde olmalı (dropdown menusu hero'nun arkasinda kalmasin) */
+.app-root > .navbar-bordo,
+.app-root > nav.navbar-bordo { z-index: 1050 !important; }
 
 /* ===================== PARTIKUL CANVAS ===================== */
 .particle-bg {
