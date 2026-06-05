@@ -24,6 +24,12 @@ export default function ProductCard({ urun }) {
           src={urun.resim_url || `https://picsum.photos/seed/urun-${urun.id}/400/300`}
           alt={urun.ad}
           loading="lazy"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.fallback) {
+              e.currentTarget.dataset.fallback = '1';
+              e.currentTarget.src = `https://picsum.photos/seed/urun-${urun.id}/400/300`;
+            }
+          }}
         />
         {yuzde > 0 && <span className="indirim-rozet">%{yuzde} İNDİRİM</span>}
         <div className="hizli-islemler">
