@@ -7,31 +7,54 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 // ============================================================
-// GORSEL: placehold.co ile kategori temali, urun adi yazili
-// stilize placeholder'lar. Bu yaklasim:
-// - Her urun icin garantili calisir (kirik gorsel olmaz)
-// - Adi her zaman dogru gosterir (yanlis fotograf problemi yok)
-// - Sci-fi temasi ile uyumlu (koyu zemin, neon renk)
-// - Kategoriye gore farkli renk kombinasyonu
+// GORSEL: Pixabay API ile her urun icin anahtar kelime aramasi
+// yapilarak gercek stock urun fotografi getirilir.
+// PIXABAY_API_KEY .env'de tanimliysa kullanilir;
+// yoksa kategori-renkli placeholder fallback olur.
 // ============================================================
+const PIXABAY_KEY = process.env.PIXABAY_API_KEY;
+
 const KATEGORI_RENGI = {
-  1: { bg: '1e1b4b', text: '93c5fd' }, // Elektronik: indigo + sky
-  2: { bg: '581c87', text: 'f0abfc' }, // Giyim: deep purple + magenta
-  3: { bg: '7c2d12', text: 'fdba74' }, // Ev & Yasam: amber + orange
-  4: { bg: '1c1917', text: 'fde047' }, // Kitap: charcoal + gold
-  5: { bg: '14532d', text: '86efac' }, // Spor: forest + lime
-  6: { bg: '831843', text: 'fda4af' }, // Kozmetik: rose + pink
+  1: { bg: '1e1b4b', text: '93c5fd' }, // Elektronik
+  2: { bg: '581c87', text: 'f0abfc' }, // Giyim
+  3: { bg: '7c2d12', text: 'fdba74' }, // Ev & Yasam
+  4: { bg: '1c1917', text: 'fde047' }, // Kitap
+  5: { bg: '14532d', text: '86efac' }, // Spor
+  6: { bg: '831843', text: 'fda4af' }, // Kozmetik
 };
 
 function placeholderFoto(katId, ad) {
   const { bg, text } = KATEGORI_RENGI[katId];
-  // placehold.co URL'sinde + isareti bosluk yerine gecer
   const encodedAd = encodeURIComponent(ad).replace(/%20/g, '+');
   return `https://placehold.co/400x300/${bg}/${text}?text=${encodedAd}&font=poppins`;
 }
 
-// Stub - URUNLER array'inde gecmis kalan ufoto() cagrilari icin.
-// Gercek foto INSERT sirasinda placeholderFoto() ile uretilir.
+// Pixabay'den keyword ile foto cek. Rate-limit'e yakalanirsa
+// 2 sn bekleyip tekrar dener (free tier dakikada 100 istek sinirli).
+async function pixabayFoto(query, retry = true) {
+  if (!PIXABAY_KEY) return null;
+  try {
+    const url = `https://pixabay.com/api/?key=${PIXABAY_KEY}` +
+                `&q=${encodeURIComponent(query)}` +
+                `&image_type=photo&safesearch=true&orientation=horizontal&per_page=3`;
+    const res = await fetch(url);
+    if (res.status === 429 && retry) {
+      await new Promise(r => setTimeout(r, 2000));
+      return pixabayFoto(query, false);
+    }
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data.hits && data.hits.length > 0) {
+      return data.hits[0].webformatURL;
+    }
+    return null;
+  } catch (e) {
+    console.warn(`Pixabay hatasi (${query}):`, e.message);
+    return null;
+  }
+}
+
+// Stub
 function ufoto() { return null; }
 
 // ============================================================
@@ -277,9 +300,59 @@ async function main() {
     ]]
   );
 
-  console.log(`${URUNLER.length} ürün ekleniyor (her birinin görseli kategori-renkli placeholder)...`);
-  // u.foto eski Unsplash URL'i — yerine her ürüne kategori-temalı placeholder atiyoruz
-  const urunRows = URUNLER.map((u) => [u.ad, u.fiyat, u.stok, u.k, placeholderFoto(u.k, u.ad), u.ac]);
+  // Her urun icin Ingilizce anahtar kelime (Pixabay aramasi icin)
+  const URUN_KEYWORDS = [
+    // Elektronik (1-17)
+    'iphone', 'samsung galaxy phone', 'macbook laptop', 'headphones', 'smartwatch',
+    'bluetooth speaker', 'tablet ipad', 'wireless earbuds', 'laptop computer', 'tv television',
+    'drone quadcopter', 'camera dslr', 'computer mouse', 'mechanical keyboard', 'tablet android',
+    'power bank', 'smartphone',
+    // Giyim (18-34)
+    'polo shirt', 'trench coat', 'jeans denim', 'dress shirt formal', 'silk blouse',
+    'summer dress', 'winter jacket', 'puffer jacket', 'sneakers shoes', 'high heels',
+    'leather boots', 'knit sweater', 'white tshirt', 'cargo shorts', 'midi skirt',
+    'tracksuit', 'cotton socks',
+    // Ev & Yasam (35-51)
+    'wooden dining table', 'bed sheet linen', 'espresso machine', 'sofa couch', 'tv stand',
+    'bedroom furniture', 'kids bedroom', 'dishwasher', 'microwave oven', 'tea kettle',
+    'cookware pots', 'carpet rug', 'mattress bed', 'chandelier light', 'garden furniture',
+    'steam iron', 'vacuum cleaner',
+    // Kitap (52-67)
+    'open book novel', 'tech book reading', 'classic literature book', 'old book', 'history book',
+    'self help book', 'children book illustrated', 'novel book', 'reading book', 'coloring book children',
+    'programming book', 'computer science book', 'cookbook recipes', 'world atlas map', 'fairy tale book',
+    'philosophy book',
+    // Spor (68-83)
+    'running shoes nike', 'yoga mat', 'dumbbell weights', 'gym bag', 'resistance band',
+    'pilates ball', 'city bicycle', 'fitness gloves', 'sports tshirt', 'sweatpants athletic',
+    'water bottle thermos', 'sport shorts', 'trail running shoes', 'swim shorts', 'tennis racket',
+    'volleyball ball',
+    // Kozmetik (84-100)
+    'perfume bottle', 'moisturizer cream', 'body wash bottle', 'shampoo bottle', 'hair mask',
+    'skincare set', 'makeup cosmetics', 'red lipstick', 'mascara', 'eyeshadow palette',
+    'face cleanser', 'body lotion', 'shaving cream', 'electric razor', 'toothpaste',
+    'cologne bottle', 'hair color',
+  ];
+
+  console.log(`${URUNLER.length} ürün ekleniyor...`);
+  if (PIXABAY_KEY) {
+    console.log('  Pixabay API ile her ürün için görsel çekiliyor (1-2 dk sürer)...');
+  } else {
+    console.log('  PIXABAY_API_KEY .env\'de yok — placeholder kullanılıyor.');
+  }
+
+  const urunRows = [];
+  for (let i = 0; i < URUNLER.length; i++) {
+    const u = URUNLER[i];
+    const kw = URUN_KEYWORDS[i] || u.ad;
+    let foto = await pixabayFoto(kw);
+    if (!foto) foto = placeholderFoto(u.k, u.ad);
+    urunRows.push([u.ad, u.fiyat, u.stok, u.k, foto, u.ac]);
+    if ((i + 1) % 10 === 0 || i === URUNLER.length - 1) {
+      process.stdout.write(`\r  ${i + 1}/${URUNLER.length} ürün hazır`);
+    }
+  }
+  process.stdout.write('\n');
   await connection.query(
     `INSERT INTO urunler (ad, fiyat, stok, kategori_id, resim_url, aciklama) VALUES ?`,
     [urunRows]
