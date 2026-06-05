@@ -1,0 +1,45 @@
+# Bagimliliklar
+node_modules/
+.pnp/
+.pnp.js
+
+# Build ciktilari
+dist/
+build/
+.next/
+.vite/
+.cache/
+
+# Ortam degiskenleri (GIZLI)
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Loglar
+*.log
+.logs/
+.pids/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test ciktilari
+coverage/
+.nyc_output/
+
+# MacOS .docx tip dosyalar
+~$*
+*-export.docx
+
+# Diger
+*.local

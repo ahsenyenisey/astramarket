@@ -1,0 +1,47 @@
+import { Routes, Route, useLocation } from 'react-router-dom';
+import AppNavbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminLayout from './components/AdminLayout';
+import BlobBackground from './components/BlobBackground';
+import Footer from './components/Footer';
+import SayfaGecis from './components/SayfaGecis';
+
+import Login from './pages/Login';
+import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import MyOrders from './pages/MyOrders';
+import AdminProducts from './pages/AdminProducts';
+import AdminUsersCategories from './pages/AdminUsersCategories';
+import AdminReports from './pages/AdminReports';
+
+export default function App() {
+  const loc = useLocation();
+  const adminAlani = loc.pathname.startsWith('/admin');
+  const loginAlani = loc.pathname === '/login';
+  // Login sayfasi kendi tam ekran arkaplaniyla gelir, blob/navbar/footer yok
+  const sadeSayfa = loginAlani;
+
+  return (
+    <div className="app-root">
+      {!adminAlani && !sadeSayfa && <BlobBackground />}
+      {!sadeSayfa && <AppNavbar />}
+      <SayfaGecis>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/urun/:id" element={<ProductDetail />} />
+          <Route path="/sepet" element={<Cart />} />
+          <Route path="/siparislerim" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+
+          <Route path="/admin" element={<ProtectedRoute adminOnly><AdminLayout /></ProtectedRoute>}>
+            <Route path="urunler" element={<AdminProducts />} />
+            <Route path="kullanicilar-kategoriler" element={<AdminUsersCategories />} />
+            <Route path="raporlar" element={<AdminReports />} />
+          </Route>
+        </Routes>
+      </SayfaGecis>
+      {!adminAlani && !sadeSayfa && <Footer />}
+    </div>
+  );
+}
