@@ -1220,43 +1220,117 @@ p, span, div { color: inherit; }
 .alert-danger { background: rgba(239, 68, 68, 0.10); color: #fca5a5; border-color: rgba(248, 113, 113, 0.3); }
 .alert-warning { background: rgba(245, 158, 11, 0.10); color: #fde68a; border-color: rgba(251, 191, 36, 0.3); }
 
-/* ===================== Dropdown ===================== */
-.dropdown-menu {
-  background-color: #0f0c19 !important;
-  background-image: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%) !important;
-  border: 1px solid rgba(232, 121, 249, 0.45) !important;
+/* ===================== Custom Dropdown ===================== */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.custom-dropdown-toggle {
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-weight: 500;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  border-radius: 8px;
+  transition: opacity 0.2s;
+}
+.custom-dropdown-toggle:hover { opacity: 0.8; }
+.custom-dropdown-arrow { font-size: 0.7rem; opacity: 0.7; }
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  background-color: #0f0c19;
+  background-image: linear-gradient(135deg, rgba(225, 29, 72, 0.10) 0%, rgba(168, 85, 247, 0.10) 100%);
+  border: 1px solid rgba(232, 121, 249, 0.45);
+  border-radius: 14px;
+  padding: 8px;
   box-shadow:
     0 16px 40px rgba(0, 0, 0, 0.75),
-    0 0 28px rgba(168, 85, 247, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    0 0 28px rgba(168, 85, 247, 0.35);
+  z-index: 9999;
+  animation: dropdown-in 0.18s ease-out;
+}
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.custom-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: #f8fafc !important;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.custom-dropdown-item:hover,
+.custom-dropdown-item:focus {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.25), rgba(168, 85, 247, 0.25));
+  color: #fda4af !important;
+  text-decoration: none;
+  outline: none;
+}
+.custom-dropdown-itemtext {
+  padding: 8px 16px;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+.custom-dropdown-divider {
+  height: 1px;
+  background: rgba(232, 121, 249, 0.25);
+  margin: 8px 4px;
+}
+
+/* Light theme overrides */
+[data-theme="light"] .custom-dropdown-toggle { color: #1a0b14; }
+[data-theme="light"] .custom-dropdown-menu {
+  background-color: #ffffff;
+  background-image: none;
+  border-color: rgba(159, 18, 57, 0.25);
+  box-shadow: 0 16px 40px rgba(159, 18, 57, 0.18);
+}
+[data-theme="light"] .custom-dropdown-item { color: #1a0b14 !important; }
+[data-theme="light"] .custom-dropdown-item:hover,
+[data-theme="light"] .custom-dropdown-item:focus {
+  background: rgba(159, 18, 57, 0.08);
+  color: #9f1239 !important;
+}
+[data-theme="light"] .custom-dropdown-itemtext { color: #475569; }
+[data-theme="light"] .custom-dropdown-divider { background: rgba(159, 18, 57, 0.18); }
+
+/* ===================== Bootstrap Dropdown (kalan kullanimlar icin) ===================== */
+.dropdown-menu {
+  background-color: #0f0c19 !important;
+  border: 1px solid rgba(232, 121, 249, 0.45) !important;
   border-radius: 14px !important;
   padding: 8px !important;
-  min-width: 240px;
-  z-index: 2000 !important;
+  z-index: 9999 !important;
 }
 .dropdown-menu .dropdown-item {
   color: #f8fafc !important;
   padding: 10px 16px !important;
   border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.15s;
   background: transparent !important;
 }
-.dropdown-menu .dropdown-item-text {
-  color: #cbd5e1 !important;
-  padding: 8px 16px !important;
-  font-size: 0.85rem;
-}
-.dropdown-menu .dropdown-item:hover,
-.dropdown-menu .dropdown-item:focus,
-.dropdown-menu .dropdown-item:active {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.22), rgba(168, 85, 247, 0.22)) !important;
+.dropdown-menu .dropdown-item:hover {
+  background: rgba(232, 121, 249, 0.15) !important;
   color: #fda4af !important;
-}
-.dropdown-menu .dropdown-divider {
-  border-top: 1px solid rgba(232, 121, 249, 0.22) !important;
-  margin: 8px 4px !important;
-  opacity: 1 !important;
 }
 
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */

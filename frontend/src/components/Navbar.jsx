@@ -1,10 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Navbar as BSNavbar, Nav, Container, Dropdown } from 'react-bootstrap';
+import { Navbar as BSNavbar, Nav, Container } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
+
+// Basit, garantili calisan custom dropdown.
+// Tiklayinca acilir, disariya tiklayinca kapanir.
+function CustomDropdown({ label, children }) {
+  const [acik, setAcik] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!acik) return;
+    const onClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setAcik(false);
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [acik]);
+
+  return (
+    <div ref={ref} className="custom-dropdown">
+      <button
+        type="button"
+        className="custom-dropdown-toggle"
+        onClick={() => setAcik((a) => !a)}
+        aria-expanded={acik}
+      >
+        {label}
+        <span className="custom-dropdown-arrow" aria-hidden="true">▾</span>
+      </button>
+      {acik && (
+        <div className="custom-dropdown-menu" onClick={() => setAcik(false)}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AppNavbar() {
   const { user, logout } = useAuth();
@@ -47,14 +82,11 @@ export default function AppNavbar() {
             <Nav.Link as={Link} to="/">Anasayfa</Nav.Link>
             {user && <Nav.Link as={Link} to="/siparislerim">Siparişlerim</Nav.Link>}
             {user?.rol === 'admin' && (
-              <Dropdown align="end">
-                <Dropdown.Toggle as={Nav.Link} className="text-white">Admin Paneli</Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/admin/urunler">Ürün Yönetimi</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/admin/kullanicilar-kategoriler">Kullanıcı & Kategori</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/admin/raporlar">Raporlar</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <CustomDropdown label="Admin Paneli">
+                <Link to="/admin/urunler" className="custom-dropdown-item">Ürün Yönetimi</Link>
+                <Link to="/admin/kullanicilar-kategoriler" className="custom-dropdown-item">Kullanıcı & Kategori</Link>
+                <Link to="/admin/raporlar" className="custom-dropdown-item">Raporlar</Link>
+              </CustomDropdown>
             )}
           </Nav>
           <Nav className="align-items-lg-center">
@@ -75,16 +107,17 @@ export default function AppNavbar() {
               </Nav.Link>
             )}
             {user ? (
-              <Dropdown align="end">
-                <Dropdown.Toggle as={Nav.Link} className="text-white">
-                  {user.ad}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.ItemText className="small text-muted">{user.email}</Dropdown.ItemText>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => { logout(); nav('/login'); }}>Çıkış Yap</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <CustomDropdown label={user.ad}>
+                <div className="custom-dropdown-itemtext">{user.email}</div>
+                <div className="custom-dropdown-divider" />
+                <button
+                  type="button"
+                  className="custom-dropdown-item"
+                  onClick={() => { logout(); nav('/login'); }}
+                >
+                  Çıkış Yap
+                </button>
+              </CustomDropdown>
             ) : (
               <Nav.Link as={Link} to="/login">Giriş / Kayıt</Nav.Link>
             )}
