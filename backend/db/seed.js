@@ -7,15 +7,32 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 // ============================================================
-// GORSEL URL'leri Unsplash'in stable photo CDN'inden geliyor.
-// Her ID elden test edildi, HTTP 200 donen profesyonel e-ticaret
-// stili urun fotograflari. Her urun kendi adina uygun bir foto
-// alir; benzer urunlerde gorseller paylasilabilir (tum sport
-// ayakkabilari ayni kategoride gorunmesi gibi).
+// GORSEL: placehold.co ile kategori temali, urun adi yazili
+// stilize placeholder'lar. Bu yaklasim:
+// - Her urun icin garantili calisir (kirik gorsel olmaz)
+// - Adi her zaman dogru gosterir (yanlis fotograf problemi yok)
+// - Sci-fi temasi ile uyumlu (koyu zemin, neon renk)
+// - Kategoriye gore farkli renk kombinasyonu
 // ============================================================
-function ufoto(id) {
-  return `https://images.unsplash.com/photo-${id}?w=400&h=300&fit=crop&auto=format&q=80`;
+const KATEGORI_RENGI = {
+  1: { bg: '1e1b4b', text: '93c5fd' }, // Elektronik: indigo + sky
+  2: { bg: '581c87', text: 'f0abfc' }, // Giyim: deep purple + magenta
+  3: { bg: '7c2d12', text: 'fdba74' }, // Ev & Yasam: amber + orange
+  4: { bg: '1c1917', text: 'fde047' }, // Kitap: charcoal + gold
+  5: { bg: '14532d', text: '86efac' }, // Spor: forest + lime
+  6: { bg: '831843', text: 'fda4af' }, // Kozmetik: rose + pink
+};
+
+function placeholderFoto(katId, ad) {
+  const { bg, text } = KATEGORI_RENGI[katId];
+  // placehold.co URL'sinde + isareti bosluk yerine gecer
+  const encodedAd = encodeURIComponent(ad).replace(/%20/g, '+');
+  return `https://placehold.co/400x300/${bg}/${text}?text=${encodedAd}&font=poppins`;
 }
+
+// Stub - URUNLER array'inde gecmis kalan ufoto() cagrilari icin.
+// Gercek foto INSERT sirasinda placeholderFoto() ile uretilir.
+function ufoto() { return null; }
 
 // ============================================================
 // URUN LISTESI - 100 urun, 6 kategoriye dagitilmis
@@ -260,8 +277,9 @@ async function main() {
     ]]
   );
 
-  console.log(`${URUNLER.length} ürün ekleniyor (her birinin görseli kendi keyword'üne göre)...`);
-  const urunRows = URUNLER.map((u) => [u.ad, u.fiyat, u.stok, u.k, u.foto, u.ac]);
+  console.log(`${URUNLER.length} ürün ekleniyor (her birinin görseli kategori-renkli placeholder)...`);
+  // u.foto eski Unsplash URL'i — yerine her ürüne kategori-temalı placeholder atiyoruz
+  const urunRows = URUNLER.map((u) => [u.ad, u.fiyat, u.stok, u.k, placeholderFoto(u.k, u.ad), u.ac]);
   await connection.query(
     `INSERT INTO urunler (ad, fiyat, stok, kategori_id, resim_url, aciklama) VALUES ?`,
     [urunRows]
