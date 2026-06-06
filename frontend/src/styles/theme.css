@@ -1223,6 +1223,114 @@ p, span, div { color: inherit; }
 .alert-danger { background: rgba(239, 68, 68, 0.10); color: #fca5a5; border-color: rgba(248, 113, 113, 0.3); }
 .alert-warning { background: rgba(245, 158, 11, 0.10); color: #fde68a; border-color: rgba(251, 191, 36, 0.3); }
 
+/* ===================== Navbar Zenginlestirilmis Menu ===================== */
+.navbar-genel-menu { gap: 4px; }
+.navbar-genel-menu .nav-link {
+  padding: 8px 14px !important;
+  border-radius: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+/* Suuper Fiyat - parlak gradient vurgulu */
+.nav-vurgu-link {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.18), rgba(168, 85, 247, 0.18));
+  border: 1px solid rgba(232, 121, 249, 0.35);
+  font-weight: 600 !important;
+  position: relative;
+  overflow: hidden;
+}
+.nav-vurgu-link::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.3), transparent);
+  transition: left 0.7s;
+}
+.nav-vurgu-link:hover::before { left: 100%; }
+.nav-vurgu-link:hover {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.30), rgba(168, 85, 247, 0.30));
+  border-color: rgba(232, 121, 249, 0.55);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.30);
+}
+.nav-flame {
+  margin-right: 4px;
+  font-size: 0.95rem;
+  animation: flame-flicker 1.6s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes flame-flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.08) rotate(2deg); }
+}
+
+/* Kampanyalar - subtle hover */
+.nav-kampanya-link {
+  font-weight: 500 !important;
+}
+.nav-kampanya-link:hover {
+  background: rgba(232, 121, 249, 0.10);
+}
+
+/* Premium menu item - altın vurgu */
+.custom-dropdown-item.premium-item {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.12));
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #fde68a !important;
+  font-weight: 600;
+  margin-bottom: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.custom-dropdown-item.premium-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.35), transparent);
+  transition: left 0.6s;
+}
+.custom-dropdown-item.premium-item:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.22), rgba(245, 158, 11, 0.22)) !important;
+  color: #fef3c7 !important;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.30);
+}
+.custom-dropdown-item.premium-item:hover::before { left: 100%; }
+.premium-rozet {
+  color: #fbbf24;
+  margin-right: 6px;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+/* Light theme overrides */
+[data-theme="light"] .nav-vurgu-link {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.10), rgba(168, 85, 247, 0.10));
+  border-color: rgba(159, 18, 57, 0.25);
+}
+[data-theme="light"] .nav-vurgu-link:hover {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.18), rgba(168, 85, 247, 0.18));
+}
+[data-theme="light"] .custom-dropdown-item.premium-item {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
+  color: #92400e !important;
+  border-color: rgba(245, 158, 11, 0.40);
+}
+
+/* Mobilde dikey sigsin (lg breakpoint altinda) */
+@media (max-width: 991px) {
+  .navbar-genel-menu .nav-link,
+  .nav-vurgu-link,
+  .nav-kampanya-link {
+    padding: 10px 14px !important;
+  }
+  .custom-dropdown-menu {
+    position: static;
+    margin-top: 8px;
+    width: 100%;
+  }
+}
+
 /* ===================== Custom Dropdown ===================== */
 .custom-dropdown {
   position: relative;
