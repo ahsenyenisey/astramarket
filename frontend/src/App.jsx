@@ -11,6 +11,13 @@ import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import MyOrders from './pages/MyOrders';
+import SuperPrice from './pages/SuperPrice';
+import Campaigns from './pages/Campaigns';
+import Premium from './pages/Premium';
+import FAQ from './pages/FAQ';
+import Returns from './pages/Returns';
+import CargoTracking from './pages/CargoTracking';
+import Contact from './pages/Contact';
 import AdminProducts from './pages/AdminProducts';
 import AdminUsersCategories from './pages/AdminUsersCategories';
 import AdminReports from './pages/AdminReports';
@@ -33,6 +40,14 @@ export default function App() {
           <Route path="/urun/:id" element={<ProductDetail />} />
           <Route path="/sepet" element={<Cart />} />
           <Route path="/siparislerim" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+
+          <Route path="/firsatlar" element={<SuperPrice />} />
+          <Route path="/kampanyalar" element={<Campaigns />} />
+          <Route path="/premium" element={<Premium />} />
+          <Route path="/yardim/sss" element={<FAQ />} />
+          <Route path="/yardim/iade" element={<Returns />} />
+          <Route path="/yardim/kargo" element={<CargoTracking />} />
+          <Route path="/yardim/iletisim" element={<Contact />} />
 
           <Route path="/admin" element={<ProtectedRoute adminOnly><AdminLayout /></ProtectedRoute>}>
             <Route path="urunler" element={<AdminProducts />} />

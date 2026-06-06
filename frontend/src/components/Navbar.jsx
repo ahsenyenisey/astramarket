@@ -81,19 +81,19 @@ export default function AppNavbar() {
           <Nav className="me-auto navbar-genel-menu">
             <Nav.Link as={Link} to="/">Anasayfa</Nav.Link>
             {user && <Nav.Link as={Link} to="/siparislerim">Siparişlerim</Nav.Link>}
-            <Nav.Link as={Link} to="/" className="nav-vurgu-link">
+            <Nav.Link as={Link} to="/firsatlar" className="nav-vurgu-link">
               <span className="nav-flame">🔥</span> Süper Fiyat, Süper Teklif
             </Nav.Link>
-            <Nav.Link as={Link} to="/" className="nav-kampanya-link">Kampanyalar</Nav.Link>
+            <Nav.Link as={Link} to="/kampanyalar" className="nav-kampanya-link">Kampanyalar</Nav.Link>
             <CustomDropdown label="Müşteri Hizmetleri">
-              <Link to="/" className="custom-dropdown-item premium-item">
+              <Link to="/premium" className="custom-dropdown-item premium-item">
                 <span className="premium-rozet">★</span> AstraMarket Premium
               </Link>
               <div className="custom-dropdown-divider" />
-              <Link to="/" className="custom-dropdown-item">Sıkça Sorulan Sorular</Link>
-              <Link to="/" className="custom-dropdown-item">İade ve Değişim</Link>
-              <Link to="/" className="custom-dropdown-item">Kargo Takibi</Link>
-              <Link to="/" className="custom-dropdown-item">İletişim</Link>
+              <Link to="/yardim/sss" className="custom-dropdown-item">Sıkça Sorulan Sorular</Link>
+              <Link to="/yardim/iade" className="custom-dropdown-item">İade ve Değişim</Link>
+              <Link to="/yardim/kargo" className="custom-dropdown-item">Kargo Takibi</Link>
+              <Link to="/yardim/iletisim" className="custom-dropdown-item">İletişim</Link>
             </CustomDropdown>
             {user?.rol === 'admin' && (
               <CustomDropdown label="Admin Paneli">

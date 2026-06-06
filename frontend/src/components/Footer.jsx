@@ -25,16 +25,16 @@ export default function Footer() {
           <Col md={2} sm={6}>
             <h5>Keşfet</h5>
             <Link to="/">Anasayfa</Link>
-            <Link to="/sepet">Sepetim</Link>
-            <Link to="/siparislerim">Siparişlerim</Link>
-            <a href="#">Kampanyalar</a>
+            <Link to="/firsatlar">Süper Fırsatlar</Link>
+            <Link to="/kampanyalar">Kampanyalar</Link>
+            <Link to="/premium">Premium</Link>
           </Col>
           <Col md={3} sm={6}>
             <h5>Yardım</h5>
-            <a href="#">Sıkça Sorulan Sorular</a>
-            <a href="#">İade & Değişim</a>
-            <a href="#">Kargo Takibi</a>
-            <a href="#">İletişim</a>
+            <Link to="/yardim/sss">Sıkça Sorulan Sorular</Link>
+            <Link to="/yardim/iade">İade & Değişim</Link>
+            <Link to="/yardim/kargo">Kargo Takibi</Link>
+            <Link to="/yardim/iletisim">İletişim</Link>
           </Col>
           <Col md={3}>
             <h5>İletişim</h5>
