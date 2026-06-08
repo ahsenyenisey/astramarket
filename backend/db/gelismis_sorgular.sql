@@ -5,7 +5,7 @@
 -- =============================================================
 
 USE eticaret_db;
-eticaret_db
+
 -- -------------------------------------------------------------
 -- SORGU 1: GROUP BY + JOIN
 -- Her kategorideki urun sayisi ve toplam satis tutari.
