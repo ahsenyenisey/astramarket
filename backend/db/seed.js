@@ -29,30 +29,50 @@ function placeholderFoto(katId, ad) {
   return `https://placehold.co/400x300/${bg}/${text}?text=${encodedAd}&font=poppins`;
 }
 
-// Pixabay'den keyword ile foto cek. Rate-limit'e yakalanirsa
-// 2 sn bekleyip tekrar dener (free tier dakikada 100 istek sinirli).
-async function pixabayFoto(query, retry = true) {
+// Pixabay'den keyword + category ile foto cek.
+// category filter sayesinde "cologne" icin manzara yerine
+// gercek urun/sise fotograflari geliyor.
+async function pixabayFoto(query, category, retry = true) {
   if (!PIXABAY_KEY) return null;
   try {
-    const url = `https://pixabay.com/api/?key=${PIXABAY_KEY}` +
-                `&q=${encodeURIComponent(query)}` +
-                `&image_type=photo&safesearch=true&orientation=horizontal&per_page=3`;
-    const res = await fetch(url);
+    const params = new URLSearchParams({
+      key: PIXABAY_KEY,
+      q: query,
+      image_type: 'photo',
+      safesearch: 'true',
+      orientation: 'horizontal',
+      per_page: '3',
+      order: 'popular',
+    });
+    if (category) params.set('category', category);
+    const res = await fetch(`https://pixabay.com/api/?${params}`);
     if (res.status === 429 && retry) {
       await new Promise(r => setTimeout(r, 2000));
-      return pixabayFoto(query, false);
+      return pixabayFoto(query, category, false);
     }
     if (!res.ok) return null;
     const data = await res.json();
     if (data.hits && data.hits.length > 0) {
       return data.hits[0].webformatURL;
     }
+    // Category ile bulamadiysa kategori-siz tekrar dene
+    if (category && retry) return pixabayFoto(query, null, false);
     return null;
   } catch (e) {
     console.warn(`Pixabay hatasi (${query}):`, e.message);
     return null;
   }
 }
+
+// Her kategori icin Pixabay category eslemesi
+const PIXABAY_KATEGORI = {
+  1: 'computer',   // Elektronik
+  2: 'fashion',    // Giyim
+  3: 'buildings',  // Ev & Yasam (Pixabay'de 'places' yok)
+  4: 'education',  // Kitap
+  5: 'sports',     // Spor
+  6: 'fashion',    // Kozmetik (beauty yok, fashion en yakini)
+};
 
 // Stub
 function ufoto() { return null; }
@@ -345,7 +365,8 @@ async function main() {
   for (let i = 0; i < URUNLER.length; i++) {
     const u = URUNLER[i];
     const kw = URUN_KEYWORDS[i] || u.ad;
-    let foto = await pixabayFoto(kw);
+    const cat = PIXABAY_KATEGORI[u.k];
+    let foto = await pixabayFoto(kw, cat);
     if (!foto) foto = placeholderFoto(u.k, u.ad);
     urunRows.push([u.ad, u.fiyat, u.stok, u.k, foto, u.ac]);
     if ((i + 1) % 10 === 0 || i === URUNLER.length - 1) {
