@@ -61,10 +61,29 @@ export default function Contact() {
             </div>
 
             <div className="sosyal-ikonlar mt-4">
-              <a href="#" className="sosyal-ikon" aria-label="Instagram">IG</a>
-              <a href="#" className="sosyal-ikon" aria-label="Facebook">FB</a>
-              <a href="#" className="sosyal-ikon" aria-label="Twitter">TW</a>
-              <a href="#" className="sosyal-ikon" aria-label="YouTube">YT</a>
+              <a href="https://instagram.com/astramarket" target="_blank" rel="noopener noreferrer" className="sosyal-ikon" aria-label="Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+                  <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+                </svg>
+              </a>
+              <a href="https://facebook.com/astramarket" target="_blank" rel="noopener noreferrer" className="sosyal-ikon" aria-label="Facebook" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <a href="https://twitter.com/astramarket" target="_blank" rel="noopener noreferrer" className="sosyal-ikon" aria-label="X (Twitter)" title="X (Twitter)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4l7.5 9.5L4.5 20H7l5.5-6 4.5 6h3L12.5 10 19.5 4H17l-5 5.5L8 4H4Z" fill="currentColor" />
+                </svg>
+              </a>
+              <a href="https://youtube.com/@astramarket" target="_blank" rel="noopener noreferrer" className="sosyal-ikon" aria-label="YouTube" title="YouTube">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
+                  <path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" />
+                </svg>
+              </a>
             </div>
           </div>
         </Col>

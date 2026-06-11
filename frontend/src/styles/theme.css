@@ -986,21 +986,26 @@ p, span, div { color: inherit; }
 .footer p { color: var(--metin-sonuk); font-size: 0.92rem; line-height: 1.6; }
 .sosyal-ikonlar { display: flex; gap: 10px; margin-top: 16px; }
 .sosyal-ikon {
-  width: 40px; height: 40px;
+  width: 42px; height: 42px;
   border-radius: 50%;
   background: var(--bg-card);
   backdrop-filter: blur(10px);
   border: 1px solid var(--neon-border);
   display: flex; align-items: center; justify-content: center;
   color: var(--metin-orta) !important;
-  font-weight: 700;
-  font-size: 0.85rem;
   transition: all 0.3s;
+  padding: 0;
+  text-decoration: none !important;
+}
+.sosyal-ikon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 .sosyal-ikon:hover {
   background: var(--grad-neon);
   border-color: transparent;
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.05);
   box-shadow: var(--glow-pembe);
   color: #fff !important;
 }
