@@ -1973,6 +1973,187 @@ p, span, div { color: inherit; }
   filter: drop-shadow(2px 0 0 rgba(225, 29, 72, 0.45)) drop-shadow(-2px 0 0 rgba(99, 102, 241, 0.45));
 }
 
+/* ===================== INTRO LOADER (sinematik acilis) ===================== */
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #050509;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: intro-flash 0.4s ease-out;
+}
+.intro-loader.kapaniyor {
+  animation: intro-cikis 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+@keyframes intro-flash {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes intro-cikis {
+  0% { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: scale(1.15); filter: blur(20px); }
+}
+.il-arka { position: absolute; inset: 0; pointer-events: none; }
+.il-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0;
+  animation: il-blob-in 1.5s ease-out forwards;
+}
+.il-blob-a {
+  width: 600px; height: 600px;
+  top: -100px; left: -100px;
+  background: radial-gradient(circle, #e11d48, transparent 70%);
+  animation-delay: 0s;
+}
+.il-blob-b {
+  width: 500px; height: 500px;
+  bottom: -100px; right: -100px;
+  background: radial-gradient(circle, #a855f7, transparent 70%);
+  animation-delay: 0.2s;
+}
+.il-blob-c {
+  width: 400px; height: 400px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #6366f1, transparent 70%);
+  animation-delay: 0.4s;
+}
+@keyframes il-blob-in {
+  to { opacity: 0.5; }
+}
+.il-icerik {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.il-logo {
+  opacity: 0;
+  transform: scale(0.7) translateY(20px);
+  animation: il-logo-in 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+  filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.7));
+}
+@keyframes il-logo-in {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.il-tagline {
+  display: flex;
+  gap: 2px;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  color: var(--metin-sonuk);
+  font-weight: 600;
+}
+.il-tagline span {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: il-letter-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+.il-tagline span:nth-child(1)  { animation-delay: 0.90s; }
+.il-tagline span:nth-child(2)  { animation-delay: 0.95s; }
+.il-tagline span:nth-child(3)  { animation-delay: 1.00s; }
+.il-tagline span:nth-child(4)  { animation-delay: 1.05s; }
+.il-tagline span:nth-child(5)  { animation-delay: 1.10s; }
+.il-tagline span:nth-child(6)  { animation-delay: 1.15s; }
+.il-tagline span:nth-child(7)  { animation-delay: 1.20s; }
+.il-tagline span:nth-child(8)  { animation-delay: 1.25s; }
+.il-tagline span:nth-child(9)  { animation-delay: 1.30s; }
+.il-tagline span:nth-child(10) { animation-delay: 1.35s; }
+.il-tagline span:nth-child(n+11) { animation-delay: 1.40s; }
+@keyframes il-letter-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== FILM GRAIN ===================== */
+.film-grain {
+  position: fixed;
+  inset: -100%;
+  z-index: 9991;
+  pointer-events: none;
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  animation: grain-shift 1.5s steps(8) infinite;
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-5%, -3%); }
+  20%  { transform: translate(-8%, 4%); }
+  30%  { transform: translate(7%, -7%); }
+  40%  { transform: translate(-5%, 6%); }
+  50%  { transform: translate(-8%, 2%); }
+  60%  { transform: translate(6%, -8%); }
+  70%  { transform: translate(8%, 5%); }
+  80%  { transform: translate(3%, 9%); }
+  90%  { transform: translate(-6%, -3%); }
+  100% { transform: translate(0, 0); }
+}
+[data-theme="light"] .film-grain { opacity: 0.08; mix-blend-mode: multiply; }
+
+/* ===================== VIGNETTE ===================== */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 9992;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.40) 90%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+[data-theme="light"] .vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(159, 18, 57, 0.10) 95%,
+    rgba(159, 18, 57, 0.15) 100%
+  );
+}
+
+/* ===================== CINEMATIC TYPOGRAPHY ===================== */
+.hero-banner h1 {
+  font-size: clamp(2rem, 5.5vw, 4.5rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -2px !important;
+  text-shadow:
+    0 0 60px rgba(168, 85, 247, 0.40),
+    0 4px 30px rgba(225, 29, 72, 0.25) !important;
+}
+
+/* Bolum baslik daha buyuk */
+.bolum-baslik h3 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
+}
+
+/* Sayfa basliklarinin tipografisi gerin */
+.sayfa-baslik h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem) !important;
+  letter-spacing: -1px !important;
+}
+
+/* ===================== LETTER REVEAL (hero/baslik kullanim) ===================== */
+.letter-reveal { display: inline-block; }
+.letter-reveal > span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px) rotateX(-30deg);
+  animation: letter-in 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+@keyframes letter-in {
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }

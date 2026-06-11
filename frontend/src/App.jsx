@@ -7,6 +7,8 @@ import Footer from './components/Footer';
 import SayfaGecis from './components/SayfaGecis';
 import AuroraOverlay from './components/AuroraOverlay';
 import CustomCursor from './components/CustomCursor';
+import IntroLoader from './components/IntroLoader';
+import FilmEffects from './components/FilmEffects';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -34,6 +36,8 @@ export default function App() {
 
   return (
     <div className="app-root">
+      {immersiveEfektler && <IntroLoader />}
+      {immersiveEfektler && <FilmEffects />}
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}

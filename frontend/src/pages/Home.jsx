@@ -6,6 +6,7 @@ import ProductCard from '../components/ProductCard';
 import EmptyState from '../components/EmptyState';
 import HoloField from '../components/HoloField';
 import useMouseTilt from '../components/useMouseTilt';
+import RevealOnScroll from '../components/RevealOnScroll';
 
 const SAYFA_BASI = 8;
 
@@ -133,12 +134,12 @@ export default function Home() {
       </div>
 
       {/* BOLUM BASLIK */}
-      <div id="urunler-bolum" className="bolum-baslik fade-up" style={{ animationDelay: '0.15s' }}>
+      <RevealOnScroll as="div" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
         <div>
           <h3>Öne Çıkan Ürünler</h3>
           <div className="alt">Seninle aramızda binlerce harika ürün var</div>
         </div>
-      </div>
+      </RevealOnScroll>
 
       {hata && <Alert variant="danger">{hata}</Alert>}
 
