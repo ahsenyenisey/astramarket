@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 import EmptyState from '../components/EmptyState';
-import ParticleField from '../components/ParticleField';
+import HoloField from '../components/HoloField';
 import useMouseTilt from '../components/useMouseTilt';
 
 const SAYFA_BASI = 8;
@@ -65,12 +65,12 @@ export default function Home() {
     <Container className="my-4 my-md-5">
       {/* HERO */}
       <section className="hero-banner fade-up">
-        <ParticleField density={70} maxDist={120} speed={0.25} />
+        <HoloField gridLines={true} />
 
         <div className="hero-icerik">
           <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
           <h1>
-            Sevdiklerin <span className="gradient-text">burada,</span><br />
+            Sevdiklerin <span className="holo-text">burada,</span><br />
             fırsatları kaçırma!
           </h1>
           <p>

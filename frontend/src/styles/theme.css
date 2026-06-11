@@ -1770,6 +1770,209 @@ p, span, div { color: inherit; }
 .ib-etiket { color: var(--metin-sonuk); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
 .ib-deger { color: var(--metin-parlak); font-weight: 600; font-size: 1.02rem; }
 
+/* ===================== AURORA OVERLAY ===================== */
+.aurora-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(225, 29, 72, 0.20), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(99, 102, 241, 0.22), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.18), transparent 50%),
+    radial-gradient(circle at 20% 95%, rgba(34, 211, 238, 0.10), transparent 40%);
+  filter: blur(40px);
+  animation: aurora-shift 28s ease-in-out infinite alternate;
+}
+@keyframes aurora-shift {
+  0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 20% 100%; transform: scale(1); }
+  50%  { background-position: 20% 30%, 70% 40%, 40% 60%, 50% 80%; transform: scale(1.08); }
+  100% { background-position: 40% 10%, 60% 30%, 60% 70%, 30% 90%; transform: scale(1.04); }
+}
+[data-theme="light"] .aurora-overlay { opacity: 0.25; }
+
+/* ===================== SCAN LINES OVERLAY ===================== */
+.scan-lines {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 3px,
+    rgba(232, 121, 249, 0.025) 3px,
+    rgba(232, 121, 249, 0.025) 4px
+  );
+  mix-blend-mode: overlay;
+  animation: scan-flow 8s linear infinite;
+}
+@keyframes scan-flow {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100px; }
+}
+[data-theme="light"] .scan-lines { display: none; }
+
+/* ===================== CUSTOM CURSOR ===================== */
+@media (pointer: fine) {
+  body { cursor: none; }
+  body * { cursor: none !important; }
+}
+.cursor-dot,
+.cursor-ring,
+.cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+  border-radius: 50%;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: #fb7185;
+  margin-left: -4px;
+  margin-top: -4px;
+  box-shadow:
+    0 0 12px rgba(251, 113, 133, 0.95),
+    0 0 24px rgba(168, 85, 247, 0.55);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(232, 121, 249, 0.55);
+  margin-left: -18px;
+  margin-top: -18px;
+  transition: width 0.25s, height 0.25s, margin 0.25s, background 0.25s, border-color 0.25s;
+}
+.cursor-ring.hover {
+  width: 54px; height: 54px;
+  margin-left: -27px;
+  margin-top: -27px;
+  background: rgba(168, 85, 247, 0.18);
+  border-color: rgba(251, 113, 133, 0.9);
+}
+.cursor-trail {
+  width: 4px; height: 4px;
+  background: radial-gradient(circle, rgba(232, 121, 249, 0.8), transparent 70%);
+  margin-left: -2px;
+  margin-top: -2px;
+  filter: blur(2px);
+}
+@media (pointer: coarse), (max-width: 768px) {
+  .cursor-dot, .cursor-ring, .cursor-trail { display: none; }
+  body, body * { cursor: auto !important; }
+}
+
+/* ===================== LOGO BREATHING GLOW ===================== */
+.astra-logo svg {
+  animation: logo-breathe 4s ease-in-out infinite;
+}
+@keyframes logo-breathe {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.55)); }
+  50%      { filter: drop-shadow(0 0 22px rgba(251, 113, 133, 0.85)) drop-shadow(0 0 38px rgba(168, 85, 247, 0.35)); }
+}
+
+/* ===================== HOLOGRAPHIC TEXT SHIMMER ===================== */
+.holo-text {
+  background: linear-gradient(
+    110deg,
+    #fb7185 0%, #c084fc 30%, #a5b4fc 50%, #c084fc 70%, #fb7185 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holo-shimmer 6s linear infinite;
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.45));
+}
+@keyframes holo-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ===================== ENHANCED DEPTH KARTLAR ===================== */
+.product-card {
+  background:
+    linear-gradient(135deg, rgba(168, 85, 247, 0.03) 0%, transparent 50%, rgba(225, 29, 72, 0.03) 100%),
+    var(--bg-card) !important;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(232, 121, 249, 0.25), transparent 50%, rgba(99, 102, 241, 0.25));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.product-card:hover::before { opacity: 1; }
+
+/* Hero icindeki deko kartlara ekstra holo border */
+.hero-dekor-kart {
+  background:
+    linear-gradient(135deg, rgba(168, 85, 247, 0.06), transparent 50%),
+    var(--bg-card);
+  position: relative;
+}
+.hero-dekor-kart::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, transparent, rgba(232, 121, 249, 0.18), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.hero-dekor-kart:hover::after { opacity: 1; }
+
+/* ===================== ENHANCED PAGE TRANSITION ===================== */
+.sayfa-gecis {
+  animation: sayfa-gecis-cinematic 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes sayfa-gecis-cinematic {
+  0%   { opacity: 0; transform: scale(0.94) translateY(20px) translateZ(0); filter: blur(8px) brightness(0.7); }
+  60%  { opacity: 1; filter: blur(0) brightness(1.05); }
+  100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); filter: blur(0) brightness(1); }
+}
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.reveal-on-scroll.gorunur {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== HERO BANNER HOLO EKLEMELERI ===================== */
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.8), transparent);
+  animation: hero-scan 4s ease-in-out infinite;
+}
+@keyframes hero-scan {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50%      { opacity: 1; transform: translateY(380px); }
+}
+
+/* Buton'larda chromatic aberration hint */
+.btn-cta:active,
+.btn-bordo:active {
+  filter: drop-shadow(2px 0 0 rgba(225, 29, 72, 0.45)) drop-shadow(-2px 0 0 rgba(99, 102, 241, 0.45));
+}
+
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }

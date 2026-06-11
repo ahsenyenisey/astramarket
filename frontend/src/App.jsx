@@ -5,6 +5,8 @@ import AdminLayout from './components/AdminLayout';
 import BlobBackground from './components/BlobBackground';
 import Footer from './components/Footer';
 import SayfaGecis from './components/SayfaGecis';
+import AuroraOverlay from './components/AuroraOverlay';
+import CustomCursor from './components/CustomCursor';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -26,12 +28,17 @@ export default function App() {
   const loc = useLocation();
   const adminAlani = loc.pathname.startsWith('/admin');
   const loginAlani = loc.pathname === '/login';
-  // Login sayfasi kendi tam ekran arkaplaniyla gelir, blob/navbar/footer yok
   const sadeSayfa = loginAlani;
+  // Immersive efektler sadece musteri tarafinda
+  const immersiveEfektler = !adminAlani;
 
   return (
     <div className="app-root">
+      {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
+      {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
+      {immersiveEfektler && <CustomCursor />}
+
       {!sadeSayfa && <AppNavbar />}
       <SayfaGecis>
         <Routes>
