@@ -10,7 +10,8 @@ export default function Login() {
   const nav = useNavigate();
   const loc = useLocation();
   const yetkiUyarisi = loc.state?.yetki;
-  const [tab, setTab] = useState('login');
+  const ilkTab = loc.state?.tab === 'register' ? 'register' : 'login';
+  const [tab, setTab] = useState(ilkTab);
   const [loading, setLoading] = useState(false);
   const [hata, setHata] = useState('');
   const [form, setForm] = useState({ ad: '', email: '', sifre: '' });

@@ -1,24 +1,40 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 
-// Sayfa ilk acildiginda gosterilir, 2.5sn sonra fade-out.
-// sessionStorage'da isaretlenir, ayni oturumda bir daha gosterilmez.
+const TAGLINE = 'EVREN · İN · ALIŞVERİŞİ';
+
+// Sayfa ilk acildiginda tum ekrani kaplayan sinematik karsilama.
+// Logo + tagline animasyonu bittikten sonra 3 secenek butonu cikar:
+// - Giris Yap   -> /login
+// - Kayit Ol    -> /login (register tab acik)
+// - Misafir Devam-> mevcut sayfada kalir, sadece intro kapanir
+// sessionStorage ile ayni oturumda tekrar gosterilmez.
 export default function IntroLoader() {
   const [aktif, setAktif] = useState(() => {
     if (typeof window === 'undefined') return false;
     return !sessionStorage.getItem('astra-intro-gosterildi');
   });
+  const [butonlarHazir, setButonlarHazir] = useState(false);
   const [kapaniyor, setKapaniyor] = useState(false);
+  const nav = useNavigate();
 
   useEffect(() => {
     if (!aktif) return;
-    const t1 = setTimeout(() => setKapaniyor(true), 2100);
-    const t2 = setTimeout(() => {
-      setAktif(false);
-      sessionStorage.setItem('astra-intro-gosterildi', '1');
-    }, 2800);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    // Logo (0.3s) + tagline (1.4s) sonrasi butonlar
+    const t = setTimeout(() => setButonlarHazir(true), 2100);
+    return () => clearTimeout(t);
   }, [aktif]);
+
+  const kapat = (yer, state) => {
+    if (kapaniyor) return;
+    setKapaniyor(true);
+    setTimeout(() => {
+      sessionStorage.setItem('astra-intro-gosterildi', '1');
+      setAktif(false);
+      if (yer) nav(yer, { state });
+    }, 650);
+  };
 
   if (!aktif) return null;
 
@@ -29,16 +45,40 @@ export default function IntroLoader() {
         <div className="il-blob il-blob-b" />
         <div className="il-blob il-blob-c" />
       </div>
+
       <div className="il-icerik">
         <div className="il-logo">
           <Logo boyut="xl" benzersizId="intro-logo" />
         </div>
+
         <div className="il-tagline">
-          <span>E</span><span>V</span><span>R</span><span>E</span><span>N</span>
-          <span>·</span>
-          <span>İ</span><span>N</span>
-          <span>·</span>
-          <span>A</span><span>L</span><span>I</span><span>Ş</span><span>V</span><span>E</span><span>R</span><span>İ</span><span>Ş</span><span>İ</span>
+          {TAGLINE.split('').map((ch, i) => (
+            <span key={i}>{ch === ' ' ? ' ' : ch}</span>
+          ))}
+        </div>
+
+        <div className={`il-butonlar ${butonlarHazir ? 'gorunur' : ''}`}>
+          <button
+            type="button"
+            className="il-btn il-btn-primary"
+            onClick={() => kapat('/login')}
+          >
+            Giriş Yap
+          </button>
+          <button
+            type="button"
+            className="il-btn il-btn-secondary"
+            onClick={() => kapat('/login', { tab: 'register' })}
+          >
+            Kayıt Ol
+          </button>
+          <button
+            type="button"
+            className="il-btn il-btn-guest"
+            onClick={() => kapat(null)}
+          >
+            Misafir olarak devam et →
+          </button>
         </div>
       </div>
     </div>
