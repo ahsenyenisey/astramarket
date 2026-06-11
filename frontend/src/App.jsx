@@ -8,6 +8,7 @@ import SayfaGecis from './components/SayfaGecis';
 import AuroraOverlay from './components/AuroraOverlay';
 import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
+import SpiralScroll from './components/SpiralScroll';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -40,6 +41,7 @@ export default function App() {
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
+      {immersiveEfektler && <SpiralScroll />}
 
       {!sadeSayfa && <AppNavbar />}
       <SayfaGecis>

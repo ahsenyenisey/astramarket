@@ -2192,6 +2192,60 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { opacity: 1; transform: translateY(0) rotateX(0); }
 }
 
+/* ===================== SPIRAL SCROLL (galaktik dönen) ===================== */
+.spiral-scroll {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateY(-50%);
+  z-index: 50;
+  pointer-events: none;
+  filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.45));
+  opacity: 0.85;
+  --scroll: 0;
+}
+.spiral-scroll svg { width: 100%; height: 100%; }
+
+/* Her halka farkli hiz ve yonde - scroll'a gore donen */
+.ss-ring,
+.ss-spiral {
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform;
+}
+.ss-ring-1 { transform: rotate(calc(var(--scroll, 0) * 0.30deg)); }
+.ss-ring-2 { transform: rotate(calc(var(--scroll, 0) * -0.48deg)); }
+.ss-ring-3 { transform: rotate(calc(var(--scroll, 0) * 0.70deg)); }
+.ss-ring-4 { transform: rotate(calc(var(--scroll, 0) * -0.95deg)); }
+.ss-spiral { transform: rotate(calc(var(--scroll, 0) * 0.55deg)); }
+
+/* Merkez sürekli yumusak pulse */
+.spiral-scroll svg > circle:last-of-type {
+  animation: spiral-core-pulse 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes spiral-core-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.4); }
+}
+
+/* Light tema'da hafif sonuk */
+[data-theme="light"] .spiral-scroll { opacity: 0.55; }
+
+/* Mobil ve tablet'te gizle - icerigi kapamasin */
+@media (max-width: 1200px) {
+  .spiral-scroll { width: 160px; height: 160px; right: 12px; opacity: 0.55; }
+}
+@media (max-width: 768px) {
+  .spiral-scroll { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ss-ring-1, .ss-ring-2, .ss-ring-3, .ss-ring-4, .ss-spiral { transform: none !important; }
+  .spiral-scroll svg > circle:last-of-type { animation: none; }
+}
+
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }
