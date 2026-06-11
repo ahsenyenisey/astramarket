@@ -2212,10 +2212,11 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   --mx: 0px;
   --my: 0px;
   --isik: 0;
-  /* Glow drop-shadow'lari --isik'a gore katlanir */
+  /* COKLU KATMAN glow - mor halo + pembe halo + beyaz core */
   filter:
-    drop-shadow(0 0 calc(12px + var(--isik) * 28px) rgba(168, 85, 247, calc(0.40 + var(--isik) * 0.50)))
-    drop-shadow(0 0 calc(var(--isik) * 36px) rgba(251, 113, 133, calc(var(--isik) * 0.75)));
+    drop-shadow(0 0 calc(12px + var(--isik) * 50px) rgba(168, 85, 247, calc(0.45 + var(--isik) * 0.55)))
+    drop-shadow(0 0 calc(var(--isik) * 70px) rgba(251, 113, 133, calc(var(--isik) * 0.95)))
+    drop-shadow(0 0 calc(var(--isik) * 32px) rgba(255, 255, 255, calc(var(--isik) * 0.85)));
   transition: filter 0.35s ease;
 }
 .lab-pos svg { width: 100%; height: 100%; display: block; }
@@ -2225,15 +2226,16 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   height: 100%;
   transform:
     translate(var(--mx, 0px), var(--my, 0px))
-    scale(calc(1 + var(--isik, 0) * 0.20));
+    scale(calc(1 + var(--isik, 0) * 0.32));
   transition: transform 0.30s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: transform;
 }
-/* SVG brightness/saturate (parlama) - yakinligin orani */
+/* SVG brightness/saturate (parlama) - cok daha guclu */
 .lab-float svg {
   filter:
-    brightness(calc(1 + var(--isik, 0) * 0.65))
-    saturate(calc(1 + var(--isik, 0) * 0.40));
+    brightness(calc(1 + var(--isik, 0) * 1.20))
+    saturate(calc(1 + var(--isik, 0) * 0.90))
+    contrast(calc(1 + var(--isik, 0) * 0.30));
   transition: filter 0.30s ease;
 }
 .lab-float {
@@ -2267,7 +2269,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-0 {
   top: 8%; left: 6%;
   width: 95px; height: 95px;
-  opacity: 0.32;
+  opacity: calc(0.32 + var(--isik, 0) * 0.55);
   transform: translate(
     calc(var(--scroll, 0) * 0.55px),
     calc(var(--scroll, 0) * 0.20px)
@@ -2276,7 +2278,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-1 {
   top: 18%; right: 12%;
   width: 70px; height: 70px;
-  opacity: 0.26;
+  opacity: calc(0.26 + var(--isik, 0) * 0.60);
   transform: translate(
     calc(var(--scroll, 0) * -0.40px),
     calc(var(--scroll, 0) * 0.35px)
@@ -2285,7 +2287,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-2 {
   top: 42%; left: 3%;
   width: 55px; height: 55px;
-  opacity: 0.20;
+  opacity: calc(0.20 + var(--isik, 0) * 0.65);
   transform: translate(
     calc(var(--scroll, 0) * 0.35px),
     calc(var(--scroll, 0) * -0.45px)
@@ -2294,7 +2296,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-3 {
   top: 38%; right: 4%;
   width: 110px; height: 110px;
-  opacity: 0.28;
+  opacity: calc(0.28 + var(--isik, 0) * 0.60);
   transform: translate(
     calc(var(--scroll, 0) * -0.30px),
     calc(var(--scroll, 0) * -0.25px)
@@ -2303,7 +2305,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-4 {
   top: 62%; left: 38%;
   width: 80px; height: 80px;
-  opacity: 0.22;
+  opacity: calc(0.22 + var(--isik, 0) * 0.65);
   transform: translate(
     calc(var(--scroll, 0) * 0.25px),
     calc(var(--scroll, 0) * 0.40px)
@@ -2312,7 +2314,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-5 {
   top: 78%; left: 10%;
   width: 65px; height: 65px;
-  opacity: 0.30;
+  opacity: calc(0.30 + var(--isik, 0) * 0.55);
   transform: translate(
     calc(var(--scroll, 0) * -0.45px),
     calc(var(--scroll, 0) * -0.30px)
@@ -2321,7 +2323,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-6 {
   top: 72%; right: 22%;
   width: 50px; height: 50px;
-  opacity: 0.18;
+  opacity: calc(0.18 + var(--isik, 0) * 0.70);
   transform: translate(
     calc(var(--scroll, 0) * 0.50px),
     calc(var(--scroll, 0) * -0.55px)
