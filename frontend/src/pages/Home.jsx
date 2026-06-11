@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { Container, Row, Col, Pagination, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 import EmptyState from '../components/EmptyState';
@@ -43,6 +43,7 @@ export default function Home() {
   const [sayfa, setSayfa] = useState(1);
   const [loading, setLoading] = useState(true);
   const [hata, setHata] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     Promise.all([api.get('/urunler'), api.get('/kategoriler')])
@@ -50,6 +51,27 @@ export default function Home() {
       .catch((e) => setHata(e.response?.data?.hata || 'Veri yüklenemedi'))
       .finally(() => setLoading(false));
   }, []);
+
+  // URL'den ?kategori=ID okunup otomatik filtre uygula + urunlere kaydir
+  useEffect(() => {
+    const kat = searchParams.get('kategori');
+    if (kat === 'tum') {
+      setSecili(null);
+      setSayfa(1);
+      setTimeout(() => {
+        document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (kat) {
+      const id = Number(kat);
+      if (!isNaN(id)) {
+        setSecili(id);
+        setSayfa(1);
+        setTimeout(() => {
+          document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [searchParams]);
 
   const filtrelenen = useMemo(() => {
     return urunler.filter((u) => {

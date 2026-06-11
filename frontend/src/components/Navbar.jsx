@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
+import api from '../api/axios';
 
 // Basit, garantili calisan custom dropdown.
 // Tiklayinca acilir, disariya tiklayinca kapanir.
@@ -51,7 +52,12 @@ export default function AppNavbar() {
 
   const [scrolled, setScrolled] = useState(false);
   const [bounce, setBounce] = useState(false);
+  const [kategoriler, setKategoriler] = useState([]);
   const oncekiAdet = useRef(adetSayisi);
+
+  useEffect(() => {
+    api.get('/kategoriler').then((r) => setKategoriler(r.data)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -79,7 +85,17 @@ export default function AppNavbar() {
         <BSNavbar.Toggle aria-controls="ana-menu" />
         <BSNavbar.Collapse id="ana-menu">
           <Nav className="me-auto navbar-genel-menu">
-            <Nav.Link as={Link} to="/">Anasayfa</Nav.Link>
+            <CustomDropdown label="Kategoriler">
+              <Link to="/?kategori=tum" className="custom-dropdown-item">
+                <span style={{ marginRight: 8 }}>✦</span> Tüm Ürünler
+              </Link>
+              <div className="custom-dropdown-divider" />
+              {kategoriler.map((k) => (
+                <Link key={k.id} to={`/?kategori=${k.id}`} className="custom-dropdown-item">
+                  {k.ad}
+                </Link>
+              ))}
+            </CustomDropdown>
             {user && <Nav.Link as={Link} to="/siparislerim">Siparişlerim</Nav.Link>}
             <Nav.Link as={Link} to="/firsatlar" className="nav-vurgu-link">
               <span className="nav-flame">🔥</span> Süper Fiyat, Süper Teklif
