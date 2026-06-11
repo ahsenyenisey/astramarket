@@ -2192,23 +2192,138 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { opacity: 1; transform: translateY(0) rotateX(0); }
 }
 
-/* ===================== SPIRAL SCROLL (galaktik dönen) ===================== */
-/* !important sart: .app-root > * 'position: relative' zorluyordu */
-.spiral-scroll {
+/* ===================== COSMIC GEM (3D dönen oktahedron) ===================== */
+.cosmic-gem {
   position: fixed !important;
-  right: 32px !important;
-  bottom: 32px !important;
+  bottom: 40px !important;
+  left: 40px !important;
   top: auto !important;
-  left: auto !important;
-  width: 170px !important;
-  height: 170px !important;
+  right: auto !important;
+  width: 110px !important;
+  height: 110px !important;
   z-index: 50 !important;
   pointer-events: none;
-  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.50));
-  opacity: 0.78;
   --scroll: 0;
+  perspective: 800px;
 }
-.spiral-scroll svg { width: 100%; height: 100%; display: block; }
+.cg-sahne {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cg-gem {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform:
+    rotateX(calc(var(--scroll, 0) * 0.45deg + 25deg))
+    rotateY(calc(var(--scroll, 0) * 0.75deg))
+    rotateZ(calc(var(--scroll, 0) * 0.20deg));
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.7));
+}
+
+/* Oktahedron'un 8 ucgen yuzu (2 piramit birlestirilmis) */
+.cg-yuz {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+/* Ust piramit (4 yuzu) - tepesi yukari bakar */
+.cg-ust-1, .cg-ust-2, .cg-ust-3, .cg-ust-4 {
+  border-bottom: 42px solid rgba(225, 29, 72, 0.35);
+  margin-left: -30px;
+  margin-top: -42px;
+}
+.cg-ust-1 { transform: rotateY(0deg)   translateZ(15px); border-bottom-color: rgba(225, 29, 72, 0.45); }
+.cg-ust-2 { transform: rotateY(90deg)  translateZ(15px); border-bottom-color: rgba(168, 85, 247, 0.45); }
+.cg-ust-3 { transform: rotateY(180deg) translateZ(15px); border-bottom-color: rgba(99, 102, 241, 0.45); }
+.cg-ust-4 { transform: rotateY(270deg) translateZ(15px); border-bottom-color: rgba(251, 113, 133, 0.45); }
+/* Alt piramit (4 yuzu) - tepesi asagi bakar */
+.cg-alt-1, .cg-alt-2, .cg-alt-3, .cg-alt-4 {
+  border-top: 42px solid rgba(225, 29, 72, 0.35);
+  margin-left: -30px;
+  margin-top: 0;
+}
+.cg-alt-1 { transform: rotateY(0deg)   translateZ(15px); border-top-color: rgba(225, 29, 72, 0.35); }
+.cg-alt-2 { transform: rotateY(90deg)  translateZ(15px); border-top-color: rgba(168, 85, 247, 0.35); }
+.cg-alt-3 { transform: rotateY(180deg) translateZ(15px); border-top-color: rgba(99, 102, 241, 0.35); }
+.cg-alt-4 { transform: rotateY(270deg) translateZ(15px); border-top-color: rgba(251, 113, 133, 0.35); }
+
+/* Yorungeli uydu (gem etrafinda surekli doner) */
+.cg-yorunge {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 121, 249, 0.25);
+  animation: cg-yorunge-don 6s linear infinite;
+  pointer-events: none;
+}
+.cg-uydu {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background: #fb7185;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+}
+@keyframes cg-yorunge-don {
+  to { transform: rotate(360deg); }
+}
+
+/* Light tema */
+[data-theme="light"] .cosmic-gem { filter: brightness(0.85) saturate(1.2); }
+[data-theme="light"] .cg-yorunge { border-color: rgba(159, 18, 57, 0.30); }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .cosmic-gem {
+    width: 80px !important;
+    height: 80px !important;
+    bottom: 20px !important;
+    left: 20px !important;
+  }
+  .cg-gem { width: 44px; height: 44px; }
+  .cg-yuz { border-left-width: 22px; border-right-width: 22px; }
+  .cg-ust-1, .cg-ust-2, .cg-ust-3, .cg-ust-4 {
+    border-bottom-width: 31px;
+    margin-left: -22px;
+    margin-top: -31px;
+  }
+  .cg-alt-1, .cg-alt-2, .cg-alt-3, .cg-alt-4 {
+    border-top-width: 31px;
+    margin-left: -22px;
+  }
+  .cg-ust-1 { transform: rotateY(0deg)   translateZ(11px); }
+  .cg-ust-2 { transform: rotateY(90deg)  translateZ(11px); }
+  .cg-ust-3 { transform: rotateY(180deg) translateZ(11px); }
+  .cg-ust-4 { transform: rotateY(270deg) translateZ(11px); }
+  .cg-alt-1 { transform: rotateY(0deg)   translateZ(11px); }
+  .cg-alt-2 { transform: rotateY(90deg)  translateZ(11px); }
+  .cg-alt-3 { transform: rotateY(180deg) translateZ(11px); }
+  .cg-alt-4 { transform: rotateY(270deg) translateZ(11px); }
+}
+@media (max-width: 600px) {
+  .cosmic-gem { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cg-gem,
+  .cg-yorunge { animation: none !important; transform: rotateX(25deg) !important; }
+}
 
 /* Her halka farkli hiz ve yonde - scroll'a gore donen */
 .ss-ring,
