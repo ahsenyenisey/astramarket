@@ -1814,55 +1814,7 @@ p, span, div { color: inherit; }
 }
 [data-theme="light"] .scan-lines { display: none; }
 
-/* ===================== CUSTOM CURSOR ===================== */
-@media (pointer: fine) {
-  body { cursor: none; }
-  body * { cursor: none !important; }
-}
-.cursor-dot,
-.cursor-ring,
-.cursor-trail {
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 99999;
-  will-change: transform;
-  border-radius: 50%;
-}
-.cursor-dot {
-  width: 8px; height: 8px;
-  background: #fb7185;
-  margin-left: -4px;
-  margin-top: -4px;
-  box-shadow:
-    0 0 12px rgba(251, 113, 133, 0.95),
-    0 0 24px rgba(168, 85, 247, 0.55);
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(232, 121, 249, 0.55);
-  margin-left: -18px;
-  margin-top: -18px;
-  transition: width 0.25s, height 0.25s, margin 0.25s, background 0.25s, border-color 0.25s;
-}
-.cursor-ring.hover {
-  width: 54px; height: 54px;
-  margin-left: -27px;
-  margin-top: -27px;
-  background: rgba(168, 85, 247, 0.18);
-  border-color: rgba(251, 113, 133, 0.9);
-}
-.cursor-trail {
-  width: 4px; height: 4px;
-  background: radial-gradient(circle, rgba(232, 121, 249, 0.8), transparent 70%);
-  margin-left: -2px;
-  margin-top: -2px;
-  filter: blur(2px);
-}
-@media (pointer: coarse), (max-width: 768px) {
-  .cursor-dot, .cursor-ring, .cursor-trail { display: none; }
-  body, body * { cursor: auto !important; }
-}
+/* Custom cursor kaldırıldı - default browser cursor kullanılıyor */
 
 /* ===================== LOGO BREATHING GLOW ===================== */
 .astra-logo svg {

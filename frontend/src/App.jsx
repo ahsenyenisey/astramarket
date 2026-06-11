@@ -6,7 +6,6 @@ import BlobBackground from './components/BlobBackground';
 import Footer from './components/Footer';
 import SayfaGecis from './components/SayfaGecis';
 import AuroraOverlay from './components/AuroraOverlay';
-import CustomCursor from './components/CustomCursor';
 import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
 
@@ -41,7 +40,6 @@ export default function App() {
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
-      {immersiveEfektler && <CustomCursor />}
 
       {!sadeSayfa && <AppNavbar />}
       <SayfaGecis>
