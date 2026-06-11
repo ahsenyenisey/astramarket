@@ -113,7 +113,7 @@ export default function LogoBackground() {
 
   return (
     <div className="logo-arkaplan" aria-hidden="true">
-      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+      {Array.from({ length: 14 }, (_, i) => i).map((i) => (
         <div
           key={i}
           ref={(el) => (refler.current[i] = el)}

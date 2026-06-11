@@ -2329,6 +2329,69 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
     calc(var(--scroll, 0) * -0.55px)
   ) rotate(calc(var(--scroll, 0) * 0.80deg));
 }
+.lab-pos-7 {
+  top: 12%; left: 32%;
+  width: 60px; height: 60px;
+  opacity: calc(0.22 + var(--isik, 0) * 0.65);
+  transform: translate(
+    calc(var(--scroll, 0) * -0.32px),
+    calc(var(--scroll, 0) * 0.48px)
+  ) rotate(calc(var(--scroll, 0) * -0.60deg));
+}
+.lab-pos-8 {
+  top: 28%; right: 34%;
+  width: 75px; height: 75px;
+  opacity: calc(0.24 + var(--isik, 0) * 0.60);
+  transform: translate(
+    calc(var(--scroll, 0) * 0.42px),
+    calc(var(--scroll, 0) * 0.30px)
+  ) rotate(calc(var(--scroll, 0) * 0.45deg));
+}
+.lab-pos-9 {
+  top: 48%; left: 22%;
+  width: 45px; height: 45px;
+  opacity: calc(0.16 + var(--isik, 0) * 0.72);
+  transform: translate(
+    calc(var(--scroll, 0) * -0.55px),
+    calc(var(--scroll, 0) * 0.20px)
+  ) rotate(calc(var(--scroll, 0) * 0.75deg));
+}
+.lab-pos-10 {
+  top: 88%; right: 6%;
+  width: 90px; height: 90px;
+  opacity: calc(0.26 + var(--isik, 0) * 0.60);
+  transform: translate(
+    calc(var(--scroll, 0) * -0.28px),
+    calc(var(--scroll, 0) * -0.40px)
+  ) rotate(calc(var(--scroll, 0) * -0.50deg));
+}
+.lab-pos-11 {
+  top: 25%; left: 48%;
+  width: 65px; height: 65px;
+  opacity: calc(0.18 + var(--isik, 0) * 0.68);
+  transform: translate(
+    calc(var(--scroll, 0) * 0.38px),
+    calc(var(--scroll, 0) * 0.50px)
+  ) rotate(calc(var(--scroll, 0) * -0.42deg));
+}
+.lab-pos-12 {
+  top: 55%; right: 38%;
+  width: 50px; height: 50px;
+  opacity: calc(0.20 + var(--isik, 0) * 0.70);
+  transform: translate(
+    calc(var(--scroll, 0) * 0.48px),
+    calc(var(--scroll, 0) * -0.32px)
+  ) rotate(calc(var(--scroll, 0) * 0.70deg));
+}
+.lab-pos-13 {
+  top: 82%; left: 44%;
+  width: 55px; height: 55px;
+  opacity: calc(0.20 + var(--isik, 0) * 0.65);
+  transform: translate(
+    calc(var(--scroll, 0) * -0.42px),
+    calc(var(--scroll, 0) * -0.28px)
+  ) rotate(calc(var(--scroll, 0) * -0.65deg));
+}
 
 /* Surekli idle floatlarin gecikmeleri (sankron olmamasi icin) */
 .lab-pos-0 .lab-float { animation-delay: 0s; }
@@ -2338,6 +2401,13 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-4 .lab-float { animation-delay: -5.2s; animation-duration: 12s; }
 .lab-pos-5 .lab-float { animation-delay: -6.5s; animation-duration: 9.5s; }
 .lab-pos-6 .lab-float { animation-delay: -7.8s; animation-duration: 13s; }
+.lab-pos-7 .lab-float { animation-delay: -2.2s; animation-duration: 10.5s; }
+.lab-pos-8 .lab-float { animation-delay: -4.5s; animation-duration: 8.5s; }
+.lab-pos-9 .lab-float { animation-delay: -6.8s; animation-duration: 11.5s; }
+.lab-pos-10 .lab-float { animation-delay: -9.1s; animation-duration: 14s; }
+.lab-pos-11 .lab-float { animation-delay: -3.4s; animation-duration: 9.2s; }
+.lab-pos-12 .lab-float { animation-delay: -5.7s; animation-duration: 12.5s; }
+.lab-pos-13 .lab-float { animation-delay: -8s; animation-duration: 10s; }
 
 /* Her logo SVG'si farkli hiz ve yonde sureli doner */
 .lab-pos-0 .lab-float svg { animation-duration: 18s; animation-direction: normal; }
@@ -2347,15 +2417,24 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-4 .lab-float svg { animation-duration: 16s; animation-direction: normal; }
 .lab-pos-5 .lab-float svg { animation-duration: 20s; animation-direction: reverse; }
 .lab-pos-6 .lab-float svg { animation-duration: 12s; animation-direction: normal; }
+.lab-pos-7 .lab-float svg { animation-duration: 17s; animation-direction: reverse; }
+.lab-pos-8 .lab-float svg { animation-duration: 24s; animation-direction: normal; }
+.lab-pos-9 .lab-float svg { animation-duration: 13s; animation-direction: reverse; }
+.lab-pos-10 .lab-float svg { animation-duration: 28s; animation-direction: normal; }
+.lab-pos-11 .lab-float svg { animation-duration: 15s; animation-direction: reverse; }
+.lab-pos-12 .lab-float svg { animation-duration: 19s; animation-direction: normal; }
+.lab-pos-13 .lab-float svg { animation-duration: 21s; animation-direction: reverse; }
 
 [data-theme="light"] .logo-arkaplan { opacity: 0.55; }
 
 @media (max-width: 992px) {
   .lab-pos { transform: scale(0.7) !important; }
-  .lab-pos-2, .lab-pos-6 { display: none; }
+  /* Tablet'te 14'ten 8'e dus */
+  .lab-pos-2, .lab-pos-6, .lab-pos-9, .lab-pos-11, .lab-pos-12, .lab-pos-13 { display: none; }
 }
 @media (max-width: 600px) {
-  .lab-pos-3, .lab-pos-4 { display: none; }
+  /* Mobilde 4 logo */
+  .lab-pos-3, .lab-pos-4, .lab-pos-5, .lab-pos-7, .lab-pos-8, .lab-pos-10 { display: none; }
   .lab-pos { transform: scale(0.5) !important; opacity: 0.18 !important; }
 }
 @media (prefers-reduced-motion: reduce) {
