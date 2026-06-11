@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-// AstraMarket logosu (yildiz + orbit) ikonu - yazisiz versiyon
+// AstraMarket logosu (yildiz + orbit) - yazisiz versiyon
 function LogoIkon({ idx }) {
   const id = `bg-logo-${idx}`;
   return (
@@ -29,38 +29,97 @@ function LogoIkon({ idx }) {
   );
 }
 
-// 7 logo ikonu sayfada dagilmis, scroll'da farkli yonlerde hareket eder
-// ve birbiriyle yer degistirir gibi gorunur.
+// 7 logo arka planda dagilmis. 3 katmanli hareket:
+// - lab-pos: scroll'a gore translate + rotate (sayfa kayinca)
+// - lab-mouse: imlec yaklasinca repulsion (kacma) hareketi
+// - lab-float + svg: surekli idle floating + kendi ekseninde donme
 export default function LogoBackground() {
-  const ref = useRef(null);
+  const refler = useRef([]);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
 
-    let raf = null;
-    const guncelle = () => {
-      raf = null;
+    let scrollRaf = null;
+    let mouseRaf = null;
+    let mouseX = -9999, mouseY = -9999;
+
+    // Scroll listener
+    const scrollGuncelle = () => {
+      scrollRaf = null;
       const y = window.scrollY;
-      if (ref.current) ref.current.style.setProperty('--scroll', y.toString());
+      refler.current.forEach((el) => {
+        if (el) el.style.setProperty('--scroll', y.toString());
+      });
     };
     const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(guncelle);
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(scrollGuncelle);
     };
-    guncelle();
+
+    // Mouse listener - her logoyu imlecten uzaklastir
+    const mouseGuncelle = () => {
+      mouseRaf = null;
+      const ESIK = 200;       // piksel - bu mesafede etki baslar
+      const KUVVET_MAX = 60;  // piksel - max kacma mesafesi
+
+      refler.current.forEach((el) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = mouseX - cx;
+        const dy = mouseY - cy;
+        const d2 = dx * dx + dy * dy;
+
+        if (d2 < ESIK * ESIK && d2 > 0) {
+          const d = Math.sqrt(d2);
+          // mouse'a yakinlik orani (0..1)
+          const yakinlik = 1 - d / ESIK;
+          // ease - daha guzel egri
+          const guc = yakinlik * yakinlik * KUVVET_MAX;
+          // imlecten KACMA yonu (- isareti)
+          const mx = -(dx / d) * guc;
+          const my = -(dy / d) * guc;
+          el.style.setProperty('--mx', `${mx.toFixed(1)}px`);
+          el.style.setProperty('--my', `${my.toFixed(1)}px`);
+        } else {
+          el.style.setProperty('--mx', '0px');
+          el.style.setProperty('--my', '0px');
+        }
+      });
+    };
+    const onMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (mouseRaf) return;
+      mouseRaf = requestAnimationFrame(mouseGuncelle);
+    };
+
+    scrollGuncelle();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMouseMove);
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      if (mouseRaf) cancelAnimationFrame(mouseRaf);
     };
   }, []);
 
   return (
-    <div ref={ref} className="logo-arkaplan" aria-hidden="true">
+    <div className="logo-arkaplan" aria-hidden="true">
       {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className={`lab-pos lab-pos-${i}`}>
-          <div className="lab-float">
-            <LogoIkon idx={i} />
+        <div
+          key={i}
+          ref={(el) => (refler.current[i] = el)}
+          className={`lab-pos lab-pos-${i}`}
+        >
+          <div className="lab-mouse">
+            <div className="lab-float">
+              <LogoIkon idx={i} />
+            </div>
           </div>
         </div>
       ))}
