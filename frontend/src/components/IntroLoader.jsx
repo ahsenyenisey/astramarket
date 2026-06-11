@@ -21,9 +21,14 @@ export default function IntroLoader() {
 
   useEffect(() => {
     if (!aktif) return;
+    // Body scroll kilitle
+    document.body.classList.add('intro-aktif');
     // Logo (0.3s) + tagline (1.4s) sonrasi butonlar
     const t = setTimeout(() => setButonlarHazir(true), 2100);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      document.body.classList.remove('intro-aktif');
+    };
   }, [aktif]);
 
   const kapat = (yer, state) => {
