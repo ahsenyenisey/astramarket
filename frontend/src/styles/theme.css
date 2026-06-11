@@ -2193,20 +2193,22 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 
 /* ===================== SPIRAL SCROLL (galaktik dönen) ===================== */
+/* !important sart: .app-root > * 'position: relative' zorluyordu */
 .spiral-scroll {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  width: 220px;
-  height: 220px;
-  transform: translateY(-50%);
-  z-index: 50;
+  position: fixed !important;
+  right: 32px !important;
+  bottom: 32px !important;
+  top: auto !important;
+  left: auto !important;
+  width: 170px !important;
+  height: 170px !important;
+  z-index: 50 !important;
   pointer-events: none;
-  filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.45));
-  opacity: 0.85;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.50));
+  opacity: 0.78;
   --scroll: 0;
 }
-.spiral-scroll svg { width: 100%; height: 100%; }
+.spiral-scroll svg { width: 100%; height: 100%; display: block; }
 
 /* Her halka farkli hiz ve yonde - scroll'a gore donen */
 .ss-ring,
@@ -2234,12 +2236,18 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 /* Light tema'da hafif sonuk */
 [data-theme="light"] .spiral-scroll { opacity: 0.55; }
 
-/* Mobil ve tablet'te gizle - icerigi kapamasin */
-@media (max-width: 1200px) {
-  .spiral-scroll { width: 160px; height: 160px; right: 12px; opacity: 0.55; }
+/* Tablet'te kucult, mobilde gizle */
+@media (max-width: 992px) {
+  .spiral-scroll {
+    width: 120px !important;
+    height: 120px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+    opacity: 0.55;
+  }
 }
-@media (max-width: 768px) {
-  .spiral-scroll { display: none; }
+@media (max-width: 600px) {
+  .spiral-scroll { display: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ss-ring-1, .ss-ring-2, .ss-ring-3, .ss-ring-4, .ss-spiral { transform: none !important; }
