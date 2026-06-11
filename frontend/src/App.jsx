@@ -8,7 +8,7 @@ import SayfaGecis from './components/SayfaGecis';
 import AuroraOverlay from './components/AuroraOverlay';
 import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
-import CosmicGem from './components/CosmicGem';
+import LogoBackground from './components/LogoBackground';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -40,8 +40,8 @@ export default function App() {
       {immersiveEfektler && <FilmEffects />}
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
+      {immersiveEfektler && <LogoBackground />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
-      {immersiveEfektler && <CosmicGem />}
 
       {!sadeSayfa && <AppNavbar />}
       <SayfaGecis>

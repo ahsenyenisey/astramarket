@@ -2192,6 +2192,126 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { opacity: 1; transform: translateY(0) rotateX(0); }
 }
 
+/* ===================== LOGO ARKA PLAN (yer degistiren) ===================== */
+.logo-arkaplan {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  overflow: hidden;
+  --scroll: 0;
+}
+.lab-pos {
+  position: absolute;
+  will-change: transform;
+  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.4));
+}
+.lab-pos svg { width: 100%; height: 100%; display: block; }
+.lab-float {
+  width: 100%;
+  height: 100%;
+  animation: lab-float 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes lab-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(8px, -10px) rotate(8deg); }
+  50%      { transform: translate(-6px, -4px) rotate(-4deg); }
+  75%      { transform: translate(4px, 8px) rotate(6deg); }
+}
+
+/* 7 logo: her biri farkli pozisyon, boyut, opaklik, scroll yonu ve hizi.
+   Scroll arttıkça birbirleriyle YER DEGISTIRIRLER. */
+
+.lab-pos-0 {
+  top: 8%; left: 6%;
+  width: 95px; height: 95px;
+  opacity: 0.32;
+  transform: translate(
+    calc(var(--scroll, 0) * 0.55px),
+    calc(var(--scroll, 0) * 0.20px)
+  ) rotate(calc(var(--scroll, 0) * 0.30deg));
+}
+.lab-pos-1 {
+  top: 18%; right: 12%;
+  width: 70px; height: 70px;
+  opacity: 0.26;
+  transform: translate(
+    calc(var(--scroll, 0) * -0.40px),
+    calc(var(--scroll, 0) * 0.35px)
+  ) rotate(calc(var(--scroll, 0) * -0.50deg));
+}
+.lab-pos-2 {
+  top: 42%; left: 3%;
+  width: 55px; height: 55px;
+  opacity: 0.20;
+  transform: translate(
+    calc(var(--scroll, 0) * 0.35px),
+    calc(var(--scroll, 0) * -0.45px)
+  ) rotate(calc(var(--scroll, 0) * 0.65deg));
+}
+.lab-pos-3 {
+  top: 38%; right: 4%;
+  width: 110px; height: 110px;
+  opacity: 0.28;
+  transform: translate(
+    calc(var(--scroll, 0) * -0.30px),
+    calc(var(--scroll, 0) * -0.25px)
+  ) rotate(calc(var(--scroll, 0) * -0.35deg));
+}
+.lab-pos-4 {
+  top: 62%; left: 38%;
+  width: 80px; height: 80px;
+  opacity: 0.22;
+  transform: translate(
+    calc(var(--scroll, 0) * 0.25px),
+    calc(var(--scroll, 0) * 0.40px)
+  ) rotate(calc(var(--scroll, 0) * 0.55deg));
+}
+.lab-pos-5 {
+  top: 78%; left: 10%;
+  width: 65px; height: 65px;
+  opacity: 0.30;
+  transform: translate(
+    calc(var(--scroll, 0) * -0.45px),
+    calc(var(--scroll, 0) * -0.30px)
+  ) rotate(calc(var(--scroll, 0) * -0.40deg));
+}
+.lab-pos-6 {
+  top: 72%; right: 22%;
+  width: 50px; height: 50px;
+  opacity: 0.18;
+  transform: translate(
+    calc(var(--scroll, 0) * 0.50px),
+    calc(var(--scroll, 0) * -0.55px)
+  ) rotate(calc(var(--scroll, 0) * 0.80deg));
+}
+
+/* Surekli idle floatlarin gecikmeleri (sankron olmamasi icin) */
+.lab-pos-0 .lab-float { animation-delay: 0s; }
+.lab-pos-1 .lab-float { animation-delay: -1.3s; animation-duration: 11s; }
+.lab-pos-2 .lab-float { animation-delay: -2.6s; animation-duration: 8s; }
+.lab-pos-3 .lab-float { animation-delay: -3.9s; animation-duration: 10s; }
+.lab-pos-4 .lab-float { animation-delay: -5.2s; animation-duration: 12s; }
+.lab-pos-5 .lab-float { animation-delay: -6.5s; animation-duration: 9.5s; }
+.lab-pos-6 .lab-float { animation-delay: -7.8s; animation-duration: 13s; }
+
+[data-theme="light"] .logo-arkaplan { opacity: 0.55; }
+
+@media (max-width: 992px) {
+  .lab-pos { transform: scale(0.7) !important; }
+  .lab-pos-2, .lab-pos-6 { display: none; }
+}
+@media (max-width: 600px) {
+  .lab-pos-3, .lab-pos-4 { display: none; }
+  .lab-pos { transform: scale(0.5) !important; opacity: 0.18 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-pos { transform: none !important; }
+  .lab-float { animation: none !important; }
+}
+
 /* ===================== COSMIC GEM (3D dönen oktahedron) ===================== */
 .cosmic-gem {
   position: fixed !important;
