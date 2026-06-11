@@ -2218,12 +2218,23 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   animation: lab-float 9s ease-in-out infinite;
   will-change: transform;
 }
+/* SVG icine surekli kendi ekseninde donme - her logo farkli hiz ve yonde */
+.lab-float svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: lab-spin 16s linear infinite;
+  transform-origin: 50% 50%;
+}
 
 @keyframes lab-float {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25%      { transform: translate(8px, -10px) rotate(8deg); }
-  50%      { transform: translate(-6px, -4px) rotate(-4deg); }
-  75%      { transform: translate(4px, 8px) rotate(6deg); }
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(8px, -10px); }
+  50%      { transform: translate(-6px, -4px); }
+  75%      { transform: translate(4px, 8px); }
+}
+@keyframes lab-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* 7 logo: her biri farkli pozisyon, boyut, opaklik, scroll yonu ve hizi.
@@ -2302,6 +2313,15 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-5 .lab-float { animation-delay: -6.5s; animation-duration: 9.5s; }
 .lab-pos-6 .lab-float { animation-delay: -7.8s; animation-duration: 13s; }
 
+/* Her logo SVG'si farkli hiz ve yonde sureli doner */
+.lab-pos-0 .lab-float svg { animation-duration: 18s; animation-direction: normal; }
+.lab-pos-1 .lab-float svg { animation-duration: 22s; animation-direction: reverse; }
+.lab-pos-2 .lab-float svg { animation-duration: 14s; animation-direction: normal; }
+.lab-pos-3 .lab-float svg { animation-duration: 26s; animation-direction: reverse; }
+.lab-pos-4 .lab-float svg { animation-duration: 16s; animation-direction: normal; }
+.lab-pos-5 .lab-float svg { animation-duration: 20s; animation-direction: reverse; }
+.lab-pos-6 .lab-float svg { animation-duration: 12s; animation-direction: normal; }
+
 [data-theme="light"] .logo-arkaplan { opacity: 0.55; }
 
 @media (max-width: 992px) {
@@ -2314,7 +2334,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 @media (prefers-reduced-motion: reduce) {
   .lab-pos { transform: none !important; }
-  .lab-float { animation: none !important; }
+  .lab-float,
+  .lab-float svg { animation: none !important; }
 }
 
 /* ===================== COSMIC GEM (3D dönen oktahedron) ===================== */
