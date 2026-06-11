@@ -1936,10 +1936,14 @@ p, span, div { color: inherit; }
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
-  animation: intro-flash 0.4s ease-out;
 }
-/* Intro acikken body scroll kilitlensin */
+/* Intro acikken:
+   - body scroll kilitli
+   - app icerigi gizli (homepage flash olmasin)  */
 body.intro-aktif { overflow: hidden !important; }
+body.intro-aktif .app-root > *:not(.intro-loader) {
+  visibility: hidden !important;
+}
 .intro-loader.kapaniyor {
   animation: intro-cikis 0.7s cubic-bezier(0.7, 0, 0.84, 0) forwards;
 }

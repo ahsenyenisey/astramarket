@@ -34,11 +34,11 @@ export default function IntroLoader() {
   const kapat = (yer, state) => {
     if (kapaniyor) return;
     setKapaniyor(true);
-    setTimeout(() => {
-      sessionStorage.setItem('astra-intro-gosterildi', '1');
-      setAktif(false);
-      if (yer) nav(yer, { state });
-    }, 650);
+    // Navigasyonu HEMEN yap, intro hala ustte kapaniyor; alttaki sayfa hazirlaniyor.
+    if (yer) nav(yer, { state });
+    sessionStorage.setItem('astra-intro-gosterildi', '1');
+    // Animasyon bitince intro'yu kaldir, alttaki dogru sayfa gorunur
+    setTimeout(() => setAktif(false), 700);
   };
 
   if (!aktif) return null;
