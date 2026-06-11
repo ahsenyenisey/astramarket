@@ -57,10 +57,10 @@ export default function LogoBackground() {
       scrollRaf = requestAnimationFrame(scrollGuncelle);
     };
 
-    // Mouse listener - her logoyu imlecten uzaklastir
+    // Mouse listener - her logoyu imlecten uzaklastir + parlat
     const mouseGuncelle = () => {
       mouseRaf = null;
-      const ESIK = 200;       // piksel - bu mesafede etki baslar
+      const ESIK = 220;       // piksel - bu mesafede etki baslar
       const KUVVET_MAX = 60;  // piksel - max kacma mesafesi
 
       refler.current.forEach((el) => {
@@ -83,9 +83,12 @@ export default function LogoBackground() {
           const my = -(dy / d) * guc;
           el.style.setProperty('--mx', `${mx.toFixed(1)}px`);
           el.style.setProperty('--my', `${my.toFixed(1)}px`);
+          // Isik: parlama yogunlugu (yakinlasinca artar)
+          el.style.setProperty('--isik', yakinlik.toFixed(3));
         } else {
           el.style.setProperty('--mx', '0px');
           el.style.setProperty('--my', '0px');
+          el.style.setProperty('--isik', '0');
         }
       });
     };

@@ -2208,19 +2208,33 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .lab-pos {
   position: absolute;
-  will-change: transform;
-  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.4));
+  will-change: transform, filter;
   --mx: 0px;
   --my: 0px;
+  --isik: 0;
+  /* Glow drop-shadow'lari --isik'a gore katlanir */
+  filter:
+    drop-shadow(0 0 calc(12px + var(--isik) * 28px) rgba(168, 85, 247, calc(0.40 + var(--isik) * 0.50)))
+    drop-shadow(0 0 calc(var(--isik) * 36px) rgba(251, 113, 133, calc(var(--isik) * 0.75)));
+  transition: filter 0.35s ease;
 }
 .lab-pos svg { width: 100%; height: 100%; display: block; }
-/* Mouse repulsion katmani - imlec yaklasinca smooth kacis */
+/* Mouse repulsion + parlama katmani */
 .lab-mouse {
   width: 100%;
   height: 100%;
-  transform: translate(var(--mx, 0px), var(--my, 0px));
+  transform:
+    translate(var(--mx, 0px), var(--my, 0px))
+    scale(calc(1 + var(--isik, 0) * 0.20));
   transition: transform 0.30s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: transform;
+}
+/* SVG brightness/saturate (parlama) - yakinligin orani */
+.lab-float svg {
+  filter:
+    brightness(calc(1 + var(--isik, 0) * 0.65))
+    saturate(calc(1 + var(--isik, 0) * 0.40));
+  transition: filter 0.30s ease;
 }
 .lab-float {
   width: 100%;
