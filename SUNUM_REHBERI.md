@@ -1,130 +1,220 @@
 # AstraMarket Sunum Rehberi
 ### 3 kişilik takım, 15-20 dakika hocaya sunum
 
-> Bu dokümandaki her cümleyi **birebir** okuyabilir veya kendine uyarlayabilirsin.
-> **🖱 KLIK** = ekranda ne tıklanacak. **💬 SÖYLE** = ne söyleneceği. **📁 GÖSTER** = hangi dosya/kod gösterilecek.
+> **🖱 KLIK** = tıklanacak şey · **💬 SÖYLE** = birebir cümle · **📁 DOSYA** = açılacak dosya · **📍 SATIR** = satır numarası · **🔍 KOD** = vurgulanacak kod
 
 ---
 
 ## ⚙️ Sunumdan 15 Dakika Önce Hazırlık
 
-### 1. Servisleri Başlat
-Terminal aç, projenin köküne git:
+### 1. Servisleri başlat
 ```bash
 cd ~/Desktop/web_prog
 ./start.sh
 ```
-Yeşil 3 ✓ görünmeli (MySQL, Backend, Frontend).
+Yeşil ✓ MySQL, ✓ Backend, ✓ Frontend çıkmalı.
 
-### 2. Veritabanını Sıfırla (temiz demo için)
+### 2. Veritabanını temizle (sıfır verisi için)
 ```bash
 cd backend
 npm run init-db && node db/add-fake-users.js
 ```
-Bu temiz veri verir: **20 kullanıcı, 6 kategori, 100 ürün, 30 sipariş, 150 yorum**.
 
-### 3. Tarayıcıyı Hazırla (sıra önemli — sekmeler bu sırada açık olsun)
-| # | Sekme | Adres | Niye |
-|---|---|---|---|
-| 1 | AstraMarket | `http://localhost:5173` | Ana site |
-| 2 | phpMyAdmin VEYA DBeaver | `http://localhost/phpmyadmin` veya app | DB göster |
-| 3 | VS Code | proje açık | Kod göstermek için |
+### 3. VS Code'da açık olması gereken dosyalar (alttaki tablardan sıralı)
+1. `frontend/src/components/Navbar.jsx`
+2. `frontend/src/pages/Home.jsx`
+3. `frontend/src/components/LogoBackground.jsx`
+4. `frontend/src/components/ProtectedRoute.jsx`
+5. `backend/middleware/auth.js`
+6. `backend/routes/auth.js`
+7. `backend/routes/siparisler.js`
+8. `backend/db/schema.sql`
+9. `backend/routes/raporlar.js`
+10. `queries.sql` (proje kökü)
 
-### 4. VS Code'da Açık Dosyalar (alttaki tablardan sırayla erişebilesin)
-- `backend/db/schema.sql`
-- `backend/routes/raporlar.js`
-- `queries.sql` (proje kökünde)
-- `backend/routes/siparisler.js`
-- `frontend/src/pages/Home.jsx`
+### 4. Tarayıcı sekme sırası
+1. `http://localhost:5173` (site)
+2. `http://localhost/phpmyadmin` veya DBeaver
+3. VS Code (alt+tab ile geçiş)
 
-### 5. Çıkış Yap
-Tarayıcıda hesabın varsa çıkış yap, **intro loader** ilk kez gibi görünsün.
-Konsol açıp: `sessionStorage.clear()` yaz → sayfayı kapat.
+### 5. sessionStorage temizle (intro tekrar gözüksün)
+F12 console'da: `sessionStorage.clear()` → sayfayı kapa.
 
 ---
 
 ## 👥 Rol Dağılımı
 
-| Kişi | Bölüm | Süre | İçerik |
-|---|---|---|---|
-| **Kişi 1** | Açılış + Müşteri tarafı | ~5 dk | Tasarım, navigasyon, sepet, sipariş |
-| **Kişi 2** | Admin Paneli + CRUD | ~5 dk | Ürün/kullanıcı/kategori yönetimi |
-| **Kişi 3** | Veritabanı + SQL (TEKNİK) | ~7 dk | Şema, 4 gelişmiş sorgu, transaction |
-
-> Sırayla konuşun, kimin sırası geldiğini şu cümle ile geçin: *"Şimdi [isim] devralacak, veritabanı tarafını gösterecek."*
+| Kişi | Bölüm | Süre |
+|---|---|---|
+| **Kişi 1** | Açılış + Müşteri akışı + Checkout | ~6 dk |
+| **Kişi 2** | Admin Paneli + CRUD + Frontend kodu | ~5 dk |
+| **Kişi 3** | Veritabanı + 4 SQL sorgusu + Transaction | ~7 dk |
 
 ---
 
-# 🎬 KİŞİ 1 — Açılış + Müşteri Akışı (5 dk)
+# 🎬 KİŞİ 1 — Açılış + Müşteri Akışı (6 dk)
 
 ## 0:00–0:45 — Açılış Konuşması
 
-> 💬 *"Merhaba hocam, ben [isim]. Grupça **AstraMarket** adlı, Hepsiburada benzeri bir e-ticaret otomasyonu geliştirdik. Sunumumuzda önce müşteri tarafını, sonra admin panelini, en son veritabanı tarafını göstereceğiz."*
+> 💬 *"Merhaba hocam, ben [isim]. Grupça **AstraMarket** adlı, Hepsiburada benzeri bir e-ticaret otomasyonu geliştirdik. Sunumumuzda önce müşteri tarafını, sonra admin panelini, en sonda da veritabanı + SQL tarafını göstereceğiz."*
 
-> 💬 *"Teknolojik olarak: **React + Vite** frontend, **Node.js + Express** backend, **MySQL/MariaDB** veritabanı. JWT ile authentication, bcryptjs ile şifre hash'leme kullanıyoruz."*
+> 💬 *"Teknolojiler: Frontend için **React + Vite + React-Bootstrap**, backend için **Node.js + Express**, veritabanı **MySQL/MariaDB**. Authentication için **JWT**, şifreler **bcryptjs** ile hash'leniyor."*
 
-> 💬 *"Hızlı bir gereksinim özeti: 6 tablolu MySQL şeması, 8'den fazla sayfa, 15'ten fazla React-Bootstrap component'i, tüm tablolarda CRUD ve 4 gelişmiş SQL sorgusu içeriyor."*
+> 💬 *"6 tablomuz, 12 sayfamız, 18'den fazla Bootstrap componentimiz, tüm tablolarda CRUD ve 4 gelişmiş SQL sorgumuz var."*
 
-## 0:45–1:30 — Intro Loader + Anasayfa
+## 0:45–1:30 — Intro Loader + Arka Plan Logoları
 
-> 🖱 **Tarayıcı'ya geç** (sekme 1: localhost:5173)
-> Eğer intro loader açıksa beklesin — **2 saniye** harf-harf gelen tagline'ı işaret et.
+> 🖱 **Tarayıcı sekmesi 1** (`localhost:5173`)
+> İntro açıksa beklesin, harf-harf gelen tagline'ı işaret et.
 
-> 💬 *"Site ilk açılışta sinematik bir intro ile karşılıyor. Tasarım dili **sci-fi/uzay temasında** — koyu zemin, neon mor/pembe vurgular, glassmorphism cam efektler, partikül arka plan."*
+> 💬 *"Site ilk açılışta sinematik bir intro ile karşılıyor. 3 seçenek var: Giriş Yap, Kayıt Ol, Misafir olarak Devam Et."*
 
-> 🖱 **"Misafir olarak devam et"** butonuna tıkla
+> 🖱 **"Misafir olarak devam et"** tıkla → Anasayfa açılır.
 
-> 💬 *"Misafir olarak devam ettim. Şimdi anasayfaya geçti."*
+> 💬 *"Arka planda gördüğünüz 14 logo, **mouse hareketine tepki veriyor** — yaklaşınca uzaklaşıyor ve parlıyor. Hepsi tamamen CSS + canvas, three.js gibi ağır kütüphaneler yok."*
 
-Anasayfada şunlara işaret et:
-- 💬 *"Arka planda gördüğünüz **14 logo**, mouse hareketine tepki veriyor — yaklaşınca uzaklaşıyor ve parlıyor."* (mouse'u logoya yaklaştır, parlamayı göster)
-- 💬 *"Bunlar tamamen CSS + JS ile yapıldı, three.js gibi ağır kütüphaneler yok."*
+> 🖱 **Mouse'u logolardan birinin üzerine götür** — parlamayı göster.
 
-## 1:30–2:30 — Kategoriler + Filtreleme + Ürün Detay
+#### 📁 KOD GÖSTERİMİ (Opsiyonel, kısa)
+> 📁 VS Code: **`frontend/src/components/LogoBackground.jsx`**
+> 📍 **Satır 51-83**: Mouse listener
+> 🔍 Şu kısmı vurgula:
+> ```js
+> const ESIK = 220;       // piksel - bu mesafede etki baslar
+> const KUVVET_MAX = 60;  // piksel - max kacma mesafesi
+> ...
+> const yakinlik = 1 - d / ESIK;
+> el.style.setProperty('--isik', yakinlik.toFixed(3));
+> ```
+> 💬 *"Mouse'a olan mesafeyi her frame'de hesaplayıp CSS variable olarak yazıyoruz, CSS de ona göre glow ve scale uyguluyor."*
 
-> 🖱 **Navbar'da "Kategoriler ▾"** tıkla
-> 💬 *"Kategoriler dropdown'ı 6 kategoriyi listeliyor. Her kategorinin pages açılışı animasyonlu."*
+## 1:30–2:30 — Kategori Dropdown + Filtreleme
 
-> 🖱 **"Elektronik"** seç
-> 💬 *"URL `?kategori=1` parametresi alıyor, anasayfaya otomatik yönlendiriyor ve sadece elektronik ürünleri gösteriyor. Tüm 100 ürün **DummyJSON API**'sinden çekilmiş gerçek ürün isimleri ve görseller."*
+> 🖱 Navbar'da **"Kategoriler ▾"** tıkla.
 
-> 🖱 Bir ürüne tıkla (örn. **iPhone**)
-> 💬 *"Ürün detay sayfasında: yıldız puanı, açıklama, stok bilgisi, adet seçici ve yorumlar var."*
+> 💬 *"6 kategoriyi listeleyen custom dropdown. React-Bootstrap'in Dropdown component'i CSS spesifiklik sorunu çıkarınca kendi custom dropdown'umuzu yazdık."*
 
-> 💬 *"Giriş yapan kullanıcı yorum ekleyip silebiliyor. Şimdi giriş yapmadığım için yorum kısmında uyarı çıkıyor."* (yorumlar bölümünü göster)
+#### 📁 KOD GÖSTERİMİ (Hızlı)
+> 📁 **`frontend/src/components/Navbar.jsx`**
+> 📍 **Satır 10-39**: `CustomDropdown` componenti
+> 📍 **Satır 81-92**: Kategoriler kullanımı
+> 🔍 Şu kısmı vurgula:
+> ```jsx
+> <CustomDropdown label="Kategoriler">
+>   {kategoriler.map((k) => (
+>     <Link key={k.id} to={`/?kategori=${k.id}`} className="custom-dropdown-item">
+>       {k.ad}
+>     </Link>
+>   ))}
+> </CustomDropdown>
+> ```
 
-## 2:30–3:30 — Login + Yorum + Sepet
+> 🖱 **"Elektronik"** seç.
 
-> 🖱 Sağ üstte **"Giriş / Kayıt"** → `ayse@mail.com` / `musteri123` ile giriş
+> 💬 *"URL `?kategori=1` parametresi alıyor, anasayfaya yönlendiriyor ve otomatik filtre uyguluyor."*
 
-> 💬 *"JWT token alıp localStorage'a kaydediyor. Giriş yaptım."*
+#### 📁 KOD GÖSTERİMİ
+> 📁 **`frontend/src/pages/Home.jsx`**
+> 📍 **Satır 52-71**: `useSearchParams` ile URL filtreleme
+> 🔍
+> ```jsx
+> useEffect(() => {
+>   const kat = searchParams.get('kategori');
+>   if (kat === 'tum') { setSecili(null); ... }
+>   else if (kat) {
+>     const id = Number(kat);
+>     setSecili(id);
+>     ...
+>     document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' });
+>   }
+> }, [searchParams]);
+> ```
 
-> 🖱 **Aynı ürüne tekrar git** → Yorum formuna **5 yıldız + "Harika ürün"** yaz → **Gönder**
-> 💬 *"Yorum eklendi. 'Sizin yorumunuz' badge'i ve silme butonu çıktı."*
+## 2:30–3:15 — Ürün Detay + Yorum
 
-> 🖱 **Adet 2** yap → **"Sepete Ekle"**
+> 🖱 Bir ürüne tıkla (örn. **iPhone**).
+
+> 💬 *"Ürün detay sayfası: gerçek DummyJSON görseli, yıldız puanı, açıklama, stok bilgisi, adet kontrolü ve yorumlar var."*
+
+> 💬 *"Yorum eklemek için giriş yapmak lazım. Şimdi giriş yapayım."*
+
+> 🖱 Sağ üstte **"Giriş / Kayıt"** → `ayse@mail.com` / `musteri123` ile giriş.
+
+> 💬 *"JWT token alıp localStorage'a kaydetti."*
+
+#### 📁 KOD GÖSTERİMİ (Hızlı)
+> 📁 **`frontend/src/context/AuthContext.jsx`**
+> 📍 **Satır 13-19**: Login fonksiyonu
+> 🔍
+> ```js
+> const login = async (email, sifre) => {
+>   const { data } = await api.post('/auth/login', { email, sifre });
+>   localStorage.setItem('token', data.token);
+>   localStorage.setItem('kullanici', JSON.stringify(data.kullanici));
+>   setUser(data.kullanici);
+> };
+> ```
+
+> 🖱 Tekrar aynı ürüne git → yorum yaz "Harika ürün" + 5 yıldız → **Gönder**.
+
+> 💬 *"Yorum eklendi. **Sizin yorumunuz** badge'i ve silme butonu çıktı. Müşteri sadece kendi yorumunu silebilir, admin tümünü silebilir."*
+
+## 3:15–4:30 — Sepet → Checkout → Sipariş
+
+> 🖱 Ürüne **+ butonuyla adet 2** yap → **Sepete Ekle**.
+
 > 💬 *"Navbar'daki sepet badge'i bounce animasyonuyla 2 oldu."*
 
-## 3:30–4:30 — Sepet + Sipariş
+> 🖱 **Sepet**'e tıkla.
 
-> 🖱 **Sepet**'e tıkla
-> 💬 *"Sepet sayfasında ürün, adet kontrolü, ara toplam, kargo bilgisi var. 500 TL üzeri ücretsiz kargo, altıysa 'X TL daha ekle, kargo ücretsiz olsun' uyarısı çıkıyor."*
+> 💬 *"Sepette ürün, adet kontrolü, ara toplam, kargo ve **'500 TL üzeri ücretsiz kargo' uyarısı** var."*
 
-> 🖱 **"Siparişi Tamamla"**
-> 💬 *"Bu buton **MySQL TRANSACTION** başlatıyor. Önce stok kontrolü yapıyor, yeterli stoğu kilitliyor (`SELECT FOR UPDATE`), sonra `siparisler` ve `siparis_detaylari` tablolarına kayıt atıyor, en son ilgili ürünlerin stoğunu düşürüyor. Hata olursa rollback yapıyor."*
+> 🖱 **"Ödemeye Geç →"** butonu.
 
-> 💬 *"Otomatik olarak Siparişlerim sayfasına yönlendirildi."*
+> 💬 *"Çok adımlı checkout sayfasına geçti. Üstte stepper var: Sepet → Teslimat → Ödeme → Onay."*
 
-## 4:30–5:00 — Diğer Sayfalar (kısa tur)
+### Adım 1: Teslimat
+Formu doldur:
+- Ad: `Ayşe`, Soyad: `Yılmaz`, Telefon: `0532 111 22 33`
+- Adres: `Bağdat Caddesi No: 42`
+- Şehir: `İstanbul`, İlçe: `Kadıköy`, Posta: `34710`
+
+> 🖱 **"Ödemeye Geç →"**
+
+### Adım 2: Ödeme
+
+> 💬 *"3 ödeme yöntemi var: Kredi kartı, havale, kapıda nakit. Kart seçiliyse form çıkıyor."*
+
+Kart bilgileri (sahte):
+- İsim: `AYŞE YILMAZ`
+- No: `4444 4444 4444 4444`
+- SKT: `12/28`
+- CVV: `123`
+
+> 💬 *"Sarı uyarıda 'Bu bir demo projesidir, gerçek ödeme alınmaz' yazıyor."*
+
+> 🖱 **"Siparişi Onayla →"**
+
+> 💬 *"Backend'de **MySQL transaction** çalıştı. Stok kilitlendi, sipariş ve detayları eklendi, stok düşürüldü. Otomatik olarak Sipariş Tamamlandı sayfasına yönlendirildi."*
+
+### Sipariş Tamamlandı sayfası
+Konfeti yağıyor, büyük yeşil tik, sipariş no, toplam, tahmini teslimat.
+
+> 💬 *"Animasyonlu başarı sayfası. Konfeti efekti CSS keyframe ile, hafif."*
+
+> 🖱 **"Siparişlerimi Görüntüle"** tıkla.
+
+> 💬 *"Az önce verilen sipariş listenin başında, accordion'la detayları açabiliyoruz."*
+
+## 4:30–5:30 — Diğer Sayfalar (kısa tur)
 
 > 🖱 Navbar'da **"🔥 Süper Fiyat, Süper Teklif"**
-> 💬 *"İndirimli ürünleri yüzdeye göre kategorize ediyor, geri sayım var."*
 
-> 🖱 **"Kampanyalar"**
-> 💬 *"6 farklı kampanya kartı, renkli gradient'ler."*
+> 💬 *"İndirimli ürünler 3 kategoride: %40+, %30-39, %20-29. Geri sayım sayacı var."*
 
-> 🖱 **"Müşteri Hizmetleri ▾"** → **"⭐ AstraMarket Premium"**
-> 💬 *"Premium üyelik sayfası — altın gradient hero, 6 avantaj, 3 üyelik planı."*
+> 🖱 **"Kampanyalar"** → 6 renkli kart.
+> 🖱 **"Müşteri Hizmetleri ▾"** → **"⭐ AstraMarket Premium"** → altın hero göster.
+> 🖱 Geri → **"Sıkça Sorulan Sorular"** → 5 kategori, accordion'lar.
 
 > 💬 *"Şimdi [Kişi 2 ismi] admin panelini gösterecek."*
 
@@ -132,370 +222,437 @@ Anasayfada şunlara işaret et:
 
 # 👨‍💼 KİŞİ 2 — Admin Paneli + CRUD (5 dk)
 
-## 5:00–5:30 — Admin Girişi + Route Koruması
+## 5:30–6:15 — Admin Girişi + Route Koruması
 
-> 🖱 Sağ üstte **kullanıcı adı dropdown** → **"Çıkış Yap"**
-> 🖱 **Giriş / Kayıt** → `admin@eticaret.com` / `admin123` ile giriş
+> 🖱 Sağ üstte **ahsen ▾** dropdown → **"Çıkış Yap"**.
+> 🖱 **"Giriş / Kayıt"** → `admin@eticaret.com` / `admin123`.
 
-> 💬 *"Admin hesabıyla girdim. Sistem otomatik olarak admin paneline yönlendirdi."*
+> 💬 *"Admin olarak girdiğim için sistem otomatik admin paneline yönlendirdi."*
 
-> 💬 *"Önemli güvenlik: admin sayfaları **`ProtectedRoute adminOnly`** ile korunuyor. Müşteri rolündeki biri URL'i manuel yazsa bile login sayfasına atılıyor 'yetkiniz yok' uyarısıyla."*
+> 💬 *"Güvenlik açısından önemli nokta: admin sayfalarına müşteri rolü erişemez."*
 
-> 🖱 URL'i manuel olarak **`/admin/raporlar`** yap (zaten admin olarak girdiğin için sorun olmaz, route koruması çalıştığını göstermek için anlatabilirsin)
+#### 📁 KOD GÖSTERİMİ (Kritik!)
+> 📁 **`frontend/src/components/ProtectedRoute.jsx`**
+> 📍 **Tüm dosya, ~13 satır**:
+> ```jsx
+> export default function ProtectedRoute({ children, adminOnly = false }) {
+>   const { user } = useAuth();
+>   const loc = useLocation();
+>   if (!user) return <Navigate to="/login" state={{ from: loc }} replace />;
+>   if (adminOnly && user.rol !== 'admin')
+>     return <Navigate to="/login" state={{ yetki: 'Bu sayfaya erişim yetkiniz yok' }} replace />;
+>   return children;
+> }
+> ```
+> 💬 *"İki kontrol: giriş yapmamışsa login'e, admin değilse uyarı mesajıyla yine login'e atıyor."*
 
-## 5:30–6:30 — Ürün CRUD (Create + Update + Delete)
+> 📁 **`frontend/src/App.jsx`**
+> 📍 **Satır 53**: Route koruması
+> 🔍
+> ```jsx
+> <Route path="/admin" element={<ProtectedRoute adminOnly><AdminLayout /></ProtectedRoute>}>
+> ```
 
-> 🖱 Sol sidebar'dan **"Ürün Yönetimi"**
-> 💬 *"Tabloda 100 ürün listeleniyor. Düzenle ve sil butonları var."*
+> 📁 **`backend/middleware/auth.js`** — backend tarafında da kontrol
+> 📍 **Satır 16-21**: `adminRequired`
+> 🔍
+> ```js
+> function adminRequired(req, res, next) {
+>   authRequired(req, res, () => {
+>     if (req.user.rol !== 'admin') return res.status(403).json({ hata: 'Admin yetkisi gerekli' });
+>     next();
+>   });
+> }
+> ```
+> 💬 *"Frontend kontrolüne güvenmiyoruz, backend de admin endpoint'lerini bu middleware ile koruyor."*
+
+## 6:15–7:30 — Ürün CRUD (Create + Update + Delete)
+
+> 🖱 Sol sidebar **"Ürün Yönetimi"**
+
+> 💬 *"Tabloda 100 ürün listeleniyor."*
 
 ### CREATE
-> 🖱 **"+ Yeni Ürün"** butonu
-> 💬 *"Modal açıldı. Form Bootstrap'in `Modal` ve `Form` componentleri kullanıyor."*
+> 🖱 **"+ Yeni Ürün"** → Modal açılır.
 
 Form doldur:
-- **Ad:** `Demo Ürün`
-- **Fiyat:** `999`
-- **Stok:** `10`
-- **Kategori:** Elektronik
-- **Açıklama:** `Sunum için demo`
+- Ad: `Demo Ürün`, Fiyat: `999`, Stok: `10`, Kategori: Elektronik, Açıklama: `Sunum için demo`
 
 > 🖱 **Kaydet**
-> 💬 *"`POST /api/urunler` çağrıldı, JWT token kontrol edildi (admin mi diye), veritabanına eklendi. Tablonun en üstünde yeni ürün."*
+
+> 💬 *"`POST /api/urunler` çağrıldı. Veritabanına eklendi."*
+
+#### 📁 KOD GÖSTERİMİ
+> 📁 **`backend/routes/urunler.js`**
+> 📍 **Satır 36-43**: POST endpoint
+> 🔍
+> ```js
+> router.post('/', adminRequired, async (req, res) => {
+>   const { ad, fiyat, stok, kategori_id, resim_url, aciklama } = req.body;
+>   const [r] = await pool.query(
+>     'INSERT INTO urunler (ad, fiyat, stok, kategori_id, resim_url, aciklama) VALUES (?, ?, ?, ?, ?, ?)',
+>     [ad, fiyat, stok, kategori_id || null, resim_url || null, aciklama || null]
+>   );
+>   res.json({ id: r.insertId });
+> });
+> ```
+> 💬 *"`adminRequired` middleware'i ile başlıyor — JWT kontrolü + admin rol kontrolü zincirde. Sonra prepared statement (`?` parametreleri) ile SQL injection'a karşı korumalı INSERT."*
 
 ### UPDATE
-> 🖱 Yeni eklenen ürünün **Düzenle** butonu
-> Fiyatı `799` yap
-> 🖱 **Kaydet**
-> 💬 *"`PUT /api/urunler/:id` çağrıldı, güncellendi."*
+> 🖱 Yeni ürünün **Düzenle** butonu → Fiyatı `799` yap → **Kaydet**.
+> 💬 *"`PUT /api/urunler/:id` ile güncellendi."*
 
 ### DELETE
-> 🖱 Aynı ürünün **Sil** butonu → Onay modal'ı → **Evet, Sil**
-> 💬 *"`DELETE /api/urunler/:id` çağrıldı. Sipariş detaylarına bağlı değildi, silindi."*
+> 🖱 Aynı ürünün **Sil** → Onay modal → **Evet, Sil**.
+> 💬 *"`DELETE /api/urunler/:id` ile silindi."*
 
-## 6:30–7:30 — Kullanıcı & Kategori CRUD
+## 7:30–9:00 — Kullanıcı & Kategori CRUD + Yorum Silme
 
-> 🖱 Sol sidebar **"Kullanıcı & Kategori"**
-> 💬 *"İki sekme var. Kullanıcılar sekmesinde 20 kullanıcı (1 admin + 19 müşteri)."*
+> 🖱 Sol sidebar **"Kullanıcı & Kategori"** → **Kullanıcılar** sekmesi.
 
-> 🖱 **Kategoriler** sekmesi
-> 🖱 **+ Yeni Kategori** → `Test Kategori` → Kaydet
-> 💬 *"Eklendi."*
-> 🖱 Sil → Onay → Evet
-> 💬 *"Silindi. Tüm tablolarda CRUD işlemleri çalışıyor."*
+> 💬 *"20 kullanıcı listeleniyor — 1 admin + 19 müşteri."*
 
-## 7:30–8:30 — Sipariş & Yorum Yönetimi (göster ama tıklama)
+> 🖱 **Kategoriler** sekmesi → **+ Yeni Kategori** → `Test` → Kaydet → Sil.
 
-> 🖱 Müşteri tarafına geri dön — bir ürün detayına git
-> Yorum varsa — admin olduğun için **her yorumda Sil butonu** görünür
-> 💬 *"Admin tüm yorumları silebiliyor. Müşteri ise sadece kendi yorumunu silebiliyor — `routes/yorumlar.js` içinde kontrol var."*
+> 💬 *"Tüm tablolarda CRUD çalışıyor."*
 
-> 📁 İstersen VS Code'a geç:
-> - **`backend/routes/yorumlar.js` satır 22-27** — sahip veya admin kontrolü
-> 💬 *"Bu kod parçası ya kendi yorumu ya da admin değilse 403 dönüyor."*
+### Yorum CRUD
+> 🖱 Müşteri tarafına dön → herhangi bir ürünün detayına git.
+> Admin olduğun için **her yorumda Sil butonu** var.
 
-## 8:30–10:00 — Tasarım Detayları
+#### 📁 KOD GÖSTERİMİ
+> 📁 **`backend/routes/yorumlar.js`**
+> 📍 **Satır 20-31**: Sahip veya admin kontrolü
+> 🔍
+> ```js
+> router.delete('/:id', authRequired, async (req, res) => {
+>   const [rows] = await pool.query('SELECT kullanici_id FROM yorumlar WHERE id = ?', [req.params.id]);
+>   if (!rows.length) return res.status(404).json({ hata: 'Yorum bulunamadı' });
+>   if (rows[0].kullanici_id !== req.user.id && req.user.rol !== 'admin') {
+>     return res.status(403).json({ hata: 'Yetkiniz yok' });
+>   }
+>   await pool.query('DELETE FROM yorumlar WHERE id = ?', [req.params.id]);
+>   res.json({ ok: true });
+> });
+> ```
+> 💬 *"Yorum sahibi veya admin değilse 403 dönüyor. Aksi halde siliyor."*
 
-> 🖱 Tema toggle butonu (☀ / ☾)
-> 💬 *"Dark/Light mode toggle var, localStorage'da kalıcı."*
+## 9:00–10:30 — Tasarım Detayları + Tema
 
-> 🖱 Light moda geç → kısa göster → tekrar dark moda dön
+> 🖱 Tema toggle **☀ / ☾** butonuna bas.
+> 💬 *"Dark/light mode toggle. Sistem tercihini okuyor, localStorage'da kalıcı."*
 
-> 💬 *"Tüm sayfalar responsive. Mobil için arka plan logoları azalır, navbar collapse olur."*
+#### 📁 KOD GÖSTERİMİ (Hızlı)
+> 📁 **`frontend/src/context/ThemeContext.jsx`**
+> 📍 **Satır 8-15**: İlk tema seçimi
+> 🔍
+> ```js
+> function ilkTema() {
+>   const kayitli = localStorage.getItem('astra-tema');
+>   if (kayitli === 'light' || kayitli === 'dark') return kayitli;
+>   return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+> }
+> ```
 
-> 💬 *"Şimdi [Kişi 3 ismi] veritabanı tarafını gösterecek."*
+> 🖱 Tekrar dark moda dön.
+
+> 💬 *"Tüm sayfalar responsive. Şimdi [Kişi 3 ismi] en teknik bölümü, veritabanı tarafını gösterecek."*
 
 ---
 
-# 🗄 KİŞİ 3 — Veritabanı + SQL (7 dk) **EN TEKNİK BÖLÜM**
+# 🗄 KİŞİ 3 — Veritabanı + SQL (7 dk) ⭐ EN TEKNİK
 
-## 10:00–10:30 — DB Bağlantısı + Genel Görünüm
+## 10:30–11:00 — DB Bağlantı + Tablo Yapısı
 
-> 🖱 **phpMyAdmin sekmesine geç** (veya DBeaver)
-> 🖱 Sol panelden **`eticaret_db`** seç
+> 🖱 **phpMyAdmin sekmesi** (sekme 2) → **`eticaret_db`** seç.
 
-> 💬 *"Veritabanımızı **MySQL/MariaDB**'de tuttuk. Tüm tablolar `utf8mb4` charset ile, Türkçe karakter sorunu yaşamadık."*
+> 💬 *"Veritabanımız MySQL/MariaDB üzerinde. 6 tablomuz var:"*
 
-> 💬 *"6 tablomuz var:"*
-- `kullanicilar` (20 satır)
-- `kategoriler` (6 satır)
-- `urunler` (100 satır)
-- `siparisler` (30 satır)
-- `siparis_detaylari` (~30 satır)
-- `yorumlar` (~150 satır)
+| Tablo | Satır |
+|---|---|
+| kullanicilar | 20 |
+| kategoriler | 6 |
+| urunler | 100 |
+| siparisler | 30+ |
+| siparis_detaylari | 30+ |
+| yorumlar | 150 |
 
-## 10:30–11:30 — Tablo Yapısı (schema.sql)
+> 💬 *"Tüm tablolar utf8mb4 charset kullanıyor, Türkçe karakter sorunu olmadan çalışıyor."*
 
-> 📁 VS Code'a geç → **`backend/db/schema.sql`** aç
+## 11:00–12:00 — Schema (CREATE TABLE'lar)
 
-### Anlatılacak Satırlar
-**Satır 1-5** (DB oluşturma):
-```sql
-CREATE DATABASE eticaret_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-> 💬 *"utf8mb4 kullandık çünkü emoji ve tüm Türkçe karakterleri destekliyor."*
+> 📁 VS Code: **`backend/db/schema.sql`**
 
-**Satır 7-14** (kullanicilar):
-```sql
-CREATE TABLE kullanicilar (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ad VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL UNIQUE,
-    sifre VARCHAR(255) NOT NULL,
-    rol ENUM('admin', 'musteri') DEFAULT 'musteri',
-    olusturma_tarihi TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-```
-> 💬 *"Email UNIQUE — aynı mail ile kayıt yapılamaz. Şifreyi bcrypt hash'iyle saklıyoruz, VARCHAR(255). Rol ENUM kullandık — sadece 'admin' veya 'musteri' olabilir."*
+### A) Database oluşturma
+> 📍 **Satır 1-4**:
+> 🔍
+> ```sql
+> DROP DATABASE IF EXISTS eticaret_db;
+> CREATE DATABASE eticaret_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+> USE eticaret_db;
+> ```
+> 💬 *"utf8mb4 — emoji dahil tüm Unicode karakterleri destekler."*
 
-**Satır 23-34** (urunler tablosu):
-```sql
-FOREIGN KEY (kategori_id) REFERENCES kategoriler(id) ON DELETE SET NULL
-```
-> 💬 *"Foreign key kullandık. Kategori silindiğinde, o kategorideki ürünlerin `kategori_id` alanı `NULL` oluyor — ürün silinmiyor."*
+### B) kullanicilar tablosu
+> 📍 **Satır 7-14**:
+> 🔍
+> ```sql
+> CREATE TABLE kullanicilar (
+>     id INT AUTO_INCREMENT PRIMARY KEY,
+>     ad VARCHAR(100) NOT NULL,
+>     email VARCHAR(150) NOT NULL UNIQUE,
+>     sifre VARCHAR(255) NOT NULL,
+>     rol ENUM('admin', 'musteri') DEFAULT 'musteri',
+>     olusturma_tarihi TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+> ) ENGINE=InnoDB;
+> ```
+> 💬 *"Email UNIQUE — aynı mail ile iki kayıt olamaz. Şifre VARCHAR(255) çünkü bcrypt hash'i 60 karakter. Rol ENUM — sadece admin veya musteri."*
 
-**Satır 36-44** (siparisler):
-```sql
-FOREIGN KEY (kullanici_id) REFERENCES kullanicilar(id) ON DELETE CASCADE
-```
-> 💬 *"Burada `ON DELETE CASCADE` — bir kullanıcı silinirse tüm siparişleri otomatik siliniyor."*
+### C) urunler tablosu + Foreign Key
+> 📍 **Satır 23-34**:
+> 🔍
+> ```sql
+> CREATE TABLE urunler (
+>     ...
+>     FOREIGN KEY (kategori_id) REFERENCES kategoriler(id) ON DELETE SET NULL
+> ) ENGINE=InnoDB;
+> ```
+> 💬 *"Foreign key kullandık. Kategori silindiğinde, o kategorideki ürünlerin `kategori_id` alanı NULL oluyor — ürün silinmiyor."*
 
-**Satır 58-67** (yorumlar — CHECK constraint):
-```sql
-puan INT CHECK (puan BETWEEN 1 AND 5)
-```
-> 💬 *"`CHECK` constraint ile puan 1-5 arası garanti. MariaDB 10.2+ destekliyor."*
+### D) siparisler tablosu + CASCADE
+> 📍 **Satır 36-44**:
+> 🔍
+> ```sql
+> FOREIGN KEY (kullanici_id) REFERENCES kullanicilar(id) ON DELETE CASCADE
+> ```
+> 💬 *"Burada ON DELETE CASCADE — bir kullanıcı silinirse onun tüm siparişleri de silinir."*
 
-## 11:30–12:30 — phpMyAdmin'de Designer (ER Diyagramı)
+### E) yorumlar — CHECK constraint
+> 📍 **Satır 58-67**:
+> 🔍
+> ```sql
+> puan INT CHECK (puan BETWEEN 1 AND 5),
+> ```
+> 💬 *"CHECK constraint ile puan 1-5 arası garanti. MariaDB 10.2+ destekliyor."*
 
-> 🖱 phpMyAdmin'e geç → `eticaret_db` seç → üst menüden **"Designer"** sekmesi
-> 💬 *"İşte ilişkilerin görsel hali. 6 tablo, foreign key okları görünüyor."*
+## 12:00–12:30 — Designer'da ER Diyagramı
 
-> 💬 *"İlişkiler şöyle:"*
-- `kullanicilar` → `siparisler` (1-N)
-- `siparisler` → `siparis_detaylari` (1-N)
-- `siparis_detaylari` → `urunler` (N-1)
-- `urunler` → `kategoriler` (N-1)
-- `yorumlar` → `urunler` ve `kullanicilar` (N-1, N-1)
+> 🖱 phpMyAdmin → `eticaret_db` → üst menü **"Designer"**.
 
-> 💬 *"Şimdi gelişmiş SQL sorgularına geçelim."*
+> 💬 *"İşte ilişkilerin görsel hali. 6 tablo, foreign key okları açıkça görünüyor."*
 
-## 12:30–15:00 — 4 GELİŞMİŞ SQL SORGUSU (DERS GEREKSİNİMİ)
+> 💬 *"kullanicilar → siparisler (1-N), siparisler → siparis_detaylari (1-N), siparis_detaylari → urunler (N-1), urunler → kategoriler (N-1), yorumlar → urunler & kullanicilar."*
 
-> 📁 VS Code'da **`queries.sql`** aç (proje kökü)
-> 🖱 phpMyAdmin → **SQL** sekmesi
+## 12:30–15:30 — 4 GELİŞMİŞ SQL SORGUSU ⭐
+
+> 📁 VS Code: **`queries.sql`** (proje kökü)
+> 🖱 phpMyAdmin → **"SQL"** sekmesi.
 
 ### 🔹 SORGU 1: GROUP BY + JOIN
-**Amaç:** Her kategorideki ürün sayısı + toplam satış tutarı
+**Amaç:** Her kategorideki ürün sayısı ve toplam satış
 
-> 📁 queries.sql **satır 28-34** göster:
-```sql
-SELECT k.ad AS kategori,
-       COUNT(DISTINCT u.id) AS urun_sayisi,
-       COALESCE(SUM(sd.adet * sd.birim_fiyat), 0) AS toplam_satis
-FROM kategoriler k
-LEFT JOIN urunler u           ON u.kategori_id = k.id
-LEFT JOIN siparis_detaylari sd ON sd.urun_id    = u.id
-GROUP BY k.id, k.ad
-ORDER BY toplam_satis DESC;
-```
+> 📍 `queries.sql` **satır 28-34**:
+> 🔍
+> ```sql
+> SELECT k.ad AS kategori,
+>        COUNT(DISTINCT u.id) AS urun_sayisi,
+>        COALESCE(SUM(sd.adet * sd.birim_fiyat), 0) AS toplam_satis
+> FROM kategoriler k
+> LEFT JOIN urunler u           ON u.kategori_id = k.id
+> LEFT JOIN siparis_detaylari sd ON sd.urun_id    = u.id
+> GROUP BY k.id, k.ad
+> ORDER BY toplam_satis DESC;
+> ```
 
-> 💬 *"Bu sorgu iki tane LEFT JOIN ile 3 tabloyu birleştiriyor. LEFT JOIN kullandık çünkü hiç ürünü olmayan kategoriler de listede çıksın istedik — onların toplam satışı 0 olacak."*
+> 💬 *"İki LEFT JOIN ile 3 tabloyu birleştiriyor. LEFT JOIN kullandık çünkü hiç ürünü olmayan kategoriler de listelensin. `COUNT(DISTINCT u.id)` — aynı ürün birden fazla siparişte olsa bile bir kez sayılıyor. `COALESCE` — NULL'ları 0'a çeviriyor."*
 
-> 💬 *"`COUNT(DISTINCT u.id)` — aynı ürün birden fazla siparişte olsa bile bir kez sayılıyor."*
+> 🖱 **Sorguyu kopyala** → phpMyAdmin SQL → **Git**.
 
-> 💬 *"`COALESCE` — NULL değerleri 0'a çeviriyor."*
-
-> 🖱 **Sorguyu kopyala** → phpMyAdmin SQL sekmesine yapıştır → **Git**
-> 💬 *"Görüldüğü gibi 6 kategori, satış tutarına göre sıralanmış."*
+> 💬 *"6 kategori, satış tutarına göre sıralı."*
 
 ### 🔹 SORGU 2: SUBQUERY (İÇ İÇE SORGU)
 **Amaç:** Ortalama fiyatın üzerindeki ürünler
 
-> 📁 queries.sql **satır 50-54** göster:
-```sql
-SELECT id, ad, fiyat,
-       (SELECT ROUND(AVG(fiyat), 2) FROM urunler) AS genel_ortalama
-FROM urunler
-WHERE fiyat > (SELECT AVG(fiyat) FROM urunler)
-ORDER BY fiyat DESC;
-```
+> 📍 `queries.sql` **satır 50-54**:
+> 🔍
+> ```sql
+> SELECT id, ad, fiyat,
+>        (SELECT ROUND(AVG(fiyat), 2) FROM urunler) AS genel_ortalama
+> FROM urunler
+> WHERE fiyat > (SELECT AVG(fiyat) FROM urunler)
+> ORDER BY fiyat DESC;
+> ```
 
-> 💬 *"WHERE içindeki parantezli SELECT bir 'subquery' — iç sorgu. Önce iç sorgu çalışıyor, tüm ürünlerin ortalamasını hesaplıyor. Sonra dış sorgu bu değerden büyük ürünleri filtreliyor."*
+> 💬 *"WHERE içindeki parantezli SELECT bir 'subquery' — önce iç sorgu çalışıp tüm ürünlerin ortalamasını hesaplıyor. Sonra dış sorgu bu değerden büyük ürünleri filtreliyor. SELECT içine de subquery koyduk — sonuç tablosunda ortalamayı da gösteriyoruz."*
 
-> 💬 *"Ayrıca SELECT içine de bir subquery koyduk — sonuç tablosunda 'genel_ortalama' kolonu olarak ortalamayı da gösteriyoruz."*
-
-> 🖱 Sorguyu phpMyAdmin'de çalıştır
-> 💬 *"Mesela 100 üründen, ortalama fiyatın (örnek 1500 TL) üzerinde olanlar listelendi."*
+> 🖱 Çalıştır.
 
 ### 🔹 SORGU 3: GROUP BY + HAVING
-**Amaç:** 3'ten fazla sipariş veren aktif müşteriler
+**Amaç:** 3+ siparişi olan müşteriler
 
-> 📁 queries.sql **satır 73-80** göster:
-```sql
-SELECT k.id, k.ad, k.email,
-       COUNT(s.id) AS siparis_sayisi,
-       SUM(s.toplam_tutar) AS toplam_harcama
-FROM kullanicilar k
-INNER JOIN siparisler s ON s.kullanici_id = k.id
-GROUP BY k.id, k.ad, k.email
-HAVING COUNT(s.id) > 3
-ORDER BY toplam_harcama DESC;
-```
+> 📍 `queries.sql` **satır 73-80**:
+> 🔍
+> ```sql
+> SELECT k.id, k.ad, k.email,
+>        COUNT(s.id) AS siparis_sayisi,
+>        SUM(s.toplam_tutar) AS toplam_harcama
+> FROM kullanicilar k
+> INNER JOIN siparisler s ON s.kullanici_id = k.id
+> GROUP BY k.id, k.ad, k.email
+> HAVING COUNT(s.id) > 3
+> ORDER BY toplam_harcama DESC;
+> ```
 
-> 💬 *"En önemli noktası: **WHERE ile HAVING farkı**. WHERE satırları gruplamadan ÖNCE filtreler. HAVING ise GRUPLANMIŞ sonuçları filtreler."*
+> 💬 *"**WHERE ile HAVING farkı önemli**. WHERE satırları gruplamadan ÖNCE filtreler. HAVING gruplandıktan SONRA filtreler. `COUNT(s.id)` aggregate fonksiyon — WHERE'de kullanılamaz, HAVING gerekli."*
 
-> 💬 *"`COUNT(s.id)` bir aggregate fonksiyon, WHERE'de kullanılamaz — HAVING gerekli. Bu sorgu 3'ten fazla siparişi olan müşterileri buluyor."*
+> 🖱 Çalıştır.
 
-> 🖱 phpMyAdmin'de çalıştır
-> 💬 *"Mesela Ayşe Yılmaz 8 siparişle en aktif müşteri."*
+> 💬 *"Mesela Ayşe Yılmaz en aktif müşteri."*
 
-### 🔹 SORGU 4: SUBQUERY + JOIN (Korelasyonlu)
-**Amaç:** En çok yorum alan ürünler + ortalama puan
+### 🔹 SORGU 4: KORELASYONLU SUBQUERY + JOIN
+**Amaç:** En çok yorum alan ürünler
 
-> 📁 queries.sql **satır 99-104** göster:
-```sql
-SELECT u.id, u.ad, u.fiyat,
-       (SELECT COUNT(*) FROM yorumlar y WHERE y.urun_id = u.id) AS yorum_sayisi,
-       (SELECT ROUND(AVG(puan), 2) FROM yorumlar y WHERE y.urun_id = u.id) AS ortalama_puan
-FROM urunler u
-WHERE (SELECT COUNT(*) FROM yorumlar y WHERE y.urun_id = u.id) > 0
-ORDER BY yorum_sayisi DESC, ortalama_puan DESC
-LIMIT 10;
-```
+> 📍 `queries.sql` **satır 99-104**:
+> 🔍
+> ```sql
+> SELECT u.id, u.ad, u.fiyat,
+>        (SELECT COUNT(*) FROM yorumlar y WHERE y.urun_id = u.id) AS yorum_sayisi,
+>        (SELECT ROUND(AVG(puan), 2) FROM yorumlar y WHERE y.urun_id = u.id) AS ortalama_puan
+> FROM urunler u
+> WHERE (SELECT COUNT(*) FROM yorumlar y WHERE y.urun_id = u.id) > 0
+> ORDER BY yorum_sayisi DESC, ortalama_puan DESC
+> LIMIT 10;
+> ```
 
-> 💬 *"Bu **korelasyonlu subquery**. İç sorgu, dış sorgudaki her ürün için ayrı ayrı çalışıyor — `WHERE y.urun_id = u.id` bunu sağlıyor."*
+> 💬 *"**Korelasyonlu subquery** — `WHERE y.urun_id = u.id` ile iç sorgu dış sorgudaki her ürün için ayrı ayrı çalışıyor. SELECT içine 2 subquery: yorum sayısı ve ortalama puan."*
 
-> 💬 *"SELECT içine 2 subquery koyduk: yorum sayısı ve ortalama puan."*
+> 🖱 Çalıştır.
 
-> 🖱 phpMyAdmin'de çalıştır
-> 💬 *"En çok yorum alan 10 ürün listelendi."*
+## 15:30–17:00 — TRANSACTION (Sipariş Mantığı) ⭐
 
-### 🔹 BONUS SORGU 5: NOT IN
-**Amaç:** Hiç sipariş edilmemiş ürünler
+> 📁 VS Code: **`backend/routes/siparisler.js`**
 
-> 📁 queries.sql **satır 119-123** göster:
-```sql
-SELECT u.id, u.ad, u.fiyat, u.stok, k.ad AS kategori
-FROM urunler u
-LEFT JOIN kategoriler k ON k.id = u.kategori_id
-WHERE u.id NOT IN (SELECT DISTINCT urun_id FROM siparis_detaylari)
-ORDER BY u.fiyat DESC;
-```
+> 💬 *"En önemli backend mantığımız: sipariş verme. **MySQL transaction** kullanıyoruz. Ya hepsi başarılı olur ya hiçbiri."*
 
-> 💬 *"Bir tür 'fark kümesi' sorgusu — bonus olarak ekledik. Hiç sipariş edilmemiş ürünleri bulup stok fazlalığı analizi yapabiliyoruz."*
+### A) Transaction başlatma
+> 📍 **Satır 13-14**:
+> 🔍
+> ```js
+> const conn = await pool.getConnection();
+> try {
+>   await conn.beginTransaction();
+> ```
+> 💬 *"Connection alıp transaction başlatıyoruz."*
 
-## 15:00–17:00 — Transaction (Sipariş Verme Mantığı)
+### B) SELECT FOR UPDATE — satır kilitleme
+> 📍 **Satır 18-22**:
+> 🔍
+> ```js
+> const [rows] = await conn.query(
+>   `SELECT id, ad, fiyat, stok FROM urunler WHERE id IN (${placeholders}) FOR UPDATE`,
+>   ids
+> );
+> ```
+> 💬 *"`FOR UPDATE` ile bu satırları **kilitliyoruz**. Başka bir sipariş aynı ürünlere aynı anda gelirse bekliyor. **Race condition'a karşı koruma**."*
 
-> 📁 VS Code'da **`backend/routes/siparisler.js`** aç
-> 📁 **Satır 10-58** göster (POST endpoint)
+### C) Stok kontrolü
+> 📍 **Satır 25-30**:
+> 🔍
+> ```js
+> for (const item of urunler) {
+>   const u = urunMap.get(item.urun_id);
+>   if (!u) throw new Error(`Ürün bulunamadı: ${item.urun_id}`);
+>   if (u.stok < item.adet) throw new Error(`${u.ad} için yeterli stok yok`);
+>   toplam += Number(u.fiyat) * item.adet;
+> }
+> ```
+> 💬 *"Stok yetersizse hata atıyoruz — catch'e düşüp rollback olacak."*
 
-> 💬 *"En önemli backend mantığımız bu. Sipariş oluşturma."*
+### D) Sipariş ve detaylar ekleme + Stok düşürme
+> 📍 **Satır 33-47**:
+> 🔍
+> ```js
+> const [siparisR] = await conn.query(
+>   'INSERT INTO siparisler (kullanici_id, toplam_tutar, durum) VALUES (?, ?, ?)',
+>   [req.user.id, toplam, 'hazirlaniyor']
+> );
+> const siparisId = siparisR.insertId;
+> for (const item of urunler) {
+>   await conn.query(
+>     'INSERT INTO siparis_detaylari (siparis_id, urun_id, adet, birim_fiyat) VALUES (?, ?, ?, ?)',
+>     [siparisId, item.urun_id, item.adet, u.fiyat]
+>   );
+>   await conn.query('UPDATE urunler SET stok = stok - ? WHERE id = ?', [item.adet, item.urun_id]);
+> }
+> ```
+> 💬 *"3 işlem: siparişi ekle, her ürün için detay ekle, her ürünün stoğunu düşür. Hepsi aynı transaction içinde."*
 
-**Satır 14-15** göster:
-```js
-const conn = await pool.getConnection();
-try {
-  await conn.beginTransaction();
-```
-> 💬 *"Önce connection alıyoruz ve `beginTransaction()` çağırıyoruz. Bu noktadan sonra ya hepsi başarılı olur ya hiçbiri."*
+### E) Commit veya Rollback
+> 📍 **Satır 49-55**:
+> 🔍
+> ```js
+> await conn.commit();
+> res.json({ siparis_id: siparisId, toplam_tutar: toplam });
+> } catch (e) {
+>   await conn.rollback();
+>   res.status(400).json({ hata: e.message });
+> } finally {
+>   conn.release();
+> }
+> ```
+> 💬 *"Her şey başarılıysa COMMIT. Bir hata varsa ROLLBACK — tüm değişiklikler geri alınıyor, **yarım kalmış kayıt olmaz**."*
 
-**Satır 18-22** göster:
-```js
-const [rows] = await conn.query(
-  `SELECT id, ad, fiyat, stok FROM urunler WHERE id IN (${placeholders}) FOR UPDATE`,
-  ids
-);
-```
-> 💬 *"`SELECT ... FOR UPDATE` — bu satırları **kilitliyor**. Başka bir sipariş aynı anda gelirse bekliyor. Race condition'a karşı koruma."*
+## 17:00–18:00 — Raporlar Sayfasında Canlı Demo
 
-**Satır 26-30** göster:
-```js
-if (u.stok < item.adet) throw new Error(`${u.ad} için yeterli stok yok`);
-```
-> 💬 *"Stok yetersizse hata atıyoruz."*
+> 🖱 Site sekmesine geç → Admin → **"Raporlar & SQL"**.
 
-**Satır 49** göster:
-```js
-await conn.commit();
-```
-> 💬 *"Her şey başarılıysa commit yapıyoruz, transaction tamamlanıyor."*
+> 💬 *"Tüm bu sorgular admin panelimizin Raporlar sayfasında **canlı çalışıyor**. Her birinin altında SQL kodu da gösterilir."*
 
-**Satır 51-53** göster:
-```js
-} catch (e) {
-  await conn.rollback();
-```
-> 💬 *"Hata olursa rollback — tüm değişiklikler geri alınıyor. Yarım kalmış kayıt olmaz."*
+> 🖱 Sayfayı yukarıdan aşağı kaydır.
 
-## 17:00–18:00 — Rapor Sayfasını Demo (Bonus)
-
-> 🖱 AstraMarket sekmesine geç → Admin → Sol sidebar **"Raporlar & SQL"**
-
-> 💬 *"Tüm bu sorgular admin panelimizin Raporlar sayfasında **canlı çalışıyor**. Her birinin altında sorgu kodu da yazıyor, hocaya kolayca gösterebiliyoruz."*
-
-> 🖱 Sayfayı yukarıdan aşağı kaydır, her bir sorgu kartını göster.
+> 💬 *"Toplam: 4 zorunlu gelişmiş sorgu + 1 bonus NOT IN sorgusu."*
 
 ---
 
 ## 18:00–20:00 — Kapanış + Soru-Cevap
 
-> 💬 **(Kişi 3 sonunda)** *"Özetle: 6 tablo, 8+ sayfa, 15+ component, JWT auth, MySQL transaction, 4 gelişmiş SQL sorgusu, dark/light mode ve responsive tasarımla tüm ders gereksinimlerini karşıladık. Sorularınız?"*
+> 💬 **(Kişi 3 son)** *"Özetle: 6 tablo, 12 sayfa, 18+ React-Bootstrap component'i, JWT auth, bcryptjs hash, MySQL transaction, 4 gelişmiş SQL sorgusu, çok adımlı checkout, dark/light mode ve responsive tasarımla tüm ders gereksinimlerini karşıladık. Sorularınız?"*
 
 ---
 
 # 🆘 Olası Hoca Soruları + Cevaplar
 
-### S: Şifreler nasıl güvenlik altında?
-**C:** bcryptjs ile **10 round** hash'liyoruz. Login'de `bcrypt.compare()` ile doğruluyoruz. Veritabanında hash hali var, plaintext yok.
-
-### S: JWT nasıl çalışıyor?
-**C:** Login başarılıysa server JWT token üretip dönüyor (`jsonwebtoken` ile). Frontend bunu **localStorage**'a kaydediyor. Sonraki isteklerde Authorization header'da gönderiyor. Backend middleware'de doğruluyor (`backend/middleware/auth.js`).
-
-### S: Stok yönetimi nasıl?
-**C:** `SELECT FOR UPDATE` ile satırı kilitliyoruz (race condition koruması), `START TRANSACTION` ile atomik işlem, stok yetersizse `ROLLBACK`.
-
-### S: Foreign key olmasaydı ne olurdu?
-**C:** Veri tutarlılığı bozulurdu. Mesela bir kategori silindiğinde ürünlerin `kategori_id` alanı hâlâ silinmiş kategoriyi gösterirdi. Bizde `ON DELETE SET NULL` ile o ürünler kategorisiz kalır ama veri korunur.
-
-### S: Subquery vs JOIN farkı?
-**C:** JOIN tabloları yan yana koyup tek query'de işliyor. Subquery iç içe sorgu, tek değer veya liste döndürüyor. JOIN genelde daha hızlı ama bazı durumlarda subquery daha okunaklı.
-
-### S: WHERE ile HAVING farkı?
-**C:** WHERE satırları gruplamadan **önce** filtreler. HAVING grupları gruplandıktan **sonra** filtreler. `COUNT()`, `SUM()` gibi aggregate fonksiyonlar WHERE'de kullanılamaz, HAVING'de kullanılır.
-
-### S: Frontend hangi component'leri kullandınız?
-**C:** Navbar, Card, Table, Modal, Form, Button, Alert, Badge, Pagination, Dropdown, Spinner, Carousel, Tabs, Accordion, ListGroup, Container, Row, Col, Image — **18 farklı çeşit**, ders gereksinimi olan 10'un üzerinde.
-
-### S: Responsive mi?
-**C:** Evet. Bootstrap grid + custom media queries. Mobilde admin sidebar yatay, partikül/blob sayısı azalır.
-
-### S: Bu kadar görseli nereden buldunuz?
-**C:** DummyJSON.com API'sinden 24 farklı kategoride gerçek ürün isimleri ve fotoğrafları çektik. `backend/db/replace-products.js` scripti UPDATE ile mevcut ürünlerin ad, fiyat, görsel ve açıklamalarını değiştiriyor — siparişler bozulmuyor çünkü ID'ler aynı kalıyor.
-
-### S: Tasarım nasıl yapıldı?
-**C:** Tamamen custom CSS. Sci-fi/futuristik tema: koyu zemin, neon mor/pembe vurgular, glassmorphism cam efektler, partikül arka plan (canvas-based, three.js yok), parallax bloblar, scroll-driven animasyonlar. Light mode için ayrı CSS variables setiyle theme toggle var.
-
-### S: Veritabanı yedeklemesi nasıl?
-**C:** `npm run init-db` sıfırdan kurar. `add-fake-users.js` ek kullanıcı ekler. `replace-products.js` ürünleri DummyJSON'dan günceller. Tüm bunlar repo'da, grup arkadaşları kendi PC'lerinde aynı veriyi alabiliyor.
+| Soru | Cevap | Dosya Referansı |
+|---|---|---|
+| Şifreler nasıl korunuyor? | bcryptjs **10 round** hash. Plaintext yok. | `backend/routes/auth.js:13` |
+| JWT nasıl çalışıyor? | jsonwebtoken ile 7 gün geçerli token. Backend her istekte verify. | `backend/middleware/auth.js:5-14` |
+| WHERE vs HAVING farkı? | WHERE gruplamadan önce, HAVING sonra. Aggregate fonk. WHERE'de kullanılamaz. | `queries.sql:73-80` |
+| JOIN vs Subquery farkı? | JOIN tabloları yan yana, daha hızlı. Subquery iç içe, esnek. | `queries.sql:28, 50` |
+| Foreign key olmasaydı? | Veri tutarlılığı bozulurdu. Bizde CASCADE / SET NULL kullanıyoruz. | `backend/db/schema.sql:33, 43` |
+| Stok yönetimi nasıl? | SELECT FOR UPDATE + Transaction. Race condition koruması. | `backend/routes/siparisler.js:18-22, 49-53` |
+| Bu kadar görsel nereden? | DummyJSON API + Pixabay. UPDATE ile ürünler değiştirildi, ID'ler kaldı. | `backend/db/replace-products.js` |
+| Frontend Bootstrap component'leri? | 18 farklı: Navbar, Card, Table, Modal, Form, Button, Alert, Badge, Pagination, Dropdown, Spinner, Carousel, Tabs, Accordion, ListGroup, Container, Row, Col, Image. | Tüm `frontend/src/pages/` |
+| Responsive mi? | Evet. Bootstrap grid + custom media queries (600px, 768px, 992px, 1200px). | `frontend/src/styles/theme.css` |
+| Veritabanı backup? | `npm run init-db` ile sıfırdan kurar. Grup arkadaşları aynı veriyi alabilir. | `backend/db/seed.js` |
 
 ---
 
-# 🆘 Eğer Bir Şey Çökse
+# 🚨 Acil Durum (sunum sırasında bir şey çökse)
 
 | Sorun | Çözüm |
 |---|---|
 | Frontend açılmıyor | Terminal: `cd frontend && npm run dev` |
 | Backend cevap vermiyor | Terminal: `cd backend && npm run dev` |
-| MySQL kapalı | Terminal: `brew services start mysql` veya `nohup /opt/homebrew/opt/mysql/bin/mysqld --datadir=/opt/homebrew/var/mysql > /tmp/mysql.log 2>&1 &` |
+| MySQL kapalı | `brew services start mysql` veya `nohup /opt/homebrew/opt/mysql/bin/mysqld --datadir=/opt/homebrew/var/mysql > /tmp/mysql.log 2>&1 &` |
+| Port 4000/5173 dolu | `lsof -ti :4000 \| xargs kill -9` (veya 5173) |
 | Veriler kayboldu | `cd backend && npm run init-db && node db/add-fake-users.js && node db/replace-products.js` |
-| Site'da intro çıkmıyor | Konsol: `sessionStorage.clear()` → sayfa yenile |
-| Port 4000 dolu | `lsof -ti :4000 \| xargs kill -9` |
-| phpMyAdmin görünmüyor | XAMPP Control Panel → Apache + MySQL Start |
+| İntro çıkmıyor | F12 → konsol: `sessionStorage.clear()` → yenile |
+| phpMyAdmin yok | XAMPP Control Panel → Apache + MySQL Start |
 
 ---
 
 # 📋 Provayı Yap!
 
-Bu rehberi en az 1 kez baştan sona kendiniz çalıştırın. Süre tut, geçmemesine dikkat edin. Soruları arkadaşlarınızla simule edin.
+Bu rehberi en az 1 kez **baştan sona** kendiniz çalıştırın. Süre tutun. Geçişler smooth olsun.
 
 **Başarılar! 🚀**

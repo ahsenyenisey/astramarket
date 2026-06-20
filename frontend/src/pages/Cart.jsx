@@ -1,38 +1,20 @@
 import { Container, Button, Alert, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import EmptyState from '../components/EmptyState';
-import api from '../api/axios';
 
 export default function Cart() {
   const { items, guncelle, cikar, temizle, toplam } = useCart();
   const { user } = useAuth();
   const nav = useNavigate();
-  const [yukleniyor, setYukleniyor] = useState(false);
-  const [hata, setHata] = useState('');
-  const [basari, setBasari] = useState('');
 
   const kargo = toplam >= 500 ? 0 : 29.9;
   const genelToplam = toplam + kargo;
 
-  const siparisOlustur = async () => {
-    if (!user) return nav('/login');
-    setHata('');
-    setYukleniyor(true);
-    try {
-      const { data } = await api.post('/siparisler', {
-        urunler: items.map((x) => ({ urun_id: x.id, adet: x.adet })),
-      });
-      temizle();
-      setBasari(`Siparişiniz oluşturuldu! Sipariş No: #${data.siparis_id}`);
-      setTimeout(() => nav('/siparislerim'), 2000);
-    } catch (err) {
-      setHata(err.response?.data?.hata || 'Sipariş oluşturulamadı');
-    } finally {
-      setYukleniyor(false);
-    }
+  const odemeyeGec = () => {
+    if (!user) return nav('/login', { state: { from: '/checkout' } });
+    nav('/checkout');
   };
 
   if (items.length === 0) {
@@ -57,8 +39,6 @@ export default function Cart() {
         <p>{items.length} farklı ürün, toplam {items.reduce((s, x) => s + x.adet, 0)} adet</p>
       </div>
 
-      {hata && <Alert variant="danger" className="fade-up">{hata}</Alert>}
-      {basari && <Alert variant="success" className="fade-up">{basari}</Alert>}
 
       <Row className="g-4">
         <Col lg={8}>
@@ -157,10 +137,9 @@ export default function Cart() {
             <Button
               className="btn-bordo w-100 mb-2"
               size="lg"
-              disabled={yukleniyor}
-              onClick={siparisOlustur}
+              onClick={odemeyeGec}
             >
-              {yukleniyor ? 'Oluşturuluyor...' : 'Siparişi Tamamla'}
+              Ödemeye Geç →
             </Button>
             <Button
               variant="outline-secondary"

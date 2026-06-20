@@ -14,6 +14,8 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
 import MyOrders from './pages/MyOrders';
 import SuperPrice from './pages/SuperPrice';
 import Campaigns from './pages/Campaigns';
@@ -50,6 +52,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/urun/:id" element={<ProductDetail />} />
           <Route path="/sepet" element={<Cart />} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/siparis-tamamlandi" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
           <Route path="/siparislerim" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
 
           <Route path="/firsatlar" element={<SuperPrice />} />
