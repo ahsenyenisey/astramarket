@@ -26,8 +26,20 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
-    setPremiumState(okuPremium(user?.id));
-    setPremiumPlanState(okuPlan(user?.id));
+    if (!user?.id) {
+      setPremiumState(false);
+      setPremiumPlanState(null);
+      return;
+    }
+    const aktifMi = okuPremium(user.id);
+    let plan = okuPlan(user.id);
+    // Migrasyon: eski premium kayitlarinda planId olmayabilir -> varsayilan yillik
+    if (aktifMi && !plan) {
+      plan = 'yillik';
+      localStorage.setItem(planKey(user.id), plan);
+    }
+    setPremiumState(aktifMi);
+    setPremiumPlanState(plan);
   }, [user?.id]);
 
   // setPremium(true, 'yillik')  veya  setPremium(false)
