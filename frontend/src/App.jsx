@@ -19,7 +19,10 @@ import OrderSuccess from './pages/OrderSuccess';
 import MyOrders from './pages/MyOrders';
 import SuperPrice from './pages/SuperPrice';
 import Campaigns from './pages/Campaigns';
+import CampaignDetail from './pages/CampaignDetail';
 import Premium from './pages/Premium';
+import PremiumCheckout from './pages/PremiumCheckout';
+import PremiumSuccess from './pages/PremiumSuccess';
 import FAQ from './pages/FAQ';
 import Returns from './pages/Returns';
 import CargoTracking from './pages/CargoTracking';
@@ -58,7 +61,10 @@ export default function App() {
 
           <Route path="/firsatlar" element={<SuperPrice />} />
           <Route path="/kampanyalar" element={<Campaigns />} />
+          <Route path="/kampanyalar/:id" element={<CampaignDetail />} />
           <Route path="/premium" element={<Premium />} />
+          <Route path="/premium/odeme" element={<ProtectedRoute><PremiumCheckout /></ProtectedRoute>} />
+          <Route path="/premium/basari" element={<ProtectedRoute><PremiumSuccess /></ProtectedRoute>} />
           <Route path="/yardim/sss" element={<FAQ />} />
           <Route path="/yardim/iade" element={<Returns />} />
           <Route path="/yardim/kargo" element={<CargoTracking />} />

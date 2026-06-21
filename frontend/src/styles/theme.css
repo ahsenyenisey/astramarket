@@ -3119,6 +3119,171 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   letter-spacing: 2px !important;
 }
 
+/* ===================== KAMPANYA DETAY HERO ===================== */
+.kampanya-detay-hero {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  border-radius: var(--r-lg);
+  padding: 48px 40px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--neon-border-strong);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+}
+.kampanya-detay-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+}
+.kampanya-detay-hero.gradient-bordo::before { background: linear-gradient(135deg, #e11d48, #be123c); }
+.kampanya-detay-hero.gradient-mor::before { background: linear-gradient(135deg, #a855f7, #6366f1); }
+.kampanya-detay-hero.gradient-pembe::before { background: linear-gradient(135deg, #fb7185, #c084fc); }
+.kampanya-detay-hero.gradient-mavi::before { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.kampanya-detay-hero.gradient-altin::before { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.kampanya-detay-hero.gradient-gul::before { background: linear-gradient(135deg, #f472b6, #e879f9); }
+
+.kdh-emoji {
+  font-size: 5rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.5));
+  animation: kdh-emoji-float 4s ease-in-out infinite;
+}
+@keyframes kdh-emoji-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.kdh-icerik { flex: 1; }
+.kdh-rozet {
+  display: inline-block;
+  background: var(--grad-neon);
+  color: #fff !important;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.kdh-icerik h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.kdh-icerik p {
+  color: var(--metin-orta);
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+.kdh-tarih {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+  color: var(--metin-sonuk);
+}
+.kdh-tarih strong { color: var(--metin-parlak); }
+
+/* Kampanya avantaj kart */
+.kampanya-avantaj-kart {
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--neon-border);
+  border-radius: var(--r-md);
+  padding: 22px 18px;
+  height: 100%;
+  text-align: center;
+  transition: all 0.3s;
+}
+.kampanya-avantaj-kart:hover {
+  border-color: var(--neon-border-strong);
+  transform: translateY(-4px);
+}
+.ka-ikon { font-size: 2.2rem; margin-bottom: 8px; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.4)); }
+.kampanya-avantaj-kart h5 { color: var(--metin-parlak); font-weight: 700; margin-bottom: 4px; font-size: 1rem; }
+.kampanya-avantaj-kart p { color: var(--metin-sonuk); font-size: 0.85rem; margin: 0; }
+
+/* Bilgi grid */
+.kd-bilgi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(232, 121, 249, 0.15);
+}
+.kdb-etiket {
+  color: var(--metin-sonuk);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.kdb-deger {
+  color: var(--metin-parlak);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Sartlar listesi */
+.kd-sartlar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.kd-sartlar li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(232, 121, 249, 0.08);
+  color: var(--metin-orta);
+  font-size: 0.95rem;
+  align-items: flex-start;
+}
+.kd-sartlar li:last-child { border-bottom: none; }
+.kd-sart-ok {
+  color: #4ade80;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: 1.05rem;
+}
+
+/* ===================== PREMIUM CHECKOUT ===================== */
+.premium-checkout-hero {
+  text-align: center;
+  padding: 40px 24px;
+  border-radius: var(--r-lg);
+  margin-bottom: 32px;
+  background:
+    radial-gradient(circle at center, rgba(251, 191, 36, 0.15), transparent 60%),
+    var(--bg-card);
+  border: 1px solid rgba(251, 191, 36, 0.30);
+  backdrop-filter: blur(15px);
+}
+.premium-checkout-hero h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+.premium-checkout-hero p { color: var(--metin-orta); margin: 0; }
+
+.premium-avantaj-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.premium-avantaj-list li {
+  padding: 8px 0;
+  color: var(--metin-orta);
+  font-size: 0.92rem;
+  border-bottom: 1px dashed rgba(232, 121, 249, 0.10);
+}
+.premium-avantaj-list li:last-child { border-bottom: none; }
+
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }

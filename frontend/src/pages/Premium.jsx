@@ -1,5 +1,6 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { PLANLAR } from '../data/premium';
 
 const AVANTAJLAR = [
   { ikon: '🚀', baslik: 'Ücretsiz Hızlı Kargo', aciklama: 'Tüm siparişlerinde 250 TL alt limit ile ücretsiz kargo, üstelik 12 saat içinde teslim.' },
@@ -10,13 +11,11 @@ const AVANTAJLAR = [
   { ikon: '📞', baslik: 'Öncelikli Müşteri Hizmetleri', aciklama: '7/24 öncelikli destek hattı, ortalama 30 saniye altında yanıt.' },
 ];
 
-const PLANLAR = [
-  { ad: 'Aylık', fiyat: 39.90, donem: 'ay', tasarruf: null, populer: false },
-  { ad: 'Yıllık', fiyat: 299, donem: 'yıl', tasarruf: '37%', populer: true, aylik: 24.92 },
-  { ad: 'Öğrenci', fiyat: 19.90, donem: 'ay', tasarruf: '50%', populer: false, not: 'Öğrenci belgesi gerekir' },
-];
-
 export default function Premium() {
+  const nav = useNavigate();
+  const planSec = (planId) => {
+    nav('/premium/odeme', { state: { planId } });
+  };
   return (
     <Container className="my-4 my-md-5">
       <section className="premium-hero fade-up">
@@ -61,8 +60,8 @@ export default function Premium() {
       </div>
 
       <Row className="g-4 stagger" style={{ marginBottom: 60 }}>
-        {PLANLAR.map((p, i) => (
-          <Col md={4} key={i} className="fade-up">
+        {PLANLAR.map((p) => (
+          <Col md={4} key={p.id} className="fade-up">
             <div className={`premium-plan-kart ${p.populer ? 'populer' : ''}`}>
               {p.populer && <div className="pp-populer-rozet">EN POPÜLER</div>}
               <h4>{p.ad}</h4>
@@ -73,7 +72,7 @@ export default function Premium() {
               </div>
               {p.aylik && <div className="pp-aylik">≈ {p.aylik.toFixed(2)} TL / ay</div>}
               {p.not && <div className="pp-not">{p.not}</div>}
-              <Button className="btn-bordo w-100 mt-3" as={Link} to="/">
+              <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
                 {p.populer ? 'En Avantajlı Plan' : 'Bu Planı Seç'}
               </Button>
             </div>
