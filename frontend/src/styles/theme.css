@@ -4981,7 +4981,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   position: absolute;
   width: 2px;
   height: 240px;
-  left: calc((var(--i) * 19px) + 12px);
+  left: calc((var(--i) * 36px) + 14px);
   top: 0;
   background: linear-gradient(180deg,
     transparent,
@@ -4993,7 +4993,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   border-radius: 50%;
   filter: blur(0.5px);
 }
-.ws-sag .ws-cizgi { left: auto; right: calc((var(--i) * 19px) + 12px); }
+.ws-sag .ws-cizgi { left: auto; right: calc((var(--i) * 36px) + 14px); }
 .warp-streaks.aktif.asagi .ws-cizgi {
   animation: ws-asagi 0.5s linear forwards;
   opacity: var(--yogunluk);
@@ -5121,30 +5121,33 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   transform-origin: center bottom;
   transform: rotateX(-72deg);
 }
-.floor-izgara {
+/* floor-kirpi: izgaranin perspektif yuzey icinde tasmasini engeller */
+.floor-kirpi {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+}
+/* GPU dostu: background-position yerine transform: translateY kullaniyoruz.
+   Izgara parent'in 2 kati uzun, translateY(-80px) ile sonsuz seamless loop */
+.floor-izgara {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(100% + 80px);
   background-image:
     repeating-linear-gradient(to right, transparent 0, transparent 79px, rgba(232, 121, 249, 0.30) 80px),
     repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(168, 85, 247, 0.28) 80px);
   background-size: 80px 80px, 80px 80px;
   animation: floor-akis 5s linear infinite;
-  will-change: background-position;
+  will-change: transform;
 }
-.floor-zemin .floor-izgara {
-  /* Asagi dogru akar (yukaridan kaybolur) */
-  animation-direction: normal;
-}
-.floor-tavan .floor-izgara {
-  /* Yukari dogru akar */
-  animation-direction: reverse;
-}
+.floor-zemin .floor-izgara { animation-direction: normal; }
+.floor-tavan .floor-izgara { animation-direction: reverse; }
 @keyframes floor-akis {
-  from { background-position-y: 0; }
-  to   { background-position-y: 80px; }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 80px, 0); }
 }
-/* floor-isik artik kullanilmiyor - orta eksende koyu band olusturuyordu */
-.floor-isik { display: none; }
 /* Merkez ufuk cizgisi parlama (iki yuzeyin birlestigi yer) */
 .floor-ufuk {
   position: absolute;
@@ -5207,13 +5210,14 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
 }
+/* Tek katman drop-shadow - surekli donme + 2-layer filter pahaliydi */
 .sf-pembe .sf-svg {
   color: var(--pembe);
-  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.75)) drop-shadow(0 0 18px rgba(232, 121, 249, 0.35));
+  filter: drop-shadow(0 0 14px rgba(232, 121, 249, 0.70));
 }
 .sf-mor .sf-svg {
   color: var(--mor);
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.75)) drop-shadow(0 0 18px rgba(168, 85, 247, 0.35));
+  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.70));
 }
 .sf-pembe .sf-svg:hover {
   transform: scale(1.55);

@@ -54,14 +54,14 @@ export default function WarpStreaks() {
 
   return (
     <div ref={ref} className="warp-streaks" aria-hidden="true">
-      {/* Sol kenarda 8 dikey cizgi, sag kenarda 8 dikey cizgi */}
+      {/* Sol 4 + sag 4 - performans icin azaltildi (eskiden 16'ydi) */}
       <div className="ws-yan ws-sol">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <span key={i} className="ws-cizgi" style={{ '--i': i }} />
         ))}
       </div>
       <div className="ws-yan ws-sag">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <span key={i} className="ws-cizgi" style={{ '--i': i }} />
         ))}
       </div>

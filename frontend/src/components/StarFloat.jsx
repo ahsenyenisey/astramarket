@@ -13,15 +13,13 @@ function StarSembol() {
   );
 }
 
+// Sayı 8 → 5 (performans icin azaltildi)
 const YILDIZLAR = [
   { top: '14%', left: '8%',  boyut: 64, gecikme: '0s',   renk: 'pembe', sure: 14 },
-  { top: '22%', left: '78%', boyut: 88, gecikme: '-2s',  renk: 'mor',   sure: 18 },
-  { top: '40%', left: '42%', boyut: 48, gecikme: '-5s',  renk: 'pembe', sure: 16 },
-  { top: '55%', left: '12%', boyut: 72, gecikme: '-3.5s', renk: 'mor',  sure: 20 },
+  { top: '22%', left: '78%', boyut: 80, gecikme: '-2s',  renk: 'mor',   sure: 18 },
+  { top: '55%', left: '12%', boyut: 64, gecikme: '-3.5s', renk: 'mor',  sure: 20 },
   { top: '70%', left: '88%', boyut: 56, gecikme: '-7s',  renk: 'pembe', sure: 15 },
-  { top: '82%', left: '32%', boyut: 80, gecikme: '-1.5s', renk: 'mor',  sure: 17 },
-  { top: '5%',  left: '50%', boyut: 40, gecikme: '-4s',  renk: 'pembe', sure: 13 },
-  { top: '88%', left: '62%', boyut: 50, gecikme: '-6s',  renk: 'mor',   sure: 19 },
+  { top: '82%', left: '32%', boyut: 72, gecikme: '-1.5s', renk: 'mor',  sure: 17 },
 ];
 
 export default function StarFloat() {
