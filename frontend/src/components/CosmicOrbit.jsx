@@ -53,12 +53,12 @@ export default function CosmicOrbit() {
       const y = window.scrollY;
       const vh = window.innerHeight || 1;
       const orani = y / vh; // her viewport icin 1 birim
-      // Sistem rotateX +/- 20deg, rotateY +/- 35deg, scale 0.92-1.08 araliginda dolasir
+      // Sistem rotateX +/- 20deg, rotateY +/- 30deg, scale 0.92-1.08 araliginda dolasir
       const rx = Math.sin(orani * 0.7) * 20;
-      const ry = Math.cos(orani * 0.55) * 35;
+      const ry = Math.cos(orani * 0.55) * 30;
       const rz = orani * 18; // surekli artiyor (parallax doniş)
       const scale = 1 + Math.sin(orani * 0.9) * 0.08;
-      const yOfset = y * -0.20; // negatif parallax (scroll asagi -> orbit yukari kayar)
+      const yOfset = y * -0.15; // negatif parallax (scroll asagi -> orbit yukari kayar)
       el.style.setProperty('--scroll-rx', `${rx.toFixed(2)}deg`);
       el.style.setProperty('--scroll-ry', `${ry.toFixed(2)}deg`);
       el.style.setProperty('--scroll-rz', `${rz.toFixed(2)}deg`);

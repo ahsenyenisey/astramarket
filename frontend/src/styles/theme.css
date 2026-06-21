@@ -4568,10 +4568,11 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 /* ===================== COSMIC ORBIT - Gezegen Sistemi ===================== */
 .cosmic-orbit {
   position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 920px !important;
-  height: 920px !important;
+  /* Sag alt koseye yerlestirildi - icerigi kapatmasin diye yarisi off-screen */
+  bottom: -260px !important;
+  right: -240px !important;
+  width: 760px !important;
+  height: 760px !important;
   /* Scroll'a gore degisen CSS degiskenleri */
   --scroll-rx: 0deg;
   --scroll-ry: 0deg;
@@ -4579,18 +4580,27 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   --scroll-scale: 1;
   --scroll-y: 0px;
   transform:
-    translate(-50%, calc(-50% + var(--scroll-y)))
+    translate(0, var(--scroll-y))
     rotateX(var(--scroll-rx))
     rotateY(var(--scroll-ry))
     rotateZ(var(--scroll-rz))
     scale(var(--scroll-scale));
   transition: transform 0.20s cubic-bezier(0.22, 0.61, 0.36, 1);
-  /* Sistem container pointer-events kapali ama mini logolar acik (asagida override) */
   pointer-events: none !important;
-  z-index: 3 !important;
+  z-index: 2 !important;
   perspective: 1400px;
-  opacity: 0.78;
+  opacity: 0.60;
   will-change: transform;
+}
+/* Mobilde tamamen gizle - kose yer kaplamasin */
+@media (max-width: 991px) {
+  .cosmic-orbit {
+    width: 480px !important;
+    height: 480px !important;
+    bottom: -180px !important;
+    right: -160px !important;
+    opacity: 0.40;
+  }
 }
 
 /* Tum sistem de hafifce kendi etrafinda salinir */
@@ -4745,15 +4755,14 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   z-index: 5;
 }
 
-/* Mobilde kucult */
+/* Mobilde halkalari da kucult (boyut/pozisyon ust kuralda zaten yapildi) */
 @media (max-width: 991px) {
-  .cosmic-orbit { width: 600px !important; height: 600px !important; opacity: 0.5; }
-  .co-halka-1 { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
-  .co-halka-2 { width: 360px; height: 360px; margin: -180px 0 0 -180px; }
-  .co-halka-3 { width: 540px; height: 540px; margin: -270px 0 0 -270px; }
-  .co-halka-1 .co-logo-konum .co-mini-logo { top: -120px; }
-  .co-halka-2 .co-logo-konum .co-mini-logo { top: -190px; }
-  .co-halka-3 .co-logo-konum .co-mini-logo { top: -280px; }
+  .co-halka-1 { width: 180px; height: 180px; margin: -90px 0 0 -90px; }
+  .co-halka-2 { width: 280px; height: 280px; margin: -140px 0 0 -140px; }
+  .co-halka-3 { width: 400px; height: 400px; margin: -200px 0 0 -200px; }
+  .co-halka-1 .co-logo-konum .co-mini-logo { top: -100px; }
+  .co-halka-2 .co-logo-konum .co-mini-logo { top: -150px; }
+  .co-halka-3 .co-logo-konum .co-mini-logo { top: -210px; }
 }
 @media (max-width: 575px) {
   .cosmic-orbit { display: none !important; }
@@ -5012,18 +5021,20 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .premium-hero h1 { color: #422006 !important; }
 [data-theme="light"] .premium-hero p { color: #78350f !important; }
+/* background-image longhand kullaniyoruz - 'background:' shorthand !important ile
+   background-clip'i border-box'a sifirliyor, gradient yazi yerine solid kutu cikiyor */
 [data-theme="light"] .ph-altin {
-  background: linear-gradient(135deg, #b45309, #f59e0b, #d97706) !important;
-  -webkit-background-clip: text;
-  background-clip: text;
+  background-image: linear-gradient(135deg, #b45309, #f59e0b, #d97706) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.35)) !important;
 }
 [data-theme="light"] .ph-rakamlar { border-top-color: rgba(245, 158, 11, 0.25) !important; }
 [data-theme="light"] .ph-rakamlar strong {
-  background: linear-gradient(135deg, #b45309, #f59e0b) !important;
-  -webkit-background-clip: text;
-  background-clip: text;
+  background-image: linear-gradient(135deg, #b45309, #f59e0b) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 [data-theme="light"] .ph-rakamlar span { color: #92400e !important; }
