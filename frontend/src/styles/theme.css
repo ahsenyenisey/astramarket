@@ -2798,6 +2798,152 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: var(--metin-parlak);
 }
 
+/* ===================== HUD OVERLAY (brutalist marjin) ===================== */
+.hud-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9988;
+  pointer-events: none;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+.hud-block {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #cbd5e1;
+  white-space: nowrap;
+  user-select: none;
+}
+.hud-tl { top: 90px; left: 24px; }
+.hud-tr { top: 90px; right: 24px; }
+.hud-bl { bottom: 24px; left: 24px; }
+.hud-br { bottom: 24px; right: 24px; }
+
+.hud-mono { color: #f8fafc; font-weight: 600; }
+.hud-mono.dim { color: #94a3b8; font-weight: 400; }
+.hud-mono.lime { color: #a3e635; font-weight: 700; }
+.hud-mark { color: #fb7185; font-weight: 700; }
+.hud-sep { color: #475569; }
+
+.hud-pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #a3e635;
+  box-shadow: 0 0 8px #a3e635, 0 0 0 0 rgba(163, 230, 53, 0.5);
+  animation: hud-pulse 2.4s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes hud-pulse {
+  0%, 100% { box-shadow: 0 0 8px #a3e635, 0 0 0 0 rgba(163, 230, 53, 0.5); }
+  50%      { box-shadow: 0 0 12px #a3e635, 0 0 0 6px rgba(163, 230, 53, 0); }
+}
+
+/* Scroll hizasinda navbar varsa HUD'u biraz indir (scrolled state'inde) */
+.navbar-bordo.scrolled ~ .hud-overlay .hud-tl,
+.navbar-bordo.scrolled ~ .hud-overlay .hud-tr { top: 74px; }
+
+[data-theme="light"] .hud-mono { color: #1a0b14; }
+[data-theme="light"] .hud-mono.dim { color: #475569; }
+[data-theme="light"] .hud-sep { color: #cbd5e1; }
+
+@media (max-width: 768px) {
+  .hud-tr, .hud-br { display: none; }
+  .hud-tl, .hud-bl { font-size: 9px; }
+  .hud-tl { top: 76px; left: 12px; }
+  .hud-bl { bottom: 12px; left: 12px; }
+}
+
+/* ===================== HERO EYEBROW (mono) ===================== */
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--metin-orta);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--neon-border-strong);
+  border-radius: 4px;
+  background: rgba(15, 12, 25, 0.55);
+  backdrop-filter: blur(8px);
+}
+.he-sep { color: var(--metin-koyu); font-weight: 400; }
+.lime-acc { color: #a3e635; font-weight: 700; }
+
+/* Hero alt statlar (rakam + mono etiket) */
+.hero-statlar {
+  display: flex;
+  gap: 36px;
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--neon-border);
+}
+.hero-statlar > div { display: flex; flex-direction: column; gap: 2px; }
+.hs-deger {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--metin-parlak);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.hs-etiket {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--metin-sonuk);
+}
+
+/* Hero rozet kaldirildi, eyebrow yerine geldi */
+.hero-rozet { display: none !important; }
+
+/* ===================== URUN KARTI: SKU + STK MONO ETIKETLER ===================== */
+.urun-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.urun-sku {
+  color: var(--metin-koyu);
+}
+.urun-stk { padding: 2px 6px; border-radius: 3px; border: 1px solid currentColor; line-height: 1.2; }
+.urun-stk.var { color: #a3e635; background: rgba(163, 230, 53, 0.06); }
+.urun-stk.az { color: #fbbf24; background: rgba(251, 191, 36, 0.08); }
+.urun-stk.tukendi { color: #f87171; background: rgba(248, 113, 113, 0.08); }
+
+/* Fiyat rakamlari mono yapilabilir mi? - secimle */
+.fiyat-yeni, .fiyat-eski {
+  font-feature-settings: 'tnum' 1; /* tabular numerals */
+}
+
+/* ===================== BOLUM BASLIK MONO EYEBROW ===================== */
+.bb-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--metin-orta);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.bb-bracket { color: #fb7185; font-weight: 700; }
+.bb-sep { color: var(--metin-koyu); }
+
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }

@@ -49,6 +49,12 @@ export default function ProductCard({ urun }) {
         </div>
       </div>
       <Card.Body>
+        <div className="urun-meta">
+          <span className="urun-sku">SKU-{String(urun.id).padStart(4, '0')}</span>
+          <span className={`urun-stk ${stokYok ? 'tukendi' : urun.stok < 20 ? 'az' : 'var'}`}>
+            STK-{String(urun.stok).padStart(3, '0')}
+          </span>
+        </div>
         {urun.kategori_ad && <div className="kategori-etiket">{urun.kategori_ad}</div>}
         <Card.Title>
           <Link to={`/urun/${urun.id}`} style={{ color: 'inherit' }}>{urun.ad}</Link>

@@ -91,7 +91,13 @@ export default function Home() {
         <HoloField gridLines={true} />
 
         <div className="hero-icerik">
-          <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
+          <div className="hero-eyebrow">
+            <span>EVRENİN ALIŞVERİŞİ</span>
+            <span className="he-sep">//</span>
+            <span>YAZ — 2026.06</span>
+            <span className="he-sep">//</span>
+            <span className="lime-acc">ED.07</span>
+          </div>
           <h1>
             Sevdiklerin <span className="holo-text">burada,</span><br />
             fırsatları kaçırma!
@@ -102,11 +108,16 @@ export default function Home() {
           </p>
           <div className="d-flex gap-3 flex-wrap">
             <button className="btn btn-cta" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
-              Alışverişe Başla ✨
+              Alışverişe Başla →
             </button>
             <Link to="/sepet" className="btn btn-outline-light btn-lg" style={{ borderRadius: 50, padding: '14px 32px', fontWeight: 600 }}>
               Sepetime Git
             </Link>
+          </div>
+          <div className="hero-statlar">
+            <div><span className="hs-deger">100</span><span className="hs-etiket">ÜRÜN</span></div>
+            <div><span className="hs-deger">24h</span><span className="hs-etiket">KARGO</span></div>
+            <div><span className="hs-deger">500+</span><span className="hs-etiket">ÜCRETSIZ</span></div>
           </div>
         </div>
         <div className="hero-dekor d-none d-lg-flex">
@@ -158,6 +169,13 @@ export default function Home() {
       {/* BOLUM BASLIK */}
       <RevealOnScroll as="div" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
         <div>
+          <div className="bb-mono">
+            <span className="bb-bracket">[</span>
+            <span>AKTİF KATALOG</span>
+            <span className="bb-sep">·</span>
+            <span className="lime-acc">{filtrelenen.length} ÜRÜN</span>
+            <span className="bb-bracket">]</span>
+          </div>
           <h3>Öne Çıkan Ürünler</h3>
           <div className="alt">Seninle aramızda binlerce harika ürün var</div>
         </div>
