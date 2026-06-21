@@ -4366,12 +4366,12 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   position: fixed !important;
   top: 80px !important;
   bottom: 20px !important;
-  width: 130px !important;
+  width: 160px !important;
   pointer-events: none !important;
   z-index: 5 !important;
   overflow: hidden !important;
-  opacity: 0.9 !important;
-  perspective: 500px;
+  opacity: 0.95 !important;
+  perspective: 600px;
 }
 .holo-helix-sag { right: 20px !important; }
 .holo-helix-sol { left: 20px !important; }
@@ -4403,22 +4403,29 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   position: absolute;
   top: 0;
   left: 0;
-  width: 11px;
-  height: 11px;
-  margin: -5px 0 0 -5px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
   transform-origin: 50% 50%;
   will-change: transform;
   backface-visibility: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hh-dot .hh-mini-logo {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .hh-sol {
-  background: radial-gradient(circle, #fff 0%, var(--pembe) 45%, rgba(232, 121, 249, 0) 80%);
-  box-shadow: 0 0 14px var(--pembe), 0 0 30px rgba(232, 121, 249, 0.75);
+  color: var(--pembe);
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.85)) drop-shadow(0 0 16px rgba(232, 121, 249, 0.45));
   transform: translateX(38px);
 }
 .hh-sag {
-  background: radial-gradient(circle, #fff 0%, var(--mor) 45%, rgba(168, 85, 247, 0) 80%);
-  box-shadow: 0 0 14px var(--mor), 0 0 30px rgba(168, 85, 247, 0.75);
+  color: var(--mor);
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.85)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.45));
   transform: translateX(-38px);
 }
 .hh-bag {

@@ -1,7 +1,17 @@
-// Dikey donen DNA-helix - parcaciklar Y ekseninde rotate eder.
-// Her parca grubunun rotateY animasyonu ayni - sadece dikey ofset (top%) ve gecikme farkli.
-// Bu sayede gercek helix illuzyonu. Sayfanin sag ve sol kenarinda ayna gibi 2 tane render.
-const PARCA_SAYISI = 18;
+// Dikey donen DNA-helix - parcaciklarin yerine mini AstraMarket logosu kullanilir.
+// Sayfanin sag ve sol kenarinda, ters yonde donen 2 helix.
+const PARCA_SAYISI = 12;
+
+function MiniLogo() {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="hh-mini-logo">
+      <circle cx="16" cy="16" r="13" stroke="currentColor" strokeWidth="1.6" opacity="0.6" />
+      <ellipse cx="16" cy="16" rx="13" ry="5" stroke="currentColor" strokeWidth="1.2" opacity="0.55" transform="rotate(-30 16 16)" />
+      <path d="M16 4 L17.4 14.6 L26 15 L17.4 17.4 L16 28 L14.6 17.4 L6 15 L14.6 14.6 Z" fill="currentColor" />
+      <circle cx="16" cy="16" r="1.8" fill="#fff" opacity="0.95" />
+    </svg>
+  );
+}
 
 function Helix({ yan }) {
   return (
@@ -15,12 +25,12 @@ function Helix({ yan }) {
               className="hh-parca-grup"
               style={{
                 top: `${t}%`,
-                animationDelay: `${-(i * 0.22)}s`,
+                animationDelay: `${-(i * 0.30)}s`,
               }}
             >
-              <span className="hh-dot hh-sol" />
+              <span className="hh-dot hh-sol"><MiniLogo /></span>
               <span className="hh-bag" />
-              <span className="hh-dot hh-sag" />
+              <span className="hh-dot hh-sag"><MiniLogo /></span>
             </div>
           );
         })}
