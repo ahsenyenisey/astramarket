@@ -5132,18 +5132,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   from { background-position-y: 0; }
   to   { background-position-y: 80px; }
 }
-/* Yuzeyler ufkun yakinina dogru solar (mesafe fade) */
-.floor-isik {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.floor-zemin .floor-isik {
-  background: linear-gradient(180deg, var(--bg-deep) 0%, transparent 35%);
-}
-.floor-tavan .floor-isik {
-  background: linear-gradient(0deg, var(--bg-deep) 0%, transparent 35%);
-}
+/* floor-isik artik kullanilmiyor - orta eksende koyu band olusturuyordu */
+.floor-isik { display: none; }
 /* Merkez ufuk cizgisi parlama (iki yuzeyin birlestigi yer) */
 .floor-ufuk {
   position: absolute;
