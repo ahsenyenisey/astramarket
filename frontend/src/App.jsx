@@ -12,7 +12,6 @@ import LogoBackground from './components/LogoBackground';
 import CometRain from './components/CometRain';
 import PageWipe from './components/PageWipe';
 import HoloHelix from './components/HoloHelix';
-import EnergyBeam from './components/EnergyBeam';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -52,7 +51,6 @@ export default function App() {
       {immersiveEfektler && <LogoBackground />}
       {immersiveEfektler && <CometRain />}
       {immersiveEfektler && <HoloHelix />}
-      {immersiveEfektler && <EnergyBeam />}
       {immersiveEfektler && <PageWipe />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
 

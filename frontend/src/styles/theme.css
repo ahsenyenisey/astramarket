@@ -4365,7 +4365,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .holo-helix {
   position: fixed !important;
   top: 80px !important;
-  right: 20px !important;
   bottom: 20px !important;
   width: 130px !important;
   pointer-events: none !important;
@@ -4374,6 +4373,11 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   opacity: 0.9 !important;
   perspective: 500px;
 }
+.holo-helix-sag { right: 20px !important; }
+.holo-helix-sol { left: 20px !important; }
+/* Sol helix biraz farkli timing ki ayna gibi gozukmesin, daha canli olsun */
+.holo-helix-sol .hh-saramal { animation-direction: reverse; animation-duration: 16s; }
+.holo-helix-sol .hh-parca-grup { animation-direction: reverse; animation-duration: 3.8s; }
 .hh-saramal {
   position: relative;
   width: 100%;

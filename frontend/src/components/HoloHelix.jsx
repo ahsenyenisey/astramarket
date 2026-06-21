@@ -1,11 +1,11 @@
 // Dikey donen DNA-helix - parcaciklar Y ekseninde rotate eder.
 // Her parca grubunun rotateY animasyonu ayni - sadece dikey ofset (top%) ve gecikme farkli.
-// Bu sayede gercek helix illuzyonu.
+// Bu sayede gercek helix illuzyonu. Sayfanin sag ve sol kenarinda ayna gibi 2 tane render.
 const PARCA_SAYISI = 18;
 
-export default function HoloHelix() {
+function Helix({ yan }) {
   return (
-    <div className="holo-helix" aria-hidden="true">
+    <div className={`holo-helix holo-helix-${yan}`} aria-hidden="true">
       <div className="hh-saramal">
         {Array.from({ length: PARCA_SAYISI }).map((_, i) => {
           const t = (i / (PARCA_SAYISI - 1)) * 100;
@@ -26,5 +26,14 @@ export default function HoloHelix() {
         })}
       </div>
     </div>
+  );
+}
+
+export default function HoloHelix() {
+  return (
+    <>
+      <Helix yan="sag" />
+      <Helix yan="sol" />
+    </>
   );
 }
