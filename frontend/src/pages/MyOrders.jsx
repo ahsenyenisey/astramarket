@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Accordion, Spinner, Alert, Table } from 'react-bootstrap';
+import { Container, Accordion, Spinner, Alert } from 'react-bootstrap';
 import api from '../api/axios';
 import EmptyState from '../components/EmptyState';
 
@@ -84,38 +84,60 @@ export default function MyOrders() {
                   </div>
                 </div>
               </Accordion.Header>
-              <Accordion.Body style={{ background: 'rgba(255, 247, 245, 0.6)' }}>
-                <Table size="sm" responsive className="mb-0" style={{ background: 'transparent', boxShadow: 'none' }}>
-                  <thead>
-                    <tr>
-                      <th>Ürün</th>
-                      <th className="text-center">Adet</th>
-                      <th className="text-end">Birim</th>
-                      <th className="text-end">Toplam</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {s.detaylar.map((d) => (
-                      <tr key={d.id}>
-                        <td>
-                          <div className="d-flex align-items-center gap-2">
-                            <img
-                              src={d.resim_url || `https://picsum.photos/seed/urun-${d.urun_id}/40/40`}
-                              alt={d.urun_ad}
-                              style={{ width: 44, height: 44, objectFit: 'cover', borderRadius: 8 }}
-                            />
-                            <span>{d.urun_ad}</span>
+              <Accordion.Body className="siparis-body-cyber">
+                <div className="siparis-detay-baslik">
+                  <span className="sdb-cizgi" />
+                  <span className="sdb-yazi">SİPARİŞ İÇERİĞİ • {s.detaylar.length} ÜRÜN</span>
+                  <span className="sdb-cizgi" />
+                </div>
+
+                <div className="siparis-urun-listesi">
+                  {s.detaylar.map((d, idx) => {
+                    const satirToplam = Number(d.birim_fiyat) * d.adet;
+                    return (
+                      <div className="siparis-urun-satir" key={d.id}>
+                        <div className="sus-numara">{String(idx + 1).padStart(2, '0')}</div>
+                        <div className="sus-resim-wrap">
+                          <img
+                            src={d.resim_url || `https://picsum.photos/seed/urun-${d.urun_id}/80/80`}
+                            alt={d.urun_ad}
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="sus-bilgi">
+                          <div className="sus-ad">{d.urun_ad}</div>
+                          <div className="sus-meta">
+                            <span className="sus-adet">×{d.adet}</span>
+                            <span className="sus-nokta">•</span>
+                            <span>{Number(d.birim_fiyat).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL / adet</span>
                           </div>
-                        </td>
-                        <td className="text-center">{d.adet}</td>
-                        <td className="text-end">{Number(d.birim_fiyat).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</td>
-                        <td className="text-end fw-semibold">
-                          {(Number(d.birim_fiyat) * d.adet).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                        </div>
+                        <div className="sus-toplam">
+                          {satirToplam.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
+                          <span className="sus-tl">TL</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="siparis-ozet-card">
+                  <div className="soc-satir">
+                    <span>Ürün toplamı</span>
+                    <span>{Number(s.toplam_tutar).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</span>
+                  </div>
+                  <div className="soc-satir">
+                    <span>Kargo</span>
+                    <span className="soc-bedava">ÜCRETSİZ</span>
+                  </div>
+                  <div className="soc-ayrac" />
+                  <div className="soc-grand">
+                    <span>Sipariş Toplamı</span>
+                    <span className="soc-rakam">
+                      {Number(s.toplam_tutar).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
+                    </span>
+                  </div>
+                </div>
               </Accordion.Body>
             </Accordion.Item>
           ))}
