@@ -39,10 +39,13 @@ function Halka({ siralama, tilt, donus, sure, logoSayisi = 2, logoRenk }) {
   );
 }
 
-export default function CosmicOrbit() {
+// hero=true: hero icine yerlesen kucuk versiyon (absolute, scroll-reaktif degil)
+// hero=false: tum sayfa arka plani (eski davranis - simdi kullanilmiyor)
+export default function CosmicOrbit({ hero = false }) {
   const ref = useRef(null);
 
   useEffect(() => {
+    if (hero) return; // Hero modunda scroll listenerine ihtiyac yok (zaten icerikle birlikte kayar)
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -52,13 +55,12 @@ export default function CosmicOrbit() {
       raf = null;
       const y = window.scrollY;
       const vh = window.innerHeight || 1;
-      const orani = y / vh; // her viewport icin 1 birim
-      // Sistem rotateX +/- 20deg, rotateY +/- 30deg, scale 0.92-1.08 araliginda dolasir
+      const orani = y / vh;
       const rx = Math.sin(orani * 0.7) * 20;
       const ry = Math.cos(orani * 0.55) * 30;
-      const rz = orani * 18; // surekli artiyor (parallax doniş)
+      const rz = orani * 18;
       const scale = 1 + Math.sin(orani * 0.9) * 0.08;
-      const yOfset = y * -0.15; // negatif parallax (scroll asagi -> orbit yukari kayar)
+      const yOfset = y * -0.15;
       el.style.setProperty('--scroll-rx', `${rx.toFixed(2)}deg`);
       el.style.setProperty('--scroll-ry', `${ry.toFixed(2)}deg`);
       el.style.setProperty('--scroll-rz', `${rz.toFixed(2)}deg`);
@@ -75,15 +77,13 @@ export default function CosmicOrbit() {
       window.removeEventListener('scroll', onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [hero]);
 
   return (
-    <div ref={ref} className="cosmic-orbit" aria-hidden="true">
+    <div ref={ref} className={`cosmic-orbit ${hero ? 'cosmic-orbit-hero' : ''}`} aria-hidden="true">
       <div className="co-merkez">
-        {/* Merkez yildiz - tum sistemin agirlik noktasi */}
         <div className="co-yildiz" />
       </div>
-      {/* 3 farkli boyut, tilt ve hizda halka */}
       <Halka siralama={1} tilt="65deg" donus="normal" sure={28} logoSayisi={2} logoRenk="pembe" />
       <Halka siralama={2} tilt="72deg" donus="reverse" sure={42} logoSayisi={3} logoRenk="mor" />
       <Halka siralama={3} tilt="55deg" donus="normal" sure={56} logoSayisi={2} logoRenk="pembe" />

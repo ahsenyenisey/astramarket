@@ -5081,3 +5081,203 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: #7c3aed;
   filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.55)) drop-shadow(0 0 18px rgba(124, 58, 237, 0.30));
 }
+
+/* ===================== FLOOR BACKGROUND - Tunel Perspektif Grid ===================== */
+.floor-bg {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  perspective: 540px;
+  perspective-origin: 50% 50%;
+}
+.floor-yuzey {
+  position: absolute;
+  left: -25%;
+  width: 150%;
+  height: 55vh;
+  transform-style: preserve-3d;
+}
+.floor-zemin {
+  bottom: 0;
+  transform-origin: center top;
+  transform: rotateX(72deg);
+}
+.floor-tavan {
+  top: 0;
+  transform-origin: center bottom;
+  transform: rotateX(-72deg);
+}
+.floor-izgara {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(to right, transparent 0, transparent 79px, rgba(232, 121, 249, 0.30) 80px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(168, 85, 247, 0.28) 80px);
+  background-size: 80px 80px, 80px 80px;
+  animation: floor-akis 5s linear infinite;
+  will-change: background-position;
+}
+.floor-zemin .floor-izgara {
+  /* Asagi dogru akar (yukaridan kaybolur) */
+  animation-direction: normal;
+}
+.floor-tavan .floor-izgara {
+  /* Yukari dogru akar */
+  animation-direction: reverse;
+}
+@keyframes floor-akis {
+  from { background-position-y: 0; }
+  to   { background-position-y: 80px; }
+}
+/* Yuzeyler ufkun yakinina dogru solar (mesafe fade) */
+.floor-isik {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.floor-zemin .floor-isik {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, transparent 35%);
+}
+.floor-tavan .floor-isik {
+  background: linear-gradient(0deg, var(--bg-deep) 0%, transparent 35%);
+}
+/* Merkez ufuk cizgisi parlama (iki yuzeyin birlestigi yer) */
+.floor-ufuk {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(232, 121, 249, 0.55) 30%,
+    rgba(168, 85, 247, 0.85) 50%,
+    rgba(232, 121, 249, 0.55) 70%,
+    transparent 100%);
+  box-shadow:
+    0 0 20px rgba(232, 121, 249, 0.45),
+    0 0 50px rgba(168, 85, 247, 0.25);
+  filter: blur(0.5px);
+}
+
+/* Light tema - mor yerine bordo tonlar */
+[data-theme="light"] .floor-izgara {
+  background-image:
+    repeating-linear-gradient(to right, transparent 0, transparent 79px, rgba(159, 18, 57, 0.22) 80px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(192, 38, 211, 0.20) 80px);
+}
+[data-theme="light"] .floor-ufuk {
+  background: linear-gradient(90deg, transparent, rgba(159, 18, 57, 0.45) 30%, rgba(192, 38, 211, 0.65) 50%, rgba(159, 18, 57, 0.45) 70%, transparent);
+  box-shadow: 0 0 18px rgba(159, 18, 57, 0.35);
+}
+
+/* ===================== STAR FLOAT - Ucusan Yildizlar ===================== */
+.star-float-katmani {
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  overflow: hidden;
+}
+.sf-yildiz {
+  position: absolute;
+  animation: sf-float 16s ease-in-out infinite;
+  will-change: transform;
+}
+.sf-float {
+  width: 100%;
+  height: 100%;
+}
+.sf-spin {
+  width: 100%;
+  height: 100%;
+  animation: sf-spin 25s linear infinite;
+  transform-origin: 50% 50%;
+}
+.sf-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+}
+.sf-pembe .sf-svg {
+  color: var(--pembe);
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 0.75)) drop-shadow(0 0 18px rgba(232, 121, 249, 0.35));
+}
+.sf-mor .sf-svg {
+  color: var(--mor);
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.75)) drop-shadow(0 0 18px rgba(168, 85, 247, 0.35));
+}
+.sf-pembe .sf-svg:hover {
+  transform: scale(1.55);
+  filter:
+    drop-shadow(0 0 16px #fff)
+    drop-shadow(0 0 32px rgba(232, 121, 249, 1))
+    brightness(1.4) saturate(1.4);
+}
+.sf-mor .sf-svg:hover {
+  transform: scale(1.55);
+  filter:
+    drop-shadow(0 0 16px #fff)
+    drop-shadow(0 0 32px rgba(168, 85, 247, 1))
+    brightness(1.4) saturate(1.4);
+}
+
+@keyframes sf-float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(20px, -30px); }
+  50% { transform: translate(-15px, -50px); }
+  75% { transform: translate(-25px, -20px); }
+}
+@keyframes sf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Light tema - bordo/mor yerine bordo ve violet */
+[data-theme="light"] .sf-pembe .sf-svg {
+  color: var(--bordo);
+  filter: drop-shadow(0 0 6px rgba(159, 18, 57, 0.55)) drop-shadow(0 0 14px rgba(159, 18, 57, 0.30));
+}
+[data-theme="light"] .sf-mor .sf-svg {
+  color: #7c3aed;
+  filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.55)) drop-shadow(0 0 14px rgba(124, 58, 237, 0.30));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floor-izgara, .sf-float, .sf-spin { animation: none !important; }
+}
+@media (max-width: 575px) {
+  .star-float-katmani { display: none !important; }
+}
+
+/* ===================== COSMIC ORBIT - HERO MODE ===================== */
+/* Hero icine yerlesen kucuk versiyon - mevcut .hero-portal pozisyonu yerine kullanilir */
+.cosmic-orbit-hero {
+  position: absolute !important;
+  top: 50% !important;
+  right: -80px !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 560px !important;
+  height: 560px !important;
+  transform: translateY(-50%) !important;
+  z-index: 0 !important;
+  opacity: 0.55 !important;
+  pointer-events: none !important;
+  perspective: 1100px;
+  transition: none !important;
+}
+.cosmic-orbit-hero .co-halka-1 { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
+.cosmic-orbit-hero .co-halka-2 { width: 360px; height: 360px; margin: -180px 0 0 -180px; }
+.cosmic-orbit-hero .co-halka-3 { width: 520px; height: 520px; margin: -260px 0 0 -260px; }
+.cosmic-orbit-hero .co-halka-1 .co-logo-konum .co-mini-logo { top: -120px; width: 28px; height: 28px; }
+.cosmic-orbit-hero .co-halka-2 .co-logo-konum .co-mini-logo { top: -190px; width: 30px; height: 30px; }
+.cosmic-orbit-hero .co-halka-3 .co-logo-konum .co-mini-logo { top: -270px; width: 30px; height: 30px; }
+.cosmic-orbit-hero .co-yildiz { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+
+@media (max-width: 991px) {
+  .cosmic-orbit-hero { display: none !important; }
+}

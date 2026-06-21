@@ -10,7 +10,7 @@ import RevealOnScroll from '../components/RevealOnScroll';
 import TronGrid from '../components/TronGrid';
 import ScrambleText from '../components/ScrambleText';
 import Counter from '../components/Counter';
-import PortalRing from '../components/PortalRing';
+import CosmicOrbit from '../components/CosmicOrbit';
 
 const SAYFA_BASI = 8;
 
@@ -95,7 +95,7 @@ export default function Home() {
       {/* HERO */}
       <section className="hero-banner fade-up">
         <HoloField gridLines={true} />
-        <PortalRing boyut={460} className="hero-portal" />
+        <CosmicOrbit hero={true} />
 
         <div className="hero-icerik">
           <span className="hero-rozet">

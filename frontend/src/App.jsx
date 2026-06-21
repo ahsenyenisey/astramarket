@@ -10,9 +10,10 @@ import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
 import CometRain from './components/CometRain';
 import PageWipe from './components/PageWipe';
-import CosmicOrbit from './components/CosmicOrbit';
 import SpiralBurst from './components/SpiralBurst';
 import WarpStreaks from './components/WarpStreaks';
+import FloorBackground from './components/FloorBackground';
+import StarFloat from './components/StarFloat';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -49,8 +50,9 @@ export default function App() {
       {immersiveEfektler && <FilmEffects />}
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
+      {immersiveEfektler && <FloorBackground />}
+      {immersiveEfektler && <StarFloat />}
       {immersiveEfektler && <CometRain />}
-      {immersiveEfektler && <CosmicOrbit />}
       {immersiveEfektler && <SpiralBurst />}
       {immersiveEfektler && <WarpStreaks />}
       {immersiveEfektler && <PageWipe />}
