@@ -3026,6 +3026,24 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: #fff;
   transform: translateY(-2px);
 }
+/* Outline (cam) varyant - sepetime git icin */
+.btn-cyber.btn-cyber-outline {
+  background: rgba(15, 12, 25, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 121, 249, 0.55);
+  color: var(--metin-parlak);
+  box-shadow:
+    0 0 14px rgba(168, 85, 247, 0.20),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+.btn-cyber.btn-cyber-outline:hover {
+  background: rgba(168, 85, 247, 0.18);
+  border-color: rgba(232, 121, 249, 0.9);
+  box-shadow:
+    0 0 24px rgba(168, 85, 247, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  color: var(--metin-parlak);
+}
 
 /* ===================== HOLO LINE (animasyonlu çizgi) ===================== */
 .holo-line {
@@ -3054,25 +3072,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { background-position: 100% 0; }
 }
 
-/* ===================== HERO HUD KOSE BRACKETS ===================== */
+/* HERO HUD KOSE BRACKETS - kaldirildi */
 .hero-icerik { position: relative; }
-.hero-icerik::before,
-.hero-icerik::after {
-  content: '';
-  position: absolute;
-  width: 26px; height: 26px;
-  border: 2px solid var(--pembe);
-  opacity: 0.7;
-  z-index: 3;
-}
-.hero-icerik::before {
-  top: -16px; left: -16px;
-  border-right: none; border-bottom: none;
-}
-.hero-icerik::after {
-  bottom: -16px; left: -16px;
-  border-right: none; border-top: none;
-}
 
 /* ===================== TECH SPINNER (cok halkali yukleme) ===================== */
 .tech-spinner {

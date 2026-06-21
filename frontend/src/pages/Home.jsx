@@ -7,7 +7,6 @@ import EmptyState from '../components/EmptyState';
 import HoloField from '../components/HoloField';
 import useMouseTilt from '../components/useMouseTilt';
 import RevealOnScroll from '../components/RevealOnScroll';
-import StatusIndicator from '../components/StatusIndicator';
 import TronGrid from '../components/TronGrid';
 
 const SAYFA_BASI = 8;
@@ -93,10 +92,7 @@ export default function Home() {
         <HoloField gridLines={true} />
 
         <div className="hero-icerik">
-          <div className="d-flex flex-wrap gap-2 mb-3 align-items-center">
-            <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
-            <StatusIndicator label="SISTEM AKTIF" renk="yesil" />
-          </div>
+          <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
           <h1>
             Sevdiklerin <span className="holo-text glitch-text" data-text="burada,">burada,</span><br />
             <span className="glitch-text" data-text="fırsatları kaçırma!">fırsatları kaçırma!</span>
@@ -109,8 +105,8 @@ export default function Home() {
             <button className="btn-cyber" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
               ▸ Alışverişe Başla
             </button>
-            <Link to="/sepet" className="btn btn-outline-light btn-lg" style={{ borderRadius: 50, padding: '14px 32px', fontWeight: 600 }}>
-              Sepetime Git
+            <Link to="/sepet" className="btn-cyber btn-cyber-outline">
+              ▸ Sepetime Git
             </Link>
           </div>
         </div>
@@ -169,7 +165,6 @@ export default function Home() {
           <h3 className="glitch-text" data-text="Öne Çıkan Ürünler">Öne Çıkan Ürünler</h3>
           <div className="alt">Seninle aramızda binlerce harika ürün var</div>
         </div>
-        <StatusIndicator label="100 KAYIT YÜKLENDI" renk="mor" />
       </RevealOnScroll>
 
       {hata && <Alert variant="danger">{hata}</Alert>}
