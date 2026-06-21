@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
+
 // Buyuk kozmik orbital sistem - 3 ic ice halka, her halkanin uzerinde
-// AstraMarket mini logosu gezegen gibi orbit yapar. Tum sistemde surekli yavasca doner.
-// Fixed positioned arka plan element, pointer-events: none.
+// AstraMarket mini logosu gezegen gibi orbit yapar.
+// Scroll'a gore sistem rotateX/rotateZ ve scale degisir; mini logolar hover'da parlar.
 
 function MiniLogo({ renk = 'pembe' }) {
   return (
@@ -38,8 +40,45 @@ function Halka({ siralama, tilt, donus, sure, logoSayisi = 2, logoRenk }) {
 }
 
 export default function CosmicOrbit() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = null;
+    const guncelle = () => {
+      raf = null;
+      const y = window.scrollY;
+      const vh = window.innerHeight || 1;
+      const orani = y / vh; // her viewport icin 1 birim
+      // Sistem rotateX +/- 20deg, rotateY +/- 35deg, scale 0.92-1.08 araliginda dolasir
+      const rx = Math.sin(orani * 0.7) * 20;
+      const ry = Math.cos(orani * 0.55) * 35;
+      const rz = orani * 18; // surekli artiyor (parallax doniş)
+      const scale = 1 + Math.sin(orani * 0.9) * 0.08;
+      const yOfset = y * -0.20; // negatif parallax (scroll asagi -> orbit yukari kayar)
+      el.style.setProperty('--scroll-rx', `${rx.toFixed(2)}deg`);
+      el.style.setProperty('--scroll-ry', `${ry.toFixed(2)}deg`);
+      el.style.setProperty('--scroll-rz', `${rz.toFixed(2)}deg`);
+      el.style.setProperty('--scroll-scale', scale.toFixed(3));
+      el.style.setProperty('--scroll-y', `${yOfset.toFixed(0)}px`);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(guncelle);
+    };
+    guncelle();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <div className="cosmic-orbit" aria-hidden="true">
+    <div ref={ref} className="cosmic-orbit" aria-hidden="true">
       <div className="co-merkez">
         {/* Merkez yildiz - tum sistemin agirlik noktasi */}
         <div className="co-yildiz" />

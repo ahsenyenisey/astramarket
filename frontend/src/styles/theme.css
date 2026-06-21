@@ -4572,11 +4572,25 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   left: 50% !important;
   width: 920px !important;
   height: 920px !important;
-  transform: translate(-50%, -50%);
+  /* Scroll'a gore degisen CSS degiskenleri */
+  --scroll-rx: 0deg;
+  --scroll-ry: 0deg;
+  --scroll-rz: 0deg;
+  --scroll-scale: 1;
+  --scroll-y: 0px;
+  transform:
+    translate(-50%, calc(-50% + var(--scroll-y)))
+    rotateX(var(--scroll-rx))
+    rotateY(var(--scroll-ry))
+    rotateZ(var(--scroll-rz))
+    scale(var(--scroll-scale));
+  transition: transform 0.20s cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Sistem container pointer-events kapali ama mini logolar acik (asagida override) */
   pointer-events: none !important;
   z-index: 3 !important;
   perspective: 1400px;
-  opacity: 0.75;
+  opacity: 0.78;
+  will-change: transform;
 }
 
 /* Tum sistem de hafifce kendi etrafinda salinir */
@@ -4699,10 +4713,36 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .co-pembe {
   color: var(--pembe);
   filter: drop-shadow(0 0 10px rgba(232, 121, 249, 0.85)) drop-shadow(0 0 22px rgba(232, 121, 249, 0.45));
+  transition: transform 0.30s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.30s ease;
+  pointer-events: auto;
+  cursor: pointer;
 }
 .co-mor {
   color: var(--mor);
   filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.85)) drop-shadow(0 0 22px rgba(168, 85, 247, 0.45));
+  transition: transform 0.30s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.30s ease;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Hover: buyu, parlaklik artir, glow patlat */
+.co-pembe:hover {
+  transform: scale(2.1) rotate(15deg);
+  filter:
+    drop-shadow(0 0 18px #fff)
+    drop-shadow(0 0 32px rgba(232, 121, 249, 1))
+    drop-shadow(0 0 60px rgba(232, 121, 249, 0.85))
+    brightness(1.6) saturate(1.5);
+  z-index: 5;
+}
+.co-mor:hover {
+  transform: scale(2.1) rotate(-15deg);
+  filter:
+    drop-shadow(0 0 18px #fff)
+    drop-shadow(0 0 32px rgba(168, 85, 247, 1))
+    drop-shadow(0 0 60px rgba(168, 85, 247, 0.85))
+    brightness(1.6) saturate(1.5);
+  z-index: 5;
 }
 
 /* Mobilde kucult */
