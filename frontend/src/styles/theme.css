@@ -4891,3 +4891,182 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   border-color: rgba(5, 150, 105, 0.45);
 }
 [data-theme="light"] .od-dosya-ikon { color: #0e7490; }
+
+/* ===================== SPIRAL BURST - Click Patlamasi ===================== */
+.spiral-burst-katmani {
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 9995 !important;
+  overflow: hidden;
+}
+.sb-burst {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.sb-merkez {
+  position: absolute;
+  top: -10px; left: -10px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--pembe) 35%, rgba(232, 121, 249, 0) 75%);
+  animation: sb-merkez 0.5s ease-out forwards;
+}
+.sb-mor .sb-merkez {
+  background: radial-gradient(circle, #fff 0%, var(--mor) 35%, rgba(168, 85, 247, 0) 75%);
+}
+@keyframes sb-merkez {
+  0%   { transform: scale(0.3); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.sb-parca {
+  position: absolute;
+  top: -4px; left: -4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--pembe) 50%, rgba(232, 121, 249, 0) 80%);
+  box-shadow: 0 0 12px var(--pembe), 0 0 26px rgba(232, 121, 249, 0.75);
+  /* Her parcacik kendi acisi ile spiral cizer */
+  --aci: calc(var(--i, 0) / var(--toplam, 14) * 360deg);
+  animation: sb-spiral 1.2s cubic-bezier(0.22, 0.85, 0.30, 1) forwards;
+  transform-origin: 50% 50%;
+}
+.sb-mor .sb-parca {
+  background: radial-gradient(circle, #fff 0%, var(--mor) 50%, rgba(168, 85, 247, 0) 80%);
+  box-shadow: 0 0 12px var(--mor), 0 0 26px rgba(168, 85, 247, 0.75);
+}
+@keyframes sb-spiral {
+  0% {
+    transform: rotate(var(--aci)) translateX(0) scale(0.4);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: rotate(calc(var(--aci) + 90deg)) translateX(20px) scale(1.2);
+  }
+  100% {
+    transform: rotate(calc(var(--aci) + 720deg)) translateX(140px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ===================== WARP STREAKS - Hizli Scroll'da Isik Cizgileri ===================== */
+.warp-streaks {
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 4 !important;
+  overflow: hidden;
+  --yogunluk: 0;
+}
+.ws-yan {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 160px;
+}
+.ws-sol { left: 0; }
+.ws-sag { right: 0; }
+.ws-cizgi {
+  position: absolute;
+  width: 2px;
+  height: 240px;
+  left: calc((var(--i) * 19px) + 12px);
+  top: -240px;
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(232, 121, 249, 0.9),
+    rgba(168, 85, 247, 0.85),
+    transparent);
+  box-shadow: 0 0 16px rgba(232, 121, 249, 0.8), 0 0 36px rgba(168, 85, 247, 0.45);
+  opacity: 0;
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+.ws-sag .ws-cizgi { left: auto; right: calc((var(--i) * 19px) + 12px); }
+.warp-streaks.aktif .ws-cizgi {
+  animation: ws-zip 0.5s linear forwards;
+  opacity: var(--yogunluk);
+  animation-delay: calc(var(--i) * 0.025s);
+}
+@keyframes ws-zip {
+  0%   { transform: translateY(0);     opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(120vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spiral-burst-katmani, .warp-streaks { display: none !important; }
+}
+
+/* ===================== LIGHT TEMA - Karanlik hero'lari aydinlat ===================== */
+/* Premium hero */
+[data-theme="light"] .premium-hero {
+  background:
+    radial-gradient(circle at 15% 25%, rgba(251, 191, 36, 0.18), transparent 55%),
+    radial-gradient(circle at 85% 75%, rgba(245, 158, 11, 0.14), transparent 55%),
+    linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fff7f5 100%) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(245, 158, 11, 0.18) !important;
+}
+[data-theme="light"] .premium-hero h1 { color: #422006 !important; }
+[data-theme="light"] .premium-hero p { color: #78350f !important; }
+[data-theme="light"] .ph-altin {
+  background: linear-gradient(135deg, #b45309, #f59e0b, #d97706) !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.35)) !important;
+}
+[data-theme="light"] .ph-rakamlar { border-top-color: rgba(245, 158, 11, 0.25) !important; }
+[data-theme="light"] .ph-rakamlar strong {
+  background: linear-gradient(135deg, #b45309, #f59e0b) !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent !important;
+}
+[data-theme="light"] .ph-rakamlar span { color: #92400e !important; }
+
+/* Premium checkout hero */
+[data-theme="light"] .premium-checkout-hero {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.18), transparent 60%),
+    linear-gradient(135deg, #fffbeb, #fef3c7) !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+}
+[data-theme="light"] .premium-checkout-hero h2 { color: #422006 !important; }
+[data-theme="light"] .premium-checkout-hero p { color: #78350f !important; }
+
+/* Kampanya detay hero - karanlik gradientleri aydinlat */
+[data-theme="light"] .kampanya-detay-hero {
+  background: linear-gradient(135deg, #ffffff, #fff7f5) !important;
+  border: 1px solid rgba(159, 18, 57, 0.18) !important;
+  box-shadow: 0 10px 30px rgba(159, 18, 57, 0.10) !important;
+  color: var(--metin-parlak) !important;
+}
+[data-theme="light"] .kampanya-detay-hero h1,
+[data-theme="light"] .kampanya-detay-hero h2,
+[data-theme="light"] .kampanya-detay-hero p,
+[data-theme="light"] .kampanya-detay-hero .kd-tarihler {
+  color: var(--metin-parlak) !important;
+}
+[data-theme="light"] .kampanya-detay-hero .kd-tarihler { opacity: 0.78; }
+
+/* Cosmic orbit light tema'da sonuk */
+[data-theme="light"] .cosmic-orbit { opacity: 0.32; }
+[data-theme="light"] .cosmic-orbit .co-yildiz {
+  background: radial-gradient(circle, #fff 0%, #f59e0b 35%, #b45309 60%, transparent 80%);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.50), 0 0 90px rgba(180, 83, 9, 0.30);
+}
+[data-theme="light"] .co-halka-cizim {
+  border-color: rgba(159, 18, 57, 0.35) !important;
+}
+[data-theme="light"] .co-pembe {
+  color: var(--bordo);
+  filter: drop-shadow(0 0 8px rgba(159, 18, 57, 0.55)) drop-shadow(0 0 18px rgba(159, 18, 57, 0.30));
+}
+[data-theme="light"] .co-mor {
+  color: #7c3aed;
+  filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.55)) drop-shadow(0 0 18px rgba(124, 58, 237, 0.30));
+}

@@ -11,6 +11,8 @@ import FilmEffects from './components/FilmEffects';
 import CometRain from './components/CometRain';
 import PageWipe from './components/PageWipe';
 import CosmicOrbit from './components/CosmicOrbit';
+import SpiralBurst from './components/SpiralBurst';
+import WarpStreaks from './components/WarpStreaks';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -49,6 +51,8 @@ export default function App() {
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <CometRain />}
       {immersiveEfektler && <CosmicOrbit />}
+      {immersiveEfektler && <SpiralBurst />}
+      {immersiveEfektler && <WarpStreaks />}
       {immersiveEfektler && <PageWipe />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
 
