@@ -4982,7 +4982,7 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   width: 2px;
   height: 240px;
   left: calc((var(--i) * 19px) + 12px);
-  top: -240px;
+  top: 0;
   background: linear-gradient(180deg,
     transparent,
     rgba(232, 121, 249, 0.9),
@@ -4994,15 +4994,25 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: blur(0.5px);
 }
 .ws-sag .ws-cizgi { left: auto; right: calc((var(--i) * 19px) + 12px); }
-.warp-streaks.aktif .ws-cizgi {
-  animation: ws-zip 0.5s linear forwards;
+.warp-streaks.aktif.asagi .ws-cizgi {
+  animation: ws-asagi 0.5s linear forwards;
   opacity: var(--yogunluk);
   animation-delay: calc(var(--i) * 0.025s);
 }
-@keyframes ws-zip {
-  0%   { transform: translateY(0);     opacity: 0; }
+.warp-streaks.aktif.yukari .ws-cizgi {
+  animation: ws-yukari 0.5s linear forwards;
+  opacity: var(--yogunluk);
+  animation-delay: calc(var(--i) * 0.025s);
+}
+@keyframes ws-asagi {
+  0%   { transform: translateY(-240px); opacity: 0; }
   20%  { opacity: 1; }
-  100% { transform: translateY(120vh); opacity: 0; }
+  100% { transform: translateY(110vh);  opacity: 0; }
+}
+@keyframes ws-yukari {
+  0%   { transform: translateY(110vh);  opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-240px); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5097,7 +5107,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   position: absolute;
   left: -25%;
   width: 150%;
-  height: 55vh;
+  /* Yari viewport - iki yuzey tam ortada (ufuk cizgisinde) birbirine deginsin */
+  height: 50vh;
   transform-style: preserve-3d;
 }
 .floor-zemin {

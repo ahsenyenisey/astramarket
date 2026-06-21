@@ -25,13 +25,15 @@ export default function WarpStreaks() {
       lastT = now;
 
       if (hiz > 1.0) {
-        el.classList.add('aktif');
-        // Hiza gore yogunluk: var(--yogunluk) 0-1 araliginda
+        // Scroll yonu: asagi (dy>0) veya yukari (dy<0)
+        const yon = dy >= 0 ? 'asagi' : 'yukari';
+        el.classList.remove('yukari', 'asagi');
+        el.classList.add('aktif', yon);
         const yogunluk = Math.min(1, (hiz - 1.0) / 3.0);
         el.style.setProperty('--yogunluk', yogunluk.toFixed(2));
         clearTimeout(temizleTimer);
         temizleTimer = setTimeout(() => {
-          el.classList.remove('aktif');
+          el.classList.remove('aktif', 'asagi', 'yukari');
           el.style.setProperty('--yogunluk', '0');
         }, 250);
       }
