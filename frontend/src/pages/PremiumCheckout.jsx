@@ -9,7 +9,7 @@ const BOS_KART = { uzerinde: '', no: '', skt: '', cvv: '' };
 export default function PremiumCheckout() {
   const loc = useLocation();
   const nav = useNavigate();
-  const { user, premium, setPremium } = useAuth();
+  const { user, premium, premiumPlan, setPremium } = useAuth();
   const planId = loc.state?.planId;
   const plan = bulPlan(planId);
 
@@ -19,7 +19,10 @@ export default function PremiumCheckout() {
 
   if (!user) return <Navigate to="/login" state={{ from: '/premium' }} replace />;
   if (!plan) return <Navigate to="/premium" replace />;
-  if (premium) return <Navigate to="/premium" replace />;
+  // Ayni plana tekrar gecis engellensin
+  if (premium && premiumPlan === planId) return <Navigate to="/premium" replace />;
+
+  const planDegisiyor = premium && premiumPlan !== planId;
 
   const kartGecerli =
     kart.uzerinde &&
@@ -37,8 +40,8 @@ export default function PremiumCheckout() {
     setYukleniyor(true);
     // Demo - 1.2sn gecikme + basari sayfasi
     setTimeout(() => {
-      setPremium(true);
-      nav('/premium/basari', { replace: true, state: { plan } });
+      setPremium(true, planId);
+      nav('/premium/basari', { replace: true, state: { plan, planDegisikligi: planDegisiyor } });
     }, 1200);
   };
 
@@ -52,9 +55,21 @@ export default function PremiumCheckout() {
 
       <div className="premium-checkout-hero fade-up">
         <span className="ph-rozet">⭐ PREMIUM ÜYELİK</span>
-        <h2>Üyeliğinizi <span className="ph-altin">Tamamlayın</span></h2>
-        <p>Sadece kart bilgileri, anında üyelik aktif olur.</p>
+        <h2>
+          {planDegisiyor ? <>Planını <span className="ph-altin">Değiştir</span></> : <>Üyeliğinizi <span className="ph-altin">Tamamlayın</span></>}
+        </h2>
+        <p>
+          {planDegisiyor
+            ? `Mevcut planın "${bulPlan(premiumPlan)?.ad}" yerine "${plan.ad}" aktif olacak.`
+            : 'Sadece kart bilgileri, anında üyelik aktif olur.'}
+        </p>
       </div>
+
+      {planDegisiyor && (
+        <Alert variant="info" className="fade-up" style={{ fontSize: '0.9rem' }}>
+          🔄 <strong>Plan değişikliği:</strong> Ödemeyi tamamladığında mevcut üyeliğin sona erer ve yeni plan hemen başlar.
+        </Alert>
+      )}
 
       <Row className="g-4">
         {/* SOL: Kart formu */}
@@ -123,7 +138,7 @@ export default function PremiumCheckout() {
                   {yukleniyor ? (
                     <><Spinner size="sm" animation="border" className="me-2" /> İşleniyor...</>
                   ) : (
-                    <>Premium Üyeliği Başlat • {plan.fiyat.toFixed(2)} TL</>
+                    <>{planDegisiyor ? 'Plana Geç' : 'Premium Üyeliği Başlat'} • {plan.fiyat.toFixed(2)} TL</>
                   )}
                 </Button>
               </div>

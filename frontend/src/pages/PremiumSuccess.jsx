@@ -4,6 +4,7 @@ import { Link, useLocation, Navigate } from 'react-router-dom';
 export default function PremiumSuccess() {
   const loc = useLocation();
   const plan = loc.state?.plan;
+  const planDegisikligi = loc.state?.planDegisikligi;
   if (!plan) return <Navigate to="/" replace />;
 
   return (
@@ -24,11 +25,12 @@ export default function PremiumSuccess() {
         }}>⭐</div>
 
         <h1 className="holo-text" style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: 12 }}>
-          Premium Üyeliğin Aktif!
+          {planDegisikligi ? 'Planın Değiştirildi!' : 'Premium Üyeliğin Aktif!'}
         </h1>
         <p style={{ color: 'var(--metin-orta)', fontSize: '1.05rem', maxWidth: 520, margin: '0 auto 28px' }}>
-          AstraMarket Premium'a hoş geldin. Tüm avantajların hesabına anında işlendi.
-          Sürpriz hoşgeldin hediyen için e-postanı kontrol et.
+          {planDegisikligi
+            ? `Yeni planın "${plan.ad}" hemen aktif oldu. Tüm Premium avantajların kesintisiz devam ediyor.`
+            : 'AstraMarket Premium\'a hoş geldin. Tüm avantajların hesabına anında işlendi. Sürpriz hoşgeldin hediyen için e-postanı kontrol et.'}
         </p>
 
         <Row className="g-3 justify-content-center mb-4">

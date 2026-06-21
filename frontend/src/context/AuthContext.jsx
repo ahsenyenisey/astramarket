@@ -5,7 +5,9 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 const premiumKey = (id) => `astra-premium-${id}`;
+const planKey = (id) => `astra-premium-plan-${id}`;
 const okuPremium = (id) => !!id && localStorage.getItem(premiumKey(id)) === '1';
+const okuPlan = (id) => (id ? localStorage.getItem(planKey(id)) : null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -18,15 +20,30 @@ export function AuthProvider({ children }) {
     return raw ? okuPremium(JSON.parse(raw).id) : false;
   });
 
+  const [premiumPlan, setPremiumPlanState] = useState(() => {
+    const raw = localStorage.getItem('kullanici');
+    return raw ? okuPlan(JSON.parse(raw).id) : null;
+  });
+
   useEffect(() => {
     setPremiumState(okuPremium(user?.id));
+    setPremiumPlanState(okuPlan(user?.id));
   }, [user?.id]);
 
-  const setPremium = (yes) => {
+  // setPremium(true, 'yillik')  veya  setPremium(false)
+  const setPremium = (yes, planId = null) => {
     if (!user) return;
-    if (yes) localStorage.setItem(premiumKey(user.id), '1');
-    else localStorage.removeItem(premiumKey(user.id));
-    setPremiumState(yes);
+    if (yes) {
+      localStorage.setItem(premiumKey(user.id), '1');
+      if (planId) localStorage.setItem(planKey(user.id), planId);
+      setPremiumState(true);
+      if (planId) setPremiumPlanState(planId);
+    } else {
+      localStorage.removeItem(premiumKey(user.id));
+      localStorage.removeItem(planKey(user.id));
+      setPremiumState(false);
+      setPremiumPlanState(null);
+    }
   };
 
   const login = async (email, sifre) => {
@@ -50,10 +67,11 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('kullanici');
     setUser(null);
     setPremiumState(false);
+    setPremiumPlanState(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, premium, setPremium, login, register, logout }}>
+    <AuthContext.Provider value={{ user, premium, premiumPlan, setPremium, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

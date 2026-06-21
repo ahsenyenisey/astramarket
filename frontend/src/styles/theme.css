@@ -1792,7 +1792,24 @@ p, span, div { color: inherit; }
   font-size: 1.2rem;
 }
 .ib-etiket { color: var(--metin-sonuk); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-.ib-deger { color: var(--metin-parlak); font-weight: 600; font-size: 1.02rem; }
+.ib-deger { color: var(--metin-parlak); font-weight: 600; font-size: 1.02rem; display: block; }
+a.ib-deger.ib-link {
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--pembe), var(--mor));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: filter 0.2s;
+}
+a.ib-deger.ib-link:hover {
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(232, 121, 249, 0.55));
+}
+[data-theme="light"] a.ib-deger.ib-link {
+  background: linear-gradient(135deg, var(--bordo), #c026d3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 /* ===================== AURORA OVERLAY ===================== */
 .aurora-overlay {
@@ -3644,4 +3661,136 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ===================== Uyelik Yonetim Paneli ===================== */
+.uyelik-yonetim {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  margin: -8px 0 32px;
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(circle at 0% 50%, rgba(251, 191, 36, 0.10), transparent 60%),
+    linear-gradient(135deg, rgba(15, 12, 25, 0.85), rgba(28, 25, 23, 0.85));
+  border: 1px solid rgba(251, 191, 36, 0.30);
+  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.10);
+  flex-wrap: wrap;
+}
+.uyelik-yonetim .uy-sol { flex: 1; min-width: 260px; }
+.uyelik-yonetim .uy-etiket {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-bottom: 6px;
+}
+.uyelik-yonetim .uy-plan { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.uyelik-yonetim .uy-plan h4 { font-weight: 800; color: var(--metin-parlak); margin: 0; }
+.uyelik-yonetim .uy-fiyat {
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #fde047, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.uyelik-yonetim .uy-fiyat span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  -webkit-text-fill-color: var(--metin-sonuk);
+  background: none;
+  opacity: 0.8;
+}
+.uyelik-yonetim .uy-bilgi {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--metin-sonuk);
+}
+.uyelik-yonetim .uy-sag { text-align: right; }
+.uyelik-yonetim .uy-not {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--metin-sonuk);
+}
+
+.btn-iptal {
+  font-weight: 700 !important;
+  border-width: 2px !important;
+  border-color: rgba(239, 68, 68, 0.55) !important;
+  color: #fca5a5 !important;
+  transition: all 0.2s !important;
+}
+.btn-iptal:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #fecaca !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.35) !important;
+}
+
+/* ===================== Aktif Plan Karti ===================== */
+.premium-plan-kart.aktif-plan {
+  border: 2px solid #fbbf24 !important;
+  box-shadow: 0 10px 40px rgba(251, 191, 36, 0.30) !important;
+}
+.pp-aktif-rozet {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: #062318;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* ===================== Iptal Modal ===================== */
+.iptal-kayip-listesi {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+.iptal-kayip-listesi li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(232, 121, 249, 0.12);
+  font-size: 0.92rem;
+}
+.iptal-kayip-listesi li:last-child { border-bottom: none; }
+
+/* Light tema */
+[data-theme="light"] .uyelik-yonetim {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.18);
+}
+[data-theme="light"] .uyelik-yonetim .uy-etiket { color: #b45309; }
+[data-theme="light"] .uyelik-yonetim .uy-fiyat {
+  background: linear-gradient(135deg, #b45309, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .uyelik-yonetim .uy-fiyat span { color: #57534e; }
+[data-theme="light"] .uyelik-yonetim .uy-bilgi { color: #78716c; }
+[data-theme="light"] .uyelik-yonetim .uy-not { color: #a8a29e; }
+
+[data-theme="light"] .btn-iptal {
+  border-color: rgba(220, 38, 38, 0.55) !important;
+  color: #b91c1c !important;
+}
+[data-theme="light"] .btn-iptal:hover {
+  background: rgba(220, 38, 38, 0.08) !important;
+  color: #991b1b !important;
+}
+
+[data-theme="light"] .iptal-kayip-listesi li {
+  border-bottom-color: rgba(159, 18, 57, 0.12);
 }

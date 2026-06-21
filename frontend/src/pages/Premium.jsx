@@ -1,6 +1,7 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { PLANLAR } from '../data/premium';
+import { useState } from 'react';
+import { Container, Row, Col, Button, Modal, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { PLANLAR, bulPlan } from '../data/premium';
 import { useAuth } from '../context/AuthContext';
 
 const AVANTAJLAR = [
@@ -14,12 +15,32 @@ const AVANTAJLAR = [
 
 export default function Premium() {
   const nav = useNavigate();
-  const { user, premium } = useAuth();
+  const { user, premium, premiumPlan, setPremium } = useAuth();
+  const aktifPlan = premium ? bulPlan(premiumPlan) : null;
+
+  const [iptalAcik, setIptalAcik] = useState(false);
+  const [iptalEdildi, setIptalEdildi] = useState(false);
+
   const planSec = (planId) => {
     nav('/premium/odeme', { state: { planId } });
   };
+
+  const iptalOnayla = () => {
+    setPremium(false);
+    setIptalAcik(false);
+    setIptalEdildi(true);
+    setTimeout(() => setIptalEdildi(false), 5000);
+  };
+
   return (
     <Container className="my-4 my-md-5">
+      {iptalEdildi && (
+        <Alert variant="warning" dismissible onClose={() => setIptalEdildi(false)} className="fade-up">
+          <strong>Üyeliğin iptal edildi.</strong> Premium avantajların artık geçerli değil.
+          İstediğin zaman yeniden katılabilirsin.
+        </Alert>
+      )}
+
       <section className="premium-hero fade-up">
         <div className="ph-icerik">
           <div className="ph-ust">
@@ -42,6 +63,35 @@ export default function Premium() {
         </div>
       </section>
 
+      {premium && aktifPlan && (
+        <section className="uyelik-yonetim fade-up" style={{ animationDelay: '0.05s' }}>
+          <div className="uy-sol">
+            <div className="uy-etiket">MEVCUT ÜYELİĞİN</div>
+            <div className="uy-plan">
+              <h4>{aktifPlan.ad}</h4>
+              <div className="uy-fiyat">
+                {aktifPlan.fiyat.toFixed(2)} TL <span>/{aktifPlan.donem}</span>
+              </div>
+            </div>
+            <div className="uy-bilgi">
+              {aktifPlan.aylik ? `≈ ${aktifPlan.aylik.toFixed(2)} TL / ay` : 'Aylık abonelik'} •
+              Sonraki yenileme: otomatik
+            </div>
+          </div>
+          <div className="uy-sag">
+            <Button
+              variant="outline-danger"
+              size="lg"
+              onClick={() => setIptalAcik(true)}
+              className="btn-iptal"
+            >
+              Üyeliği İptal Et
+            </Button>
+            <div className="uy-not">İstediğin zaman yeniden katılabilirsin</div>
+          </div>
+        </section>
+      )}
+
       <div className="bolum-baslik fade-up" style={{ animationDelay: '0.1s' }}>
         <div>
           <h3>Premium Avantajları</h3>
@@ -63,37 +113,80 @@ export default function Premium() {
 
       <div className="bolum-baslik fade-up" style={{ animationDelay: '0.2s' }}>
         <div>
-          <h3>Üyelik Planları</h3>
-          <div className="alt">Sana uygun olanı seç, dilediğin zaman iptal et</div>
+          <h3>{premium ? 'Plan Değiştir' : 'Üyelik Planları'}</h3>
+          <div className="alt">
+            {premium
+              ? 'Farklı bir plana geçmek için aşağıdan seç'
+              : 'Sana uygun olanı seç, dilediğin zaman iptal et'}
+          </div>
         </div>
       </div>
 
       <Row className="g-4 stagger" style={{ marginBottom: 60 }}>
-        {PLANLAR.map((p) => (
-          <Col md={4} key={p.id} className="fade-up">
-            <div className={`premium-plan-kart ${p.populer ? 'populer' : ''}`}>
-              {p.populer && <div className="pp-populer-rozet">EN POPÜLER</div>}
-              <h4>{p.ad}</h4>
-              {p.tasarruf && <div className="pp-tasarruf">{p.tasarruf} tasarruf</div>}
-              <div className="pp-fiyat">
-                <span className="pp-rakam">{p.fiyat.toFixed(2)} TL</span>
-                <span className="pp-donem">/{p.donem}</span>
+        {PLANLAR.map((p) => {
+          const buAktif = premium && premiumPlan === p.id;
+          return (
+            <Col md={4} key={p.id} className="fade-up">
+              <div className={`premium-plan-kart ${p.populer ? 'populer' : ''} ${buAktif ? 'aktif-plan' : ''}`}>
+                {buAktif && <div className="pp-aktif-rozet">ŞU AN AKTİF</div>}
+                {p.populer && !buAktif && <div className="pp-populer-rozet">EN POPÜLER</div>}
+                <h4>{p.ad}</h4>
+                {p.tasarruf && <div className="pp-tasarruf">{p.tasarruf} tasarruf</div>}
+                <div className="pp-fiyat">
+                  <span className="pp-rakam">{p.fiyat.toFixed(2)} TL</span>
+                  <span className="pp-donem">/{p.donem}</span>
+                </div>
+                {p.aylik && <div className="pp-aylik">≈ {p.aylik.toFixed(2)} TL / ay</div>}
+                {p.not && <div className="pp-not">{p.not}</div>}
+                {buAktif ? (
+                  <Button className="btn-outline-bordo w-100 mt-3" disabled>
+                    ✓ Mevcut Planın
+                  </Button>
+                ) : premium ? (
+                  <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
+                    Bu Plana Geç
+                  </Button>
+                ) : (
+                  <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
+                    {p.populer ? 'En Avantajlı Plan' : 'Bu Planı Seç'}
+                  </Button>
+                )}
               </div>
-              {p.aylik && <div className="pp-aylik">≈ {p.aylik.toFixed(2)} TL / ay</div>}
-              {p.not && <div className="pp-not">{p.not}</div>}
-              {premium ? (
-                <Button className="btn-bordo w-100 mt-3" disabled>
-                  ✓ Üyeliğin Aktif
-                </Button>
-              ) : (
-                <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
-                  {p.populer ? 'En Avantajlı Plan' : 'Bu Planı Seç'}
-                </Button>
-              )}
-            </div>
-          </Col>
-        ))}
+            </Col>
+          );
+        })}
       </Row>
+
+      {/* Iptal Onay Modal */}
+      <Modal show={iptalAcik} onHide={() => setIptalAcik(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Üyeliği iptal et?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p style={{ marginBottom: 12 }}>
+            <strong>{aktifPlan?.ad}</strong> üyeliğin iptal edilecek.
+            Bu işlem hemen yürürlüğe girecek ve aşağıdaki avantajlarını kaybedeceksin:
+          </p>
+          <ul className="iptal-kayip-listesi">
+            <li>🚀 Ücretsiz hızlı kargo</li>
+            <li>💎 %20 ekstra indirim</li>
+            <li>⚡ Erken erişim hakkı</li>
+            <li>🛡 Uzatılmış iade süresi</li>
+            <li>📞 Öncelikli müşteri desteği</li>
+          </ul>
+          <Alert variant="info" className="mb-0 mt-3" style={{ fontSize: '0.85rem' }}>
+            💡 İstediğin zaman yeni bir plana abone olarak Premium üyeliğine geri dönebilirsin.
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setIptalAcik(false)}>
+            Vazgeç
+          </Button>
+          <Button variant="danger" onClick={iptalOnayla}>
+            Evet, İptal Et
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

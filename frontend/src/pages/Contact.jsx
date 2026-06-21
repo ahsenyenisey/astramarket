@@ -28,7 +28,7 @@ export default function Contact() {
               <div className="ib-ikon">📞</div>
               <div>
                 <div className="ib-etiket">Çağrı Merkezi</div>
-                <div className="ib-deger">+90 850 000 00 00</div>
+                <a href="tel:+905539736740" className="ib-deger ib-link">+90 553 973 6740</a>
                 <small style={{ color: 'var(--metin-sonuk)' }}>7/24 hizmet</small>
               </div>
             </div>
@@ -37,7 +37,7 @@ export default function Contact() {
               <div className="ib-ikon">✉️</div>
               <div>
                 <div className="ib-etiket">E-posta</div>
-                <div className="ib-deger">destek@astramarket.com</div>
+                <a href="mailto:ahsenyenisey@gmail.com" className="ib-deger ib-link">ahsenyenisey@gmail.com</a>
                 <small style={{ color: 'var(--metin-sonuk)' }}>Ortalama 2 saatte yanıt</small>
               </div>
             </div>
