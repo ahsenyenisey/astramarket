@@ -32,13 +32,14 @@ export default function HoloField({ density = 90, gridLines = true }) {
     ro.observe(parent);
 
     const mobil = w < 768;
+    // Partikul sayilari performans icin azaltildi (eski: 30+25+18 = 73)
     const KATMAN_AYAR = [
       // far (kucuk, yavas, soluk)
-      { say: mobil ? 18 : 30, vMax: 0.10, rMin: 0.4, rMax: 1.0, op: 0.30, baglMax: 100, renk: '99, 102, 241' },
+      { say: mobil ? 10 : 18, vMax: 0.10, rMin: 0.4, rMax: 1.0, op: 0.30, baglMax: 100, renk: '99, 102, 241' },
       // mid (orta)
-      { say: mobil ? 15 : 25, vMax: 0.20, rMin: 0.6, rMax: 1.4, op: 0.55, baglMax: 130, renk: '168, 85, 247' },
+      { say: mobil ? 8 : 14, vMax: 0.20, rMin: 0.6, rMax: 1.4, op: 0.55, baglMax: 130, renk: '168, 85, 247' },
       // near (buyuk, hizli, parlak)
-      { say: mobil ? 10 : 18, vMax: 0.30, rMin: 1.0, rMax: 2.0, op: 0.90, baglMax: 110, renk: '251, 113, 133' },
+      { say: mobil ? 6 : 10, vMax: 0.30, rMin: 1.0, rMax: 2.0, op: 0.90, baglMax: 110, renk: '251, 113, 133' },
     ];
 
     const katmanlar = KATMAN_AYAR.map((k) => ({

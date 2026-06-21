@@ -58,14 +58,28 @@ export default function LogoBackground() {
     };
 
     // Mouse listener - her logoyu imlecten uzaklastir + parlat
+    // PERFORMANS: viewport disindaki logolari atla, sadece gerekiyorsa style.setProperty cagri
     const mouseGuncelle = () => {
       mouseRaf = null;
-      const ESIK = 220;       // piksel - bu mesafede etki baslar
-      const KUVVET_MAX = 60;  // piksel - max kacma mesafesi
+      const ESIK = 220;
+      const KUVVET_MAX = 60;
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
 
       refler.current.forEach((el) => {
         if (!el) return;
         const rect = el.getBoundingClientRect();
+        // Viewport disindaysa atla (etki olamaz)
+        if (rect.bottom < -50 || rect.top > vh + 50 || rect.right < -50 || rect.left > vw + 50) {
+          if (el.dataset.aktif === '1') {
+            el.style.setProperty('--mx', '0px');
+            el.style.setProperty('--my', '0px');
+            el.style.setProperty('--isik', '0');
+            el.dataset.aktif = '0';
+          }
+          return;
+        }
+
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
         const dx = mouseX - cx;
@@ -74,21 +88,17 @@ export default function LogoBackground() {
 
         if (d2 < ESIK * ESIK && d2 > 0) {
           const d = Math.sqrt(d2);
-          // mouse'a yakinlik orani (0..1)
           const yakinlik = 1 - d / ESIK;
-          // ease - daha guzel egri
           const guc = yakinlik * yakinlik * KUVVET_MAX;
-          // imlecten KACMA yonu (- isareti)
-          const mx = -(dx / d) * guc;
-          const my = -(dy / d) * guc;
-          el.style.setProperty('--mx', `${mx.toFixed(1)}px`);
-          el.style.setProperty('--my', `${my.toFixed(1)}px`);
-          // Isik: parlama yogunlugu (yakinlasinca artar)
+          el.style.setProperty('--mx', `${(-(dx / d) * guc).toFixed(1)}px`);
+          el.style.setProperty('--my', `${(-(dy / d) * guc).toFixed(1)}px`);
           el.style.setProperty('--isik', yakinlik.toFixed(3));
-        } else {
+          el.dataset.aktif = '1';
+        } else if (el.dataset.aktif === '1') {
           el.style.setProperty('--mx', '0px');
           el.style.setProperty('--my', '0px');
           el.style.setProperty('--isik', '0');
+          el.dataset.aktif = '0';
         }
       });
     };
@@ -113,7 +123,7 @@ export default function LogoBackground() {
 
   return (
     <div className="logo-arkaplan" aria-hidden="true">
-      {Array.from({ length: 14 }, (_, i) => i).map((i) => (
+      {Array.from({ length: 7 }, (_, i) => i).map((i) => (
         <div
           key={i}
           ref={(el) => (refler.current[i] = el)}
