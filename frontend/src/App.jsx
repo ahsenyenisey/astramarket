@@ -9,7 +9,6 @@ import AuroraOverlay from './components/AuroraOverlay';
 import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
 import LogoBackground from './components/LogoBackground';
-import HudOverlay from './components/HudOverlay';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -45,7 +44,6 @@ export default function App() {
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <LogoBackground />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
-      {immersiveEfektler && <HudOverlay />}
 
       {!sadeSayfa && <AppNavbar />}
       <SayfaGecis>

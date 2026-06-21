@@ -7,6 +7,8 @@ import EmptyState from '../components/EmptyState';
 import HoloField from '../components/HoloField';
 import useMouseTilt from '../components/useMouseTilt';
 import RevealOnScroll from '../components/RevealOnScroll';
+import StatusIndicator from '../components/StatusIndicator';
+import TronGrid from '../components/TronGrid';
 
 const SAYFA_BASI = 8;
 
@@ -91,33 +93,25 @@ export default function Home() {
         <HoloField gridLines={true} />
 
         <div className="hero-icerik">
-          <div className="hero-eyebrow">
-            <span>EVRENİN ALIŞVERİŞİ</span>
-            <span className="he-sep">//</span>
-            <span>YAZ — 2026.06</span>
-            <span className="he-sep">//</span>
-            <span className="lime-acc">ED.07</span>
+          <div className="d-flex flex-wrap gap-2 mb-3 align-items-center">
+            <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
+            <StatusIndicator label="SISTEM AKTIF" renk="yesil" />
           </div>
           <h1>
-            Sevdiklerin <span className="holo-text">burada,</span><br />
-            fırsatları kaçırma!
+            Sevdiklerin <span className="holo-text glitch-text" data-text="burada,">burada,</span><br />
+            <span className="glitch-text" data-text="fırsatları kaçırma!">fırsatları kaçırma!</span>
           </h1>
           <p>
             Elektronikten giyime, ev eşyasından kozmetiğe binlerce ürün.
             500 TL üzeri ücretsiz kargo, %50'ye varan indirimlerle.
           </p>
-          <div className="d-flex gap-3 flex-wrap">
-            <button className="btn btn-cta" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
-              Alışverişe Başla →
+          <div className="d-flex gap-3 flex-wrap align-items-center">
+            <button className="btn-cyber" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
+              ▸ Alışverişe Başla
             </button>
             <Link to="/sepet" className="btn btn-outline-light btn-lg" style={{ borderRadius: 50, padding: '14px 32px', fontWeight: 600 }}>
               Sepetime Git
             </Link>
-          </div>
-          <div className="hero-statlar">
-            <div><span className="hs-deger">100</span><span className="hs-etiket">ÜRÜN</span></div>
-            <div><span className="hs-deger">24h</span><span className="hs-etiket">KARGO</span></div>
-            <div><span className="hs-deger">500+</span><span className="hs-etiket">ÜCRETSIZ</span></div>
           </div>
         </div>
         <div className="hero-dekor d-none d-lg-flex">
@@ -166,19 +160,16 @@ export default function Home() {
         </div>
       </div>
 
+      {/* HOLO LINE - cyber gecisi */}
+      <div className="holo-line fade-up" style={{ animationDelay: '0.18s' }} />
+
       {/* BOLUM BASLIK */}
       <RevealOnScroll as="div" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
         <div>
-          <div className="bb-mono">
-            <span className="bb-bracket">[</span>
-            <span>AKTİF KATALOG</span>
-            <span className="bb-sep">·</span>
-            <span className="lime-acc">{filtrelenen.length} ÜRÜN</span>
-            <span className="bb-bracket">]</span>
-          </div>
-          <h3>Öne Çıkan Ürünler</h3>
+          <h3 className="glitch-text" data-text="Öne Çıkan Ürünler">Öne Çıkan Ürünler</h3>
           <div className="alt">Seninle aramızda binlerce harika ürün var</div>
         </div>
+        <StatusIndicator label="100 KAYIT YÜKLENDI" renk="mor" />
       </RevealOnScroll>
 
       {hata && <Alert variant="danger">{hata}</Alert>}
@@ -203,6 +194,7 @@ export default function Home() {
             ))}
           </Row>
 
+          <TronGrid />
           {toplamSayfa > 1 && (
             <Pagination className="justify-content-center mt-4">
               <Pagination.First onClick={() => setSayfa(1)} disabled={sayfa === 1} />

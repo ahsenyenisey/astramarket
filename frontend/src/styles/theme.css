@@ -2798,151 +2798,326 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: var(--metin-parlak);
 }
 
-/* ===================== HUD OVERLAY (brutalist marjin) ===================== */
-.hud-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9988;
-  pointer-events: none;
-  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-}
-.hud-block {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  color: #cbd5e1;
-  white-space: nowrap;
-  user-select: none;
-}
-.hud-tl { top: 90px; left: 24px; }
-.hud-tr { top: 90px; right: 24px; }
-.hud-bl { bottom: 24px; left: 24px; }
-.hud-br { bottom: 24px; right: 24px; }
-
-.hud-mono { color: #f8fafc; font-weight: 600; }
-.hud-mono.dim { color: #94a3b8; font-weight: 400; }
-.hud-mono.lime { color: #a3e635; font-weight: 700; }
-.hud-mark { color: #fb7185; font-weight: 700; }
-.hud-sep { color: #475569; }
-
-.hud-pulse {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #a3e635;
-  box-shadow: 0 0 8px #a3e635, 0 0 0 0 rgba(163, 230, 53, 0.5);
-  animation: hud-pulse 2.4s ease-in-out infinite;
-  display: inline-block;
-}
-@keyframes hud-pulse {
-  0%, 100% { box-shadow: 0 0 8px #a3e635, 0 0 0 0 rgba(163, 230, 53, 0.5); }
-  50%      { box-shadow: 0 0 12px #a3e635, 0 0 0 6px rgba(163, 230, 53, 0); }
-}
-
-/* Scroll hizasinda navbar varsa HUD'u biraz indir (scrolled state'inde) */
-.navbar-bordo.scrolled ~ .hud-overlay .hud-tl,
-.navbar-bordo.scrolled ~ .hud-overlay .hud-tr { top: 74px; }
-
-[data-theme="light"] .hud-mono { color: #1a0b14; }
-[data-theme="light"] .hud-mono.dim { color: #475569; }
-[data-theme="light"] .hud-sep { color: #cbd5e1; }
-
-@media (max-width: 768px) {
-  .hud-tr, .hud-br { display: none; }
-  .hud-tl, .hud-bl { font-size: 9px; }
-  .hud-tl { top: 76px; left: 12px; }
-  .hud-bl { bottom: 12px; left: 12px; }
-}
-
-/* ===================== HERO EYEBROW (mono) ===================== */
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: var(--metin-orta);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 1px solid var(--neon-border-strong);
-  border-radius: 4px;
-  background: rgba(15, 12, 25, 0.55);
-  backdrop-filter: blur(8px);
-}
-.he-sep { color: var(--metin-koyu); font-weight: 400; }
-.lime-acc { color: #a3e635; font-weight: 700; }
-
-/* Hero alt statlar (rakam + mono etiket) */
-.hero-statlar {
-  display: flex;
-  gap: 36px;
-  margin-top: 36px;
-  padding-top: 22px;
-  border-top: 1px solid var(--neon-border);
-}
-.hero-statlar > div { display: flex; flex-direction: column; gap: 2px; }
-.hs-deger {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--metin-parlak);
-  letter-spacing: -1px;
-  line-height: 1;
-}
-.hs-etiket {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  color: var(--metin-sonuk);
-}
-
-/* Hero rozet kaldirildi, eyebrow yerine geldi */
-.hero-rozet { display: none !important; }
-
-/* ===================== URUN KARTI: SKU + STK MONO ETIKETLER ===================== */
-.urun-meta {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  margin-bottom: 8px;
-}
-.urun-sku {
-  color: var(--metin-koyu);
-}
-.urun-stk { padding: 2px 6px; border-radius: 3px; border: 1px solid currentColor; line-height: 1.2; }
-.urun-stk.var { color: #a3e635; background: rgba(163, 230, 53, 0.06); }
-.urun-stk.az { color: #fbbf24; background: rgba(251, 191, 36, 0.08); }
-.urun-stk.tukendi { color: #f87171; background: rgba(248, 113, 113, 0.08); }
-
-/* Fiyat rakamlari mono yapilabilir mi? - secimle */
-.fiyat-yeni, .fiyat-eski {
-  font-feature-settings: 'tnum' 1; /* tabular numerals */
-}
-
-/* ===================== BOLUM BASLIK MONO EYEBROW ===================== */
-.bb-mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: var(--metin-orta);
+/* ===================== STATUS INDICATOR (HUD canli rozet) ===================== */
+.status-ind {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  background: rgba(34, 197, 94, 0.08);
+  color: #86efac;
   text-transform: uppercase;
 }
-.bb-bracket { color: #fb7185; font-weight: 700; }
-.bb-sep { color: var(--metin-koyu); }
+.status-nokta {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80, 0 0 14px rgba(74, 222, 128, 0.5);
+  animation: status-pulse 1.4s ease-in-out infinite;
+}
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.85); }
+}
+.status-mor {
+  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.08);
+  color: #c084fc;
+}
+.status-mor .status-nokta { background: #c084fc; box-shadow: 0 0 8px #c084fc; }
+.status-pembe {
+  border-color: rgba(251, 113, 133, 0.4);
+  background: rgba(225, 29, 72, 0.08);
+  color: #fb7185;
+}
+.status-pembe .status-nokta { background: #fb7185; box-shadow: 0 0 8px #fb7185; }
+
+/* ===================== TRON GRID FLOOR ===================== */
+.tron-grid {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  margin: 24px 0;
+  overflow: hidden;
+  perspective: 400px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+.tron-grid-icerik {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) translateY(-25%);
+  transform-origin: center bottom;
+}
+.tron-yatay,
+.tron-dikey {
+  position: absolute;
+  inset: 0;
+}
+.tron-yatay {
+  background-image: linear-gradient(to bottom, transparent 0%, rgba(232, 121, 249, 0.35) 50%, transparent 100%);
+  background-size: 100% 60px;
+  animation: tron-akis 4s linear infinite;
+}
+.tron-dikey {
+  background-image: repeating-linear-gradient(to right, transparent 0, transparent 59px, rgba(232, 121, 249, 0.20) 60px);
+}
+@keyframes tron-akis {
+  from { background-position-y: 0; }
+  to { background-position-y: 60px; }
+}
+.tron-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, transparent 30%, transparent 70%, var(--bg-deep) 100%);
+}
+[data-theme="light"] .tron-yatay { background-image: linear-gradient(to bottom, transparent, rgba(159, 18, 57, 0.30), transparent); }
+[data-theme="light"] .tron-dikey { background-image: repeating-linear-gradient(to right, transparent 0, transparent 59px, rgba(159, 18, 57, 0.20) 60px); }
+
+/* ===================== HUD FRAME (kose cerceveli sarmalayici) ===================== */
+.hud-frame {
+  position: relative;
+  padding: 28px 24px;
+  border: 1px solid rgba(232, 121, 249, 0.18);
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border-radius: 4px;
+}
+.hud-etiket {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--bg-deep);
+  padding: 2px 10px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--pembe);
+  text-transform: uppercase;
+}
+.hud-kose {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--pembe);
+  pointer-events: none;
+}
+.hud-sol-ust { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.hud-sag-ust { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.hud-sol-alt { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.hud-sag-alt { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+/* ===================== URUN KARTI - HUD KOSE EKLENTILERI ===================== */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 22px; height: 22px;
+  border: 1.5px solid rgba(232, 121, 249, 0);
+  border-bottom: none; border-left: none;
+  border-radius: 2px;
+  transition: all 0.3s;
+  pointer-events: none;
+  z-index: 2;
+}
+.product-card:hover::after {
+  border-color: rgba(232, 121, 249, 0.65);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+}
+.product-card .card-body { position: relative; }
+.product-card .card-body::before {
+  content: '';
+  position: absolute;
+  bottom: 8px; left: 8px;
+  width: 22px; height: 22px;
+  border: 1.5px solid rgba(232, 121, 249, 0);
+  border-top: none; border-right: none;
+  border-radius: 2px;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+.product-card:hover .card-body::before {
+  border-color: rgba(232, 121, 249, 0.65);
+}
+
+/* ===================== GLITCH TEXT EFEKTI ===================== */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text:hover {
+  animation: glitch-base 0.4s steps(2) 1;
+}
+.glitch-text:hover::before,
+.glitch-text:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+.glitch-text:hover::before {
+  color: #fb7185;
+  animation: glitch-before 0.4s steps(2) 1;
+  mix-blend-mode: screen;
+}
+.glitch-text:hover::after {
+  color: #22d3ee;
+  animation: glitch-after 0.4s steps(2) 1;
+  mix-blend-mode: screen;
+}
+@keyframes glitch-base {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-2px, 1px); }
+  40%  { transform: translate(2px, -1px); }
+  60%  { transform: translate(-1px, 1px); }
+  80%  { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes glitch-before {
+  0%   { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  30%  { transform: translate(-3px, 0); clip-path: inset(20% 0 30% 0); }
+  60%  { transform: translate(2px, -1px); clip-path: inset(50% 0 10% 0); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes glitch-after {
+  0%   { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  30%  { transform: translate(3px, 0); clip-path: inset(30% 0 20% 0); }
+  60%  { transform: translate(-2px, 1px); clip-path: inset(10% 0 50% 0); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ===================== CYBER BUTTON (acili kose kesim) ===================== */
+.btn-cyber {
+  position: relative;
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--grad-neon);
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  transition: all 0.3s;
+  box-shadow:
+    0 0 20px rgba(225, 29, 72, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+.btn-cyber:hover {
+  filter: brightness(1.2);
+  box-shadow:
+    0 0 32px rgba(225, 29, 72, 0.7),
+    0 0 60px rgba(168, 85, 247, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ===================== HOLO LINE (animasyonlu çizgi) ===================== */
+.holo-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(232, 121, 249, 0.7) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: holo-line-akis 3s linear infinite;
+  margin: 24px 0;
+  position: relative;
+}
+.holo-line::before,
+.holo-line::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pembe);
+  box-shadow: 0 0 12px var(--pembe);
+}
+.holo-line::before { left: 0; }
+.holo-line::after { right: 0; }
+@keyframes holo-line-akis {
+  from { background-position: -100% 0; }
+  to { background-position: 100% 0; }
+}
+
+/* ===================== HERO HUD KOSE BRACKETS ===================== */
+.hero-icerik { position: relative; }
+.hero-icerik::before,
+.hero-icerik::after {
+  content: '';
+  position: absolute;
+  width: 26px; height: 26px;
+  border: 2px solid var(--pembe);
+  opacity: 0.7;
+  z-index: 3;
+}
+.hero-icerik::before {
+  top: -16px; left: -16px;
+  border-right: none; border-bottom: none;
+}
+.hero-icerik::after {
+  bottom: -16px; left: -16px;
+  border-right: none; border-top: none;
+}
+
+/* ===================== TECH SPINNER (cok halkali yukleme) ===================== */
+.tech-spinner {
+  display: inline-block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+.tech-spinner span {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--pembe);
+  animation: tech-spin 1.4s cubic-bezier(0.5, 0.1, 0.5, 1) infinite;
+}
+.tech-spinner span:nth-child(2) {
+  inset: 6px;
+  border-top-color: var(--mor);
+  animation-delay: -0.3s;
+  animation-direction: reverse;
+}
+.tech-spinner span:nth-child(3) {
+  inset: 12px;
+  border-top-color: var(--siyan);
+  animation-delay: -0.6s;
+}
+@keyframes tech-spin { to { transform: rotate(360deg); } }
+
+/* ===================== KATEGORI PILL CYBER STIL ===================== */
+.kategori-pill {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 0;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.kategori-pill.aktif { letter-spacing: 2px; }
+
+/* ===================== HERO ROZET MONOSPACE ===================== */
+.hero-rozet {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  letter-spacing: 2px !important;
+}
 
 /* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
