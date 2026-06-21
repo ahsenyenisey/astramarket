@@ -4306,13 +4306,14 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 
 /* ===================== HOLO SHIMMER - kartlar uzerinde gecen parlama ===================== */
-.product-card, .kampanya-kart, .premium-plan-kart, .premium-avantaj-kart, .kk-rozet,
-.hero-dekor-kart, .cam-kart {
+/* Premium plan kartlarinda KULLANMA - aktif plan ::after ile cakisiyor +
+   .pp-populer-rozet / .pp-aktif-rozet kart sinirini astigi icin overflow:hidden uygulanamaz */
+.product-card, .kampanya-kart, .premium-avantaj-kart {
   position: relative;
+  overflow: hidden;
 }
 .product-card::after,
 .kampanya-kart::after,
-.premium-plan-kart::after,
 .premium-avantaj-kart::after {
   content: '';
   position: absolute;
@@ -4330,11 +4331,10 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   opacity: 0;
-  border-radius: inherit;
+  z-index: 2;
 }
 .product-card:hover::after,
 .kampanya-kart:hover::after,
-.premium-plan-kart:hover::after,
 .premium-avantaj-kart:hover::after {
   left: 130%;
   opacity: 1;
@@ -4343,7 +4343,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 /* Light tema icin shimmer */
 [data-theme="light"] .product-card::after,
 [data-theme="light"] .kampanya-kart::after,
-[data-theme="light"] .premium-plan-kart::after,
 [data-theme="light"] .premium-avantaj-kart::after {
   background: linear-gradient(120deg,
     transparent 30%,
