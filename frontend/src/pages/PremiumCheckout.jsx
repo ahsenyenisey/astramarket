@@ -9,7 +9,7 @@ const BOS_KART = { uzerinde: '', no: '', skt: '', cvv: '' };
 export default function PremiumCheckout() {
   const loc = useLocation();
   const nav = useNavigate();
-  const { user } = useAuth();
+  const { user, premium, setPremium } = useAuth();
   const planId = loc.state?.planId;
   const plan = bulPlan(planId);
 
@@ -19,6 +19,7 @@ export default function PremiumCheckout() {
 
   if (!user) return <Navigate to="/login" state={{ from: '/premium' }} replace />;
   if (!plan) return <Navigate to="/premium" replace />;
+  if (premium) return <Navigate to="/premium" replace />;
 
   const kartGecerli =
     kart.uzerinde &&
@@ -36,6 +37,7 @@ export default function PremiumCheckout() {
     setYukleniyor(true);
     // Demo - 1.2sn gecikme + basari sayfasi
     setTimeout(() => {
+      setPremium(true);
       nav('/premium/basari', { replace: true, state: { plan } });
     }, 1200);
   };

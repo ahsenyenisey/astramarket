@@ -1,6 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { PLANLAR } from '../data/premium';
+import { useAuth } from '../context/AuthContext';
 
 const AVANTAJLAR = [
   { ikon: '🚀', baslik: 'Ücretsiz Hızlı Kargo', aciklama: 'Tüm siparişlerinde 250 TL alt limit ile ücretsiz kargo, üstelik 12 saat içinde teslim.' },
@@ -13,6 +14,7 @@ const AVANTAJLAR = [
 
 export default function Premium() {
   const nav = useNavigate();
+  const { user, premium } = useAuth();
   const planSec = (planId) => {
     nav('/premium/odeme', { state: { planId } });
   };
@@ -22,9 +24,16 @@ export default function Premium() {
         <div className="ph-icerik">
           <div className="ph-ust">
             <span className="ph-rozet">⭐ PREMIUM ÜYELİK</span>
+            {premium && (
+              <span className="ph-aktif-rozet">✓ ÜYELİĞİN AKTİF</span>
+            )}
           </div>
           <h1>AstraMarket <span className="ph-altin">Premium</span></h1>
-          <p>Alışverişin VIP deneyimi. Daha çok indirim, daha hızlı kargo, daha iyi destek.</p>
+          <p>
+            {premium
+              ? `Hoş geldin ${user?.ad?.split(' ')[0] || ''}! Tüm Premium avantajların aktif. Aşağıdaki avantajları kullanmaya hemen başlayabilirsin.`
+              : 'Alışverişin VIP deneyimi. Daha çok indirim, daha hızlı kargo, daha iyi destek.'}
+          </p>
           <div className="ph-rakamlar">
             <div><strong>250.000+</strong><span>Premium üye</span></div>
             <div><strong>%37</strong><span>Yıllık tasarruf</span></div>
@@ -72,9 +81,15 @@ export default function Premium() {
               </div>
               {p.aylik && <div className="pp-aylik">≈ {p.aylik.toFixed(2)} TL / ay</div>}
               {p.not && <div className="pp-not">{p.not}</div>}
-              <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
-                {p.populer ? 'En Avantajlı Plan' : 'Bu Planı Seç'}
-              </Button>
+              {premium ? (
+                <Button className="btn-bordo w-100 mt-3" disabled>
+                  ✓ Üyeliğin Aktif
+                </Button>
+              ) : (
+                <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
+                  {p.populer ? 'En Avantajlı Plan' : 'Bu Planı Seç'}
+                </Button>
+              )}
             </div>
           </Col>
         ))}

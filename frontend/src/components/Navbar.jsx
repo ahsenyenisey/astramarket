@@ -43,7 +43,7 @@ function CustomDropdown({ label, children }) {
 }
 
 export default function AppNavbar() {
-  const { user, logout } = useAuth();
+  const { user, premium, logout } = useAuth();
   const { adetSayisi } = useCart();
   const { tema, degistir } = useTheme();
   const nav = useNavigate();
@@ -137,8 +137,30 @@ export default function AppNavbar() {
               </Nav.Link>
             )}
             {user ? (
-              <CustomDropdown label={user.ad}>
-                <div className="custom-dropdown-itemtext">{user.email}</div>
+              <CustomDropdown
+                label={
+                  <span className={`user-label ${premium ? 'is-premium' : ''}`}>
+                    {premium && <span className="premium-yildiz" aria-hidden="true">★</span>}
+                    {user.ad}
+                  </span>
+                }
+              >
+                <div className="custom-dropdown-itemtext">
+                  <div style={{ fontWeight: 600 }}>{user.ad}</div>
+                  <div style={{ fontSize: '0.78rem', opacity: 0.7 }}>{user.email}</div>
+                </div>
+                <div className="custom-dropdown-divider" />
+                {premium ? (
+                  <Link to="/premium" className="custom-dropdown-item premium-aktif-satir">
+                    <span className="pa-rozet">★ PREMIUM</span>
+                    <span className="pa-durum">Aktif</span>
+                  </Link>
+                ) : (
+                  <Link to="/premium" className="custom-dropdown-item premium-pasif-satir">
+                    <span>Premium'a Yükselt</span>
+                    <span className="pa-ok">→</span>
+                  </Link>
+                )}
                 <div className="custom-dropdown-divider" />
                 <button
                   type="button"
