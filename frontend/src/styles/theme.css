@@ -4565,128 +4565,289 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .magnetic-wrap { transition: none; }
 }
 
-/* ===================== TIKLAMA DALGASI (Click Ripple) ===================== */
-.click-ripple-katmani {
+/* ===================== COSMIC ORBIT - Gezegen Sistemi ===================== */
+.cosmic-orbit {
   position: fixed !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  z-index: 9985 !important;
-  overflow: visible !important;
-}
-.click-ripple {
-  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  width: 920px !important;
+  height: 920px !important;
   transform: translate(-50%, -50%);
-  pointer-events: none;
+  pointer-events: none !important;
+  z-index: 3 !important;
+  perspective: 1400px;
+  opacity: 0.75;
 }
-.cr-halka {
+
+/* Tum sistem de hafifce kendi etrafinda salinir */
+.cosmic-orbit::before {
+  content: '';
   position: absolute;
-  top: 0; left: 0;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 121, 249, 0.07) 0%, transparent 65%);
+  filter: blur(40px);
+  animation: co-sistem-nefes 9s ease-in-out infinite;
+}
+@keyframes co-sistem-nefes {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+.co-merkez {
+  position: absolute;
+  top: 50%; left: 50%;
   width: 0; height: 0;
-  border-radius: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid currentColor;
-  animation: cr-genisle 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  opacity: 0;
 }
-.cr-halka-1 { animation-delay: 0s; }
-.cr-halka-2 { animation-delay: 0.08s; }
-.cr-halka-3 { animation-delay: 0.16s; }
-.click-ripple-pembe { color: var(--pembe); filter: drop-shadow(0 0 8px var(--pembe)); }
-.click-ripple-mor { color: var(--mor); filter: drop-shadow(0 0 8px var(--mor)); }
-@keyframes cr-genisle {
-  0%   { width: 0; height: 0; opacity: 1; border-width: 3px; }
-  100% { width: 160px; height: 160px; opacity: 0; border-width: 1px; }
-}
-
-/* ===================== CURSOR KIVILCIM TRAIL ===================== */
-.cursor-kivilcim-katmani {
-  position: fixed !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  z-index: 9980 !important;
-  overflow: visible !important;
-}
-.cursor-kivilcim {
+.co-yildiz {
   position: absolute;
+  top: 50%; left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: cursor-kvm-sol 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  will-change: transform, opacity;
+  background: radial-gradient(circle, #fff 0%, var(--pembe) 35%, var(--mor) 60%, transparent 80%);
+  box-shadow:
+    0 0 50px rgba(232, 121, 249, 0.85),
+    0 0 100px rgba(168, 85, 247, 0.55),
+    0 0 200px rgba(232, 121, 249, 0.35);
+  animation: co-yildiz-puls 3.2s ease-in-out infinite;
 }
-.cursor-kivilcim-pembe {
-  background: radial-gradient(circle, #fff 0%, var(--pembe) 45%, rgba(232, 121, 249, 0) 80%);
-  box-shadow: 0 0 8px var(--pembe), 0 0 14px rgba(232, 121, 249, 0.65);
-}
-.cursor-kivilcim-mor {
-  background: radial-gradient(circle, #fff 0%, var(--mor) 45%, rgba(168, 85, 247, 0) 80%);
-  box-shadow: 0 0 8px var(--mor), 0 0 14px rgba(168, 85, 247, 0.65);
-}
-@keyframes cursor-kvm-sol {
-  0%   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  100% { transform: translate(calc(-50% + var(--surukle, 0px)), calc(-50% + 18px)) scale(0); opacity: 0; }
+@keyframes co-yildiz-puls {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.25); opacity: 1; }
 }
 
-/* ===================== CYBER VERI AKISI (sol kenar matrix) ===================== */
-.cyber-veri-akisi {
-  position: fixed !important;
-  top: 80px !important;
-  bottom: 20px !important;
-  left: 8px !important;
-  width: 80px !important;
-  pointer-events: none !important;
-  z-index: 4 !important;
-  overflow: hidden !important;
-  display: flex !important;
-  gap: 10px;
-  opacity: 0.38;
+/* Halkalar - her biri farkli boyut + tilt */
+.co-halka {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  animation: co-don var(--donus-sure, 30s) linear infinite;
+  will-change: transform;
 }
-.cyber-kolon {
-  flex: 1;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 0.72rem;
-  line-height: 1.5;
+.co-halka-1 {
+  width: 340px;
+  height: 340px;
+  margin: -170px 0 0 -170px;
+  transform: rotateX(var(--tilt));
+}
+.co-halka-2 {
+  width: 560px;
+  height: 560px;
+  margin: -280px 0 0 -280px;
+  transform: rotateX(var(--tilt)) rotateZ(25deg);
+}
+.co-halka-3 {
+  width: 820px;
+  height: 820px;
+  margin: -410px 0 0 -410px;
+  transform: rotateX(var(--tilt)) rotateZ(-15deg);
+}
+@keyframes co-don {
+  to { transform: rotateX(var(--tilt)) rotateZ(360deg); }
+}
+.co-halka-2 { animation-name: co-don-2; }
+@keyframes co-don-2 {
+  to { transform: rotateX(var(--tilt)) rotateZ(385deg); }
+}
+.co-halka-3 { animation-name: co-don-3; }
+@keyframes co-don-3 {
+  to { transform: rotateX(var(--tilt)) rotateZ(345deg); }
+}
+
+/* Halka cizimi (ellipse stroke gorunumu) */
+.co-halka-cizim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 121, 249, 0.35);
+  box-shadow:
+    inset 0 0 25px rgba(232, 121, 249, 0.18),
+    0 0 30px rgba(168, 85, 247, 0.10);
+}
+.co-halka-2 .co-halka-cizim { border-color: rgba(168, 85, 247, 0.30); }
+.co-halka-3 .co-halka-cizim { border-color: rgba(232, 121, 249, 0.22); }
+
+/* Halka uzerinde logo gezdirme yorunge containeri */
+.co-yorunge {
+  position: absolute;
+  inset: 0;
+}
+/* Her logo halka kenarinda farkli aci ile baslar */
+.co-logo-konum {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0; height: 0;
+  transform: rotate(var(--baslangic-aci, 0deg));
+}
+.co-logo-konum .co-mini-logo {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  top: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Halka radius'unun yarisi kadar yukari kaydir = halka uzerine oturt */
+}
+.co-halka-1 .co-logo-konum .co-mini-logo { top: -180px; }
+.co-halka-2 .co-logo-konum .co-mini-logo { top: -290px; }
+.co-halka-3 .co-logo-konum .co-mini-logo { top: -420px; }
+
+.co-pembe {
   color: var(--pembe);
-  white-space: pre;
-  text-shadow: 0 0 6px rgba(232, 121, 249, 0.75), 0 0 12px rgba(232, 121, 249, 0.35);
-  animation: cyber-kay linear infinite;
-  display: block;
-  /* Asagi taşan kismi yumusakca solduran maskeleme */
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  filter: drop-shadow(0 0 10px rgba(232, 121, 249, 0.85)) drop-shadow(0 0 22px rgba(232, 121, 249, 0.45));
 }
-.cyber-kolon:nth-child(2) { color: var(--mor); text-shadow: 0 0 6px rgba(168, 85, 247, 0.75), 0 0 12px rgba(168, 85, 247, 0.35); }
-.cyber-kolon:nth-child(3) { color: #fda4af; text-shadow: 0 0 6px rgba(253, 164, 175, 0.75); }
-@keyframes cyber-kay {
-  0%   { transform: translateY(-50%); }
-  100% { transform: translateY(0%); }
-}
-@media (max-width: 991px) { .cyber-veri-akisi { display: none !important; } }
-
-/* ===================== GLITCH FLASH (rastgele RGB split flash) ===================== */
-.glitch-flash {
-  position: fixed !important;
-  inset: 0 !important;
-  pointer-events: none !important;
-  z-index: 9970 !important;
-  opacity: 0;
-}
-.glitch-flash.aktif {
-  animation: gf-patla 0.32s steps(6, jump-none) forwards;
-}
-@keyframes gf-patla {
-  0%   { opacity: 0; backdrop-filter: hue-rotate(0deg); background: transparent; transform: translateX(0); }
-  15%  { opacity: 1; background: linear-gradient(90deg, rgba(225, 29, 72, 0.30), transparent 50%, rgba(168, 85, 247, 0.30)); transform: translateX(-6px); backdrop-filter: hue-rotate(45deg) contrast(1.4); }
-  30%  { opacity: 0.6; transform: translateX(8px); backdrop-filter: hue-rotate(-60deg) saturate(1.8); }
-  45%  { opacity: 1; background: linear-gradient(90deg, rgba(34, 211, 238, 0.20), transparent 50%, rgba(232, 121, 249, 0.30)); transform: translateX(-3px); }
-  60%  { opacity: 0.5; transform: translateX(5px); backdrop-filter: hue-rotate(30deg); }
-  80%  { opacity: 0.8; background: linear-gradient(0deg, rgba(168, 85, 247, 0.20), transparent); transform: translateX(0); }
-  100% { opacity: 0; background: transparent; transform: translateX(0); backdrop-filter: none; }
+.co-mor {
+  color: var(--mor);
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.85)) drop-shadow(0 0 22px rgba(168, 85, 247, 0.45));
 }
 
-/* ===================== Reduced motion ===================== */
+/* Mobilde kucult */
+@media (max-width: 991px) {
+  .cosmic-orbit { width: 600px !important; height: 600px !important; opacity: 0.5; }
+  .co-halka-1 { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
+  .co-halka-2 { width: 360px; height: 360px; margin: -180px 0 0 -180px; }
+  .co-halka-3 { width: 540px; height: 540px; margin: -270px 0 0 -270px; }
+  .co-halka-1 .co-logo-konum .co-mini-logo { top: -120px; }
+  .co-halka-2 .co-logo-konum .co-mini-logo { top: -190px; }
+  .co-halka-3 .co-logo-konum .co-mini-logo { top: -280px; }
+}
+@media (max-width: 575px) {
+  .cosmic-orbit { display: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .click-ripple-katmani, .cursor-kivilcim-katmani, .cyber-veri-akisi, .glitch-flash {
-    display: none !important;
-  }
+  .cosmic-orbit { display: none !important; }
 }
+
+/* ===================== OGRENCI DOGRULAMA - Premium Checkout ===================== */
+.ogrenci-dogrulama {
+  padding: 22px 24px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(34, 211, 238, 0.10), transparent 65%),
+    linear-gradient(135deg, rgba(28, 25, 50, 0.85), rgba(15, 12, 25, 0.85));
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: 0 8px 30px rgba(34, 211, 238, 0.10);
+}
+.od-baslik {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.20);
+}
+.od-ikon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.7));
+}
+.od-ust {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #22d3ee;
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
+}
+.od-alt {
+  font-size: 0.85rem;
+  color: var(--metin-sonuk);
+  margin-top: 2px;
+}
+
+.od-dosya {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.06), rgba(168, 85, 247, 0.04));
+  border: 2px dashed rgba(34, 211, 238, 0.40);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0;
+  user-select: none;
+}
+.od-dosya:hover {
+  border-color: rgba(34, 211, 238, 0.70);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.10), rgba(168, 85, 247, 0.08));
+  transform: translateY(-1px);
+}
+.od-dosya.yuklendi {
+  border-style: solid;
+  border-color: rgba(52, 211, 153, 0.55);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), rgba(52, 211, 153, 0.06));
+}
+.od-dosya-ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(168, 85, 247, 0.12));
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #22d3ee;
+  flex-shrink: 0;
+}
+.od-dosya.yuklendi .od-dosya-ikon {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  border-color: rgba(52, 211, 153, 0.75);
+  color: #062318;
+  box-shadow: 0 0 18px rgba(52, 211, 153, 0.55);
+}
+.od-dosya-yazi {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--metin-parlak);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.od-dosya-yazi span {
+  font-weight: 500;
+  color: var(--metin-sonuk);
+  margin-left: 6px;
+}
+.od-dosya-sil {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.40);
+  color: #fca5a5;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.od-dosya-sil:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: #ef4444;
+  color: #fecaca;
+}
+
+/* Light tema */
+[data-theme="light"] .ogrenci-dogrulama {
+  background: linear-gradient(135deg, #ecfeff, #f0f9ff);
+  border-color: rgba(8, 145, 178, 0.30);
+}
+[data-theme="light"] .od-ust { color: #0e7490; filter: none; }
+[data-theme="light"] .od-dosya {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(8, 145, 178, 0.35);
+}
+[data-theme="light"] .od-dosya:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(8, 145, 178, 0.65);
+}
+[data-theme="light"] .od-dosya.yuklendi {
+  background: #ecfdf5;
+  border-color: rgba(5, 150, 105, 0.45);
+}
+[data-theme="light"] .od-dosya-ikon { color: #0e7490; }

@@ -5,6 +5,7 @@ import { bulPlan } from '../data/premium';
 import { useAuth } from '../context/AuthContext';
 
 const BOS_KART = { uzerinde: '', no: '', skt: '', cvv: '' };
+const BOS_OGRENCI = { universite: '', bolum: '', ogrNo: '', belgeAd: '' };
 
 export default function PremiumCheckout() {
   const loc = useLocation();
@@ -14,6 +15,7 @@ export default function PremiumCheckout() {
   const plan = bulPlan(planId);
 
   const [kart, setKart] = useState(BOS_KART);
+  const [ogrenci, setOgrenci] = useState(BOS_OGRENCI);
   const [yukleniyor, setYukleniyor] = useState(false);
   const [hata, setHata] = useState('');
 
@@ -23,6 +25,7 @@ export default function PremiumCheckout() {
   if (premium && premiumPlan === planId) return <Navigate to="/premium" replace />;
 
   const planDegisiyor = premium && premiumPlan !== planId;
+  const ogrenciPlani = planId === 'ogrenci';
 
   const kartGecerli =
     kart.uzerinde &&
@@ -30,10 +33,37 @@ export default function PremiumCheckout() {
     kart.skt.length >= 5 &&
     kart.cvv.length >= 3;
 
+  const ogrenciGecerli =
+    !ogrenciPlani ||
+    (ogrenci.universite.trim().length >= 2 &&
+      ogrenci.bolum.trim().length >= 2 &&
+      ogrenci.ogrNo.trim().length >= 4 &&
+      ogrenci.belgeAd);
+
+  const belgeSec = (e) => {
+    const dosya = e.target.files?.[0];
+    if (!dosya) return;
+    const izinli = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (!izinli.includes(dosya.type)) {
+      setHata('Sadece JPG, PNG veya PDF dosya yükleyebilirsin.');
+      return;
+    }
+    if (dosya.size > 5 * 1024 * 1024) {
+      setHata('Dosya boyutu en fazla 5 MB olmalı.');
+      return;
+    }
+    setHata('');
+    setOgrenci((o) => ({ ...o, belgeAd: dosya.name }));
+  };
+
   const odemeYap = (e) => {
     e.preventDefault();
     if (!kartGecerli) {
       setHata('Lütfen kart bilgilerini eksiksiz doldurun');
+      return;
+    }
+    if (!ogrenciGecerli) {
+      setHata('Öğrenci planı için öğrenci bilgilerini ve belgeni eksiksiz doldurman gerekiyor');
       return;
     }
     setHata('');
@@ -128,6 +158,81 @@ export default function PremiumCheckout() {
                   />
                 </Col>
               </Row>
+
+              {ogrenciPlani && (
+                <div className="ogrenci-dogrulama mt-4">
+                  <div className="od-baslik">
+                    <span className="od-ikon">🎓</span>
+                    <div>
+                      <div className="od-ust">ÖĞRENCİ DOĞRULAMA</div>
+                      <div className="od-alt">%50 indirim için aktif öğrencilik belgeni ekle</div>
+                    </div>
+                  </div>
+
+                  <Row className="g-3">
+                    <Col md={12}>
+                      <Form.Label>Üniversite *</Form.Label>
+                      <Form.Control
+                        required={ogrenciPlani}
+                        placeholder="Yıldız Teknik Üniversitesi"
+                        value={ogrenci.universite}
+                        onChange={(e) => setOgrenci({ ...ogrenci, universite: e.target.value })}
+                      />
+                    </Col>
+                    <Col md={7}>
+                      <Form.Label>Bölüm *</Form.Label>
+                      <Form.Control
+                        required={ogrenciPlani}
+                        placeholder="Bilgisayar Mühendisliği"
+                        value={ogrenci.bolum}
+                        onChange={(e) => setOgrenci({ ...ogrenci, bolum: e.target.value })}
+                      />
+                    </Col>
+                    <Col md={5}>
+                      <Form.Label>Öğrenci No *</Form.Label>
+                      <Form.Control
+                        required={ogrenciPlani}
+                        placeholder="20210xxxxx"
+                        value={ogrenci.ogrNo}
+                        onChange={(e) => setOgrenci({ ...ogrenci, ogrNo: e.target.value.replace(/\D/g, '').slice(0, 12) })}
+                      />
+                    </Col>
+                    <Col md={12}>
+                      <Form.Label>Öğrenci Belgesi *</Form.Label>
+                      <label className={`od-dosya ${ogrenci.belgeAd ? 'yuklendi' : ''}`}>
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,application/pdf"
+                          onChange={belgeSec}
+                          hidden
+                        />
+                        <span className="od-dosya-ikon">{ogrenci.belgeAd ? '✓' : '↑'}</span>
+                        <span className="od-dosya-yazi">
+                          {ogrenci.belgeAd
+                            ? <>Yüklendi: <strong>{ogrenci.belgeAd}</strong></>
+                            : <>Dosya seç <span>(JPG, PNG veya PDF · max 5 MB)</span></>}
+                        </span>
+                        {ogrenci.belgeAd && (
+                          <button
+                            type="button"
+                            className="od-dosya-sil"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setOgrenci({ ...ogrenci, belgeAd: '' });
+                            }}
+                          >
+                            Kaldır
+                          </button>
+                        )}
+                      </label>
+                    </Col>
+                  </Row>
+
+                  <Alert variant="info" className="mt-3 mb-0" style={{ fontSize: '0.82rem' }}>
+                    🔒 Belgeniz sadece doğrulama amaçlı kullanılır, 3. taraflarla paylaşılmaz. Onay süresi ortalama 24 saat.
+                  </Alert>
+                </div>
+              )}
 
               <div className="mt-4">
                 <Button type="submit" className="btn-bordo w-100" size="lg" disabled={yukleniyor}>
