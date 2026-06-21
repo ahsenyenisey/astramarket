@@ -11,6 +11,10 @@ import FilmEffects from './components/FilmEffects';
 import CometRain from './components/CometRain';
 import PageWipe from './components/PageWipe';
 import HoloHelix from './components/HoloHelix';
+import ClickRipple from './components/ClickRipple';
+import CursorSparkles from './components/CursorSparkles';
+import CyberDataStream from './components/CyberDataStream';
+import GlitchFlash from './components/GlitchFlash';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -49,6 +53,10 @@ export default function App() {
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <CometRain />}
       {immersiveEfektler && <HoloHelix />}
+      {immersiveEfektler && <CyberDataStream />}
+      {immersiveEfektler && <CursorSparkles />}
+      {immersiveEfektler && <ClickRipple />}
+      {immersiveEfektler && <GlitchFlash />}
       {immersiveEfektler && <PageWipe />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
 
