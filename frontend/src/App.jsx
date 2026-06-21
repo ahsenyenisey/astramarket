@@ -9,6 +9,8 @@ import AuroraOverlay from './components/AuroraOverlay';
 import IntroLoader from './components/IntroLoader';
 import FilmEffects from './components/FilmEffects';
 import LogoBackground from './components/LogoBackground';
+import CometRain from './components/CometRain';
+import PageWipe from './components/PageWipe';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -46,6 +48,8 @@ export default function App() {
       {immersiveEfektler && <AuroraOverlay />}
       {!adminAlani && !sadeSayfa && <BlobBackground />}
       {immersiveEfektler && <LogoBackground />}
+      {immersiveEfektler && <CometRain />}
+      {immersiveEfektler && <PageWipe />}
       {immersiveEfektler && <div className="scan-lines" aria-hidden="true" />}
 
       {!sadeSayfa && <AppNavbar />}

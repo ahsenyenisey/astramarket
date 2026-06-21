@@ -4117,3 +4117,244 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   -webkit-text-fill-color: transparent;
   filter: none;
 }
+
+/* ===================== KOMET YAGMURU ===================== */
+.komet-katmani {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  overflow: hidden;
+}
+.komet {
+  position: absolute;
+  width: 280px;
+  height: 2px;
+  border-radius: 50%;
+  transform-origin: left center;
+  animation: komet-uc linear forwards;
+  will-change: transform, opacity;
+}
+.komet::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 0;
+  width: 100%;
+  height: 6px;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.55;
+}
+.komet::after {
+  content: '';
+  position: absolute;
+  top: -3px; right: -6px;
+  width: 14px;
+  height: 8px;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+.komet-pembe {
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.95));
+  box-shadow: 0 0 20px rgba(232, 121, 249, 0.55);
+}
+.komet-pembe::before { background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.85)); }
+.komet-pembe::after { background: #fda4af; box-shadow: 0 0 28px #f0abfc, 0 0 60px #e879f9; }
+.komet-mor {
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.95));
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.55);
+}
+.komet-mor::before { background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.85)); }
+.komet-mor::after { background: #c4b5fd; box-shadow: 0 0 28px #a855f7, 0 0 60px #8b5cf6; }
+
+@keyframes komet-uc {
+  0% { transform: translate(0, 0) rotate(var(--rot, 30deg)); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(140vw, 140vh) rotate(var(--rot, 30deg)); opacity: 0; }
+}
+/* Rotation transform yukaridaki style attribute icinde, animasyon translate'e ek olur */
+.komet {
+  animation-name: komet-translate;
+}
+@keyframes komet-translate {
+  0%   { translate: 0 0;            opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { translate: 140vw 90vh;     opacity: 0; }
+}
+
+/* ===================== PORTAL RING - Donen Enerji Halkasi ===================== */
+.portal-ring {
+  position: relative;
+  pointer-events: none;
+}
+.pr-halka {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+.pr-halka-1 {
+  border-top-color: var(--pembe);
+  border-right-color: var(--pembe);
+  box-shadow: 0 0 30px rgba(232, 121, 249, 0.45), inset 0 0 30px rgba(232, 121, 249, 0.25);
+  animation: pr-don 9s linear infinite;
+}
+.pr-halka-2 {
+  inset: 14%;
+  border-bottom-color: var(--mor);
+  border-left-color: var(--mor);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.45), inset 0 0 24px rgba(168, 85, 247, 0.25);
+  animation: pr-don 6s linear infinite reverse;
+}
+.pr-halka-3 {
+  inset: 28%;
+  border-top-color: var(--turkuaz, #22d3ee);
+  border-right-color: var(--turkuaz, #22d3ee);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.45), inset 0 0 20px rgba(34, 211, 238, 0.25);
+  animation: pr-don 4s linear infinite;
+}
+.pr-merkez {
+  position: absolute;
+  inset: 44%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--pembe) 35%, transparent 70%);
+  filter: blur(6px);
+  animation: pr-puls 2.4s ease-in-out infinite;
+}
+.pr-orbit {
+  position: absolute;
+  inset: 0;
+  animation: pr-don 5s linear infinite;
+}
+.pr-parca {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--pembe);
+  margin: -4px 0 0 -4px;
+  box-shadow: 0 0 16px var(--pembe), 0 0 32px rgba(232, 121, 249, 0.6);
+  transform: rotate(0deg) translateX(40%);
+}
+@keyframes pr-don {
+  to { transform: rotate(360deg); }
+}
+@keyframes pr-puls {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+/* Hero icindeki portal pozisyon - sag tarafta, dekor kartlarinin arkasinda */
+.hero-portal {
+  position: absolute !important;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.45;
+  z-index: 0;
+  filter: blur(0.4px);
+}
+@media (max-width: 991px) {
+  .hero-portal { display: none; }
+}
+
+/* ===================== SAYFA WIPE PERDE ===================== */
+.page-wipe {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  overflow: hidden;
+  opacity: 0;
+}
+.page-wipe.aktif { opacity: 1; }
+.pw-perde {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  will-change: transform;
+}
+.page-wipe.aktif .pw-perde-1 {
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.45), transparent);
+  animation: pw-kay 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.page-wipe.aktif .pw-perde-2 {
+  background: linear-gradient(90deg, transparent, rgba(232, 121, 249, 0.55), transparent);
+  animation: pw-kay 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.08s;
+}
+.page-wipe.aktif .pw-perde-3 {
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.45), transparent);
+  animation: pw-kay 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.16s;
+}
+@keyframes pw-kay {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===================== SCRAMBLE TEXT ===================== */
+.scramble-text {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+/* ===================== COUNTER ===================== */
+.counter-deger {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===================== HOLO SHIMMER - kartlar uzerinde gecen parlama ===================== */
+.product-card, .kampanya-kart, .premium-plan-kart, .premium-avantaj-kart, .kk-rozet,
+.hero-dekor-kart, .cam-kart {
+  position: relative;
+}
+.product-card::after,
+.kampanya-kart::after,
+.premium-plan-kart::after,
+.premium-avantaj-kart::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(232, 121, 249, 0.35) 55%,
+    rgba(255, 255, 255, 0.18) 60%,
+    transparent 70%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+}
+.product-card:hover::after,
+.kampanya-kart:hover::after,
+.premium-plan-kart:hover::after,
+.premium-avantaj-kart:hover::after {
+  left: 130%;
+  opacity: 1;
+}
+
+/* Light tema icin shimmer */
+[data-theme="light"] .product-card::after,
+[data-theme="light"] .kampanya-kart::after,
+[data-theme="light"] .premium-plan-kart::after,
+[data-theme="light"] .premium-avantaj-kart::after {
+  background: linear-gradient(120deg,
+    transparent 30%,
+    rgba(159, 18, 57, 0.10) 50%,
+    rgba(159, 18, 57, 0.20) 55%,
+    rgba(159, 18, 57, 0.10) 60%,
+    transparent 70%
+  );
+}
+
+/* ===================== Reduced motion ===================== */
+@media (prefers-reduced-motion: reduce) {
+  .komet-katmani, .page-wipe, .pr-halka, .pr-orbit, .pr-merkez { animation: none !important; }
+}

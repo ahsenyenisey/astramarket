@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Modal, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { PLANLAR, bulPlan } from '../data/premium';
 import { useAuth } from '../context/AuthContext';
+import Counter from '../components/Counter';
 
 const AVANTAJLAR = [
   { ikon: '🚀', baslik: 'Ücretsiz Hızlı Kargo', aciklama: 'Tüm siparişlerinde 250 TL alt limit ile ücretsiz kargo, üstelik 12 saat içinde teslim.' },
@@ -56,9 +57,9 @@ export default function Premium() {
               : 'Alışverişin VIP deneyimi. Daha çok indirim, daha hızlı kargo, daha iyi destek.'}
           </p>
           <div className="ph-rakamlar">
-            <div><strong>250.000+</strong><span>Premium üye</span></div>
-            <div><strong>%37</strong><span>Yıllık tasarruf</span></div>
-            <div><strong>4.9 ★</strong><span>Üye memnuniyeti</span></div>
+            <div><strong><Counter hedef={250000} sonEk="+" sure={1800} /></strong><span>Premium üye</span></div>
+            <div><strong><Counter hedef={37} onEk="%" sure={1400} gecikme={200} /></strong><span>Yıllık tasarruf</span></div>
+            <div><strong><Counter hedef={4.9} ondalik={1} sonEk=" ★" sure={1400} gecikme={400} /></strong><span>Üye memnuniyeti</span></div>
           </div>
         </div>
       </section>

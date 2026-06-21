@@ -8,6 +8,9 @@ import HoloField from '../components/HoloField';
 import useMouseTilt from '../components/useMouseTilt';
 import RevealOnScroll from '../components/RevealOnScroll';
 import TronGrid from '../components/TronGrid';
+import ScrambleText from '../components/ScrambleText';
+import Counter from '../components/Counter';
+import PortalRing from '../components/PortalRing';
 
 const SAYFA_BASI = 8;
 
@@ -25,12 +28,14 @@ function SkeletonKart() {
   );
 }
 
-function DekoKart({ deger, etiket, gecikme = 0 }) {
+function DekoKart({ hedef, onEk = '', sonEk = '', etiket, gecikme = 0 }) {
   const ref = useRef(null);
   useMouseTilt(ref, { maxAngle: 10, scale: 1.04 });
   return (
     <div ref={ref} className="hero-dekor-kart" style={{ animationDelay: `${gecikme}s` }}>
-      <div className="deger">{deger}</div>
+      <div className="deger">
+        <Counter hedef={hedef} onEk={onEk} sonEk={sonEk} gecikme={gecikme * 200} sure={1500} />
+      </div>
       <div className="etiket">{etiket}</div>
     </div>
   );
@@ -90,9 +95,12 @@ export default function Home() {
       {/* HERO */}
       <section className="hero-banner fade-up">
         <HoloField gridLines={true} />
+        <PortalRing boyut={460} className="hero-portal" />
 
         <div className="hero-icerik">
-          <span className="hero-rozet">▸ YAZ KAMPANYASI 2026</span>
+          <span className="hero-rozet">
+            <ScrambleText text="▸ YAZ KAMPANYASI 2026" sure={900} />
+          </span>
           <h1>
             Sevdiklerin <span className="holo-text glitch-text" data-text="burada,">burada,</span><br />
             <span className="glitch-text" data-text="fırsatları kaçırma!">fırsatları kaçırma!</span>
@@ -111,9 +119,9 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-dekor d-none d-lg-flex">
-          <DekoKart deger="18+" etiket="Ürün Çeşidi" gecikme={0} />
-          <DekoKart deger="%50" etiket="İndirim" gecikme={1} />
-          <DekoKart deger="24sa" etiket="Hızlı Kargo" gecikme={2} />
+          <DekoKart hedef={100} sonEk="+" etiket="Ürün Çeşidi" gecikme={0} />
+          <DekoKart hedef={50} onEk="%" etiket="İndirim" gecikme={1} />
+          <DekoKart hedef={24} sonEk="sa" etiket="Hızlı Kargo" gecikme={2} />
         </div>
       </section>
 
