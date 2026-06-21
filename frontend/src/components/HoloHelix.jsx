@@ -14,26 +14,33 @@ function MiniLogo() {
 }
 
 function Helix({ yan }) {
+  // Seamless loop icin parcalar 2 set olarak render edilir (set 1 = 0-50%, set 2 = 50-100%).
+  // CSS animasyonu translateY(0) -> translateY(-50%) yapar; set 2 set 1'in tipki kopyasi
+  // oldugu icin loop noktasinda gorsel atlama olmaz.
+  const set = Array.from({ length: PARCA_SAYISI });
   return (
     <div className={`holo-helix holo-helix-${yan}`} aria-hidden="true">
       <div className="hh-saramal">
-        {Array.from({ length: PARCA_SAYISI }).map((_, i) => {
-          const t = (i / (PARCA_SAYISI - 1)) * 100;
-          return (
-            <div
-              key={i}
-              className="hh-parca-grup"
-              style={{
-                top: `${t}%`,
-                animationDelay: `${-(i * 0.30)}s`,
-              }}
-            >
-              <span className="hh-dot hh-sol"><MiniLogo /></span>
-              <span className="hh-bag" />
-              <span className="hh-dot hh-sag"><MiniLogo /></span>
-            </div>
-          );
-        })}
+        {[0, 1].map((setIdx) =>
+          set.map((_, i) => {
+            // Iki set yan yana, her biri kendi %50 dilimi icinde 0-100 dagilir
+            const t = (setIdx * 50) + (i / PARCA_SAYISI) * 50;
+            return (
+              <div
+                key={`${setIdx}-${i}`}
+                className="hh-parca-grup"
+                style={{
+                  top: `${t}%`,
+                  animationDelay: `${-(i * 0.30)}s`,
+                }}
+              >
+                <span className="hh-dot hh-sol"><MiniLogo /></span>
+                <span className="hh-bag" />
+                <span className="hh-dot hh-sag"><MiniLogo /></span>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

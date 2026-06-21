@@ -4375,18 +4375,22 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .holo-helix-sag { right: 20px !important; }
 .holo-helix-sol { left: 20px !important; }
-/* Sol helix biraz farkli timing ki ayna gibi gozukmesin, daha canli olsun */
-.holo-helix-sol .hh-saramal { animation-direction: reverse; animation-duration: 16s; }
+/* Sol helix biraz farkli timing - ayna gibi gozukmesin, daha canli olsun.
+   Animation-direction: reverse keepsi seamless loop'u korur (sadece yon degisir) */
+.holo-helix-sol .hh-saramal { animation-direction: reverse; animation-duration: 22s; }
 .holo-helix-sol .hh-parca-grup { animation-direction: reverse; animation-duration: 3.8s; }
 .hh-saramal {
   position: relative;
   width: 100%;
-  height: 100%;
-  animation: hh-akis 14s linear infinite;
+  height: 200%;
+  animation: hh-akis 18s linear infinite;
+  will-change: transform;
 }
+/* Seamless loop: 2 set parca yan yana, animasyon tam yari kadar kayar -
+   loop noktasinda 2. set, 1. setin baslangic pozisyonunda oldugu icin atlama olmaz */
 @keyframes hh-akis {
-  0%   { transform: translateY(-20%); }
-  100% { transform: translateY(0%); }
+  from { transform: translateY(0%); }
+  to   { transform: translateY(-50%); }
 }
 .hh-parca-grup {
   position: absolute;
