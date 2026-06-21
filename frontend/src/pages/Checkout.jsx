@@ -237,7 +237,7 @@ export default function Checkout() {
                     <Col md={12}>
                       <Form.Label>Kart Üzerindeki İsim *</Form.Label>
                       <Form.Control
-                        placeholder="AYŞE YILMAZ"
+                        placeholder="AHSEN YENİSEY"
                         required
                         value={kart.uzerinde}
                         onChange={(e) => setKart({ ...kart, uzerinde: e.target.value.toUpperCase() })}

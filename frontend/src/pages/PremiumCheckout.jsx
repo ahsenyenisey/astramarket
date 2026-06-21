@@ -114,7 +114,7 @@ export default function PremiumCheckout() {
                 <Col md={12}>
                   <Form.Label>Kart Üzerindeki İsim *</Form.Label>
                   <Form.Control
-                    placeholder="AYŞE YILMAZ"
+                    placeholder="AHSEN YENİSEY"
                     required
                     value={kart.uzerinde}
                     onChange={(e) => setKart({ ...kart, uzerinde: e.target.value.toUpperCase() })}
@@ -174,7 +174,7 @@ export default function PremiumCheckout() {
                       <Form.Label>Üniversite *</Form.Label>
                       <Form.Control
                         required={ogrenciPlani}
-                        placeholder="Yıldız Teknik Üniversitesi"
+                        placeholder="İstanbul Üniversitesi Cerrahpaşa"
                         value={ogrenci.universite}
                         onChange={(e) => setOgrenci({ ...ogrenci, universite: e.target.value })}
                       />
@@ -192,7 +192,7 @@ export default function PremiumCheckout() {
                       <Form.Label>Öğrenci No *</Form.Label>
                       <Form.Control
                         required={ogrenciPlani}
-                        placeholder="20210xxxxx"
+                        placeholder="1306230123"
                         value={ogrenci.ogrNo}
                         onChange={(e) => setOgrenci({ ...ogrenci, ogrNo: e.target.value.replace(/\D/g, '').slice(0, 12) })}
                       />
