@@ -22,22 +22,23 @@ export default function EnergyBeam() {
       }, 1100);
     };
 
-    // Ilk sweep 6sn sonra
-    const ilk = setTimeout(sweep, 6000);
-    // Sonra her 8-15sn'de bir
+    // Ilk sweep hemen
+    const ilk = setTimeout(sweep, 1500);
+    // Sonra her 4-8sn'de bir
     let timeout;
     const planla = () => {
-      const sure = 8000 + Math.random() * 7000;
+      const sure = 4000 + Math.random() * 4000;
       timeout = setTimeout(() => {
         sweep();
         planla();
       }, sure);
     };
-    planla();
+    const baslangic = setTimeout(planla, 3000);
 
     return () => {
       yasiyorMu = false;
       clearTimeout(ilk);
+      clearTimeout(baslangic);
       clearTimeout(timeout);
     };
   }, []);
