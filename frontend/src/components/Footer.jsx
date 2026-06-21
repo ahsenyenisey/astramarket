@@ -92,13 +92,7 @@ export default function Footer() {
           <Col md={3}>
             <h5>İletişim</h5>
             <p style={{ marginBottom: 4 }}>
-              <a href="mailto:destek@astramarket.com">destek@astramarket.com</a>
-            </p>
-            <p style={{ marginBottom: 4 }}>
               <a href="mailto:ahsenyenisey@gmail.com">ahsenyenisey@gmail.com</a>
-            </p>
-            <p style={{ marginBottom: 4 }}>
-              <a href="tel:+908500000000">+90 850 000 00 00</a>
             </p>
             <p style={{ marginBottom: 4 }}>
               <a href="tel:+905539736740">+90 553 973 6740</a>
