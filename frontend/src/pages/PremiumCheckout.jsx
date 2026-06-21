@@ -129,10 +129,6 @@ export default function PremiumCheckout() {
                 </Col>
               </Row>
 
-              <Alert variant="warning" className="mt-3 mb-0" style={{ fontSize: '0.85rem' }}>
-                🔒 Bu bir demo projesidir, gerçek ödeme alınmaz.
-              </Alert>
-
               <div className="mt-4">
                 <Button type="submit" className="btn-bordo w-100" size="lg" disabled={yukleniyor}>
                   {yukleniyor ? (

@@ -282,10 +282,6 @@ export default function Checkout() {
                     </Col>
                   </Row>
 
-                  <Alert variant="warning" className="mt-3 mb-0" style={{ fontSize: '0.85rem' }}>
-                    🔒 Bu bir demo projesidir, gerçek ödeme alınmaz.
-                  </Alert>
-
                   <div className="d-flex justify-content-between mt-4">
                     <Button variant="outline-secondary" onClick={() => setAdim(1)}>← Geri</Button>
                     <Button type="submit" className="btn-bordo" size="lg" disabled={yukleniyor}>
