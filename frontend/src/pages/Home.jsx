@@ -11,6 +11,7 @@ import TronGrid from '../components/TronGrid';
 import ScrambleText from '../components/ScrambleText';
 import Counter from '../components/Counter';
 import PortalRing from '../components/PortalRing';
+import MagneticButton from '../components/MagneticButton';
 
 const SAYFA_BASI = 8;
 
@@ -110,12 +111,16 @@ export default function Home() {
             500 TL üzeri ücretsiz kargo, %50'ye varan indirimlerle.
           </p>
           <div className="d-flex gap-3 flex-wrap align-items-center">
-            <button className="btn-cyber" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
-              ▸ Alışverişe Başla
-            </button>
-            <Link to="/sepet" className="btn-cyber btn-cyber-outline">
-              ▸ Sepetime Git
-            </Link>
+            <MagneticButton>
+              <button className="btn-cyber btn-neon-pulse" onClick={() => document.getElementById('urunler-bolum')?.scrollIntoView({ behavior: 'smooth' })}>
+                ▸ Alışverişe Başla
+              </button>
+            </MagneticButton>
+            <MagneticButton>
+              <Link to="/sepet" className="btn-cyber btn-cyber-outline">
+                ▸ Sepetime Git
+              </Link>
+            </MagneticButton>
           </div>
         </div>
         <div className="hero-dekor d-none d-lg-flex">
@@ -168,7 +173,7 @@ export default function Home() {
       <div className="holo-line fade-up" style={{ animationDelay: '0.18s' }} />
 
       {/* BOLUM BASLIK */}
-      <RevealOnScroll as="div" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
+      <RevealOnScroll as="div" yon="left" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
         <div>
           <h3 className="glitch-text" data-text="Öne Çıkan Ürünler">Öne Çıkan Ürünler</h3>
           <div className="alt">Seninle aramızda binlerce harika ürün var</div>

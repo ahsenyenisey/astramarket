@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 // IntersectionObserver ile scroll-triggered reveal.
-// Element gorunuluk alanina girince 'gorunur' class'i eklenir.
-// CSS'te .reveal-on-scroll.gorunur kuralina tabi.
-export default function RevealOnScroll({ children, as = 'div', gecikme = 0, className = '', ...rest }) {
+// yon: 'up' (default) | 'left' | 'right' | 'zoom' | 'tilt'
+// CSS'te .reveal-on-scroll.gorunur ve .reveal-yon-X kuralina tabi.
+export default function RevealOnScroll({ children, as = 'div', gecikme = 0, yon = 'up', className = '', ...rest }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function RevealOnScroll({ children, as = 'div', gecikme = 0, clas
 
   const Comp = as;
   return (
-    <Comp ref={ref} className={`reveal-on-scroll ${className}`} {...rest}>
+    <Comp ref={ref} className={`reveal-on-scroll reveal-yon-${yon} ${className}`} {...rest}>
       {children}
     </Comp>
   );
