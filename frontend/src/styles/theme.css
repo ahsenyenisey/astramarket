@@ -3730,26 +3730,92 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   box-shadow: 0 0 16px rgba(239, 68, 68, 0.35) !important;
 }
 
-/* ===================== Aktif Plan Karti ===================== */
+/* ===================== Aktif (Secili) Plan Karti ===================== */
 .premium-plan-kart.aktif-plan {
   border: 2px solid #fbbf24 !important;
-  box-shadow: 0 10px 40px rgba(251, 191, 36, 0.30) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(251, 191, 36, 0.18), transparent 65%),
+    linear-gradient(135deg, rgba(28, 25, 23, 0.95), rgba(15, 12, 25, 0.95)) !important;
+  box-shadow:
+    0 14px 50px rgba(251, 191, 36, 0.35),
+    0 0 0 6px rgba(251, 191, 36, 0.08),
+    inset 0 1px 0 rgba(253, 224, 71, 0.25) !important;
+  transform: translateY(-6px) scale(1.02);
+  position: relative;
 }
+.premium-plan-kart.aktif-plan::after {
+  content: '✓';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: #062318;
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.55);
+  z-index: 3;
+}
+.premium-plan-kart.aktif-plan h4 {
+  background: linear-gradient(135deg, #fde047, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.4));
+}
+
 .pp-aktif-rozet {
   position: absolute;
-  top: -12px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #34d399, #10b981);
   color: #062318;
-  padding: 4px 14px;
+  padding: 6px 18px;
   border-radius: 50px;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45);
+  letter-spacing: 1.8px;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.55);
   white-space: nowrap;
   z-index: 2;
+  animation: aktif-rozet-puls 2s ease-in-out infinite;
+}
+
+/* Secili plan butonu - disabled gri yerine yesil aktif gorunum */
+.premium-plan-kart.aktif-plan .btn-outline-bordo {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(16, 185, 129, 0.12)) !important;
+  border: 2px solid rgba(52, 211, 153, 0.55) !important;
+  color: #34d399 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  cursor: default !important;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="light"] .premium-plan-kart.aktif-plan {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(251, 191, 36, 0.25), transparent 65%),
+    linear-gradient(135deg, #fffbeb, #fef3c7) !important;
+  box-shadow:
+    0 14px 40px rgba(245, 158, 11, 0.30),
+    0 0 0 6px rgba(245, 158, 11, 0.10) !important;
+}
+[data-theme="light"] .premium-plan-kart.aktif-plan h4 {
+  background: linear-gradient(135deg, #b45309, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .premium-plan-kart.aktif-plan .btn-outline-bordo {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.08)) !important;
+  border-color: rgba(5, 150, 105, 0.55) !important;
+  color: #047857 !important;
 }
 
 /* ===================== Iptal Modal ===================== */

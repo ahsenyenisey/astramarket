@@ -140,7 +140,7 @@ export default function Premium() {
                 {p.not && <div className="pp-not">{p.not}</div>}
                 {buAktif ? (
                   <Button className="btn-outline-bordo w-100 mt-3" disabled>
-                    ✓ Mevcut Planın
+                    ✓ SEÇİLİ PLANIN
                   </Button>
                 ) : premium ? (
                   <Button className="btn-bordo w-100 mt-3" onClick={() => planSec(p.id)}>
