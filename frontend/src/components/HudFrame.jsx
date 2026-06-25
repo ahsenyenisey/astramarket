@@ -1,5 +1,3 @@
-// Bir component'i HUD/cyberpunk kose cerceveleriyle sarmalar.
-// Cerceve 4 koseye L seklinde neon cizgiler koyar.
 export default function HudFrame({ children, etiket, className = '' }) {
   return (
     <div className={`hud-frame ${className}`}>

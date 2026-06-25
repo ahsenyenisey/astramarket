@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Buyuk kozmik orbital sistem - 3 ic ice halka, her halkanin uzerinde
-// AstraMarket mini logosu gezegen gibi orbit yapar.
-// Scroll'a gore sistem rotateX/rotateZ ve scale degisir; mini logolar hover'da parlar.
 
 function MiniLogo({ renk = 'pembe' }) {
   return (
@@ -15,8 +12,6 @@ function MiniLogo({ renk = 'pembe' }) {
   );
 }
 
-// Bir orbital halka. Halkanin kendisi cizimli (ellipse stroke),
-// uzerinde 2 logo karsi koselerde orbit yapar.
 function Halka({ siralama, tilt, donus, sure, logoSayisi = 2, logoRenk }) {
   return (
     <div
@@ -39,8 +34,6 @@ function Halka({ siralama, tilt, donus, sure, logoSayisi = 2, logoRenk }) {
   );
 }
 
-// hero=true: hero icine yerlesen kucuk versiyon (absolute, scroll-reaktif degil)
-// hero=false: tum sayfa arka plani (eski davranis - simdi kullanilmiyor)
 export default function CosmicOrbit({ hero = false }) {
   const ref = useRef(null);
 

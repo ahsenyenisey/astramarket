@@ -3,7 +3,6 @@ import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 
-// indirimHesapla ProductCard'la ayni mantik
 function indirim(urun) {
   const seed = urun.id % 10;
   if (seed < 3) return 0;

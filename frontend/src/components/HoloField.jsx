@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// 3 derinlik katmanli holographic partikul alani.
-// Her katman farkli boyut, hiz, opaklik ve baglanti mesafesinde.
-// Mouse parallax + grid sizgileri ile sahte 3D derinlik hissi.
 export default function HoloField({ density = 90, gridLines = true }) {
   const ref = useRef(null);
 
@@ -32,13 +29,9 @@ export default function HoloField({ density = 90, gridLines = true }) {
     ro.observe(parent);
 
     const mobil = w < 768;
-    // Partikul sayilari performans icin azaltildi (eski: 30+25+18 = 73)
     const KATMAN_AYAR = [
-      // far (kucuk, yavas, soluk)
       { say: mobil ? 10 : 18, vMax: 0.10, rMin: 0.4, rMax: 1.0, op: 0.30, baglMax: 100, renk: '99, 102, 241' },
-      // mid (orta)
       { say: mobil ? 8 : 14, vMax: 0.20, rMin: 0.6, rMax: 1.4, op: 0.55, baglMax: 130, renk: '168, 85, 247' },
-      // near (buyuk, hizli, parlak)
       { say: mobil ? 6 : 10, vMax: 0.30, rMin: 1.0, rMax: 2.0, op: 0.90, baglMax: 110, renk: '251, 113, 133' },
     ];
 
@@ -71,7 +64,6 @@ export default function HoloField({ density = 90, gridLines = true }) {
       frame++;
       ctx.clearRect(0, 0, w, h);
 
-      // Subtle grid cizgileri (kat 0)
       if (gridLines) {
         const gridStep = 80;
         const offset = (frame * 0.15) % gridStep;
@@ -91,7 +83,6 @@ export default function HoloField({ density = 90, gridLines = true }) {
         }
       }
 
-      // Katmanlari ciz (far -> near sirasiyla)
       for (let li = 0; li < katmanlar.length; li++) {
         const { ayar, noktalar } = katmanlar[li];
         const mouseTakipMultiplier = (li + 1) * 0.5; // ne kadar yakinsa o kadar takip
@@ -102,7 +93,6 @@ export default function HoloField({ density = 90, gridLines = true }) {
           if (p.x < 0 || p.x > w) p.vx *= -1;
           if (p.y < 0 || p.y > h) p.vy *= -1;
 
-          // Mouse'a tepki: yakin katmanlar daha cok tepki verir
           if (mouse.aktif) {
             const dx = mouse.x - p.x;
             const dy = mouse.y - p.y;
@@ -115,7 +105,6 @@ export default function HoloField({ density = 90, gridLines = true }) {
             }
           }
 
-          // Noktayi ciz (glow + core)
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${ayar.renk}, ${ayar.op})`;
@@ -125,7 +114,6 @@ export default function HoloField({ density = 90, gridLines = true }) {
         }
         ctx.shadowBlur = 0;
 
-        // Ayni katmandaki noktalari birbirine bagla
         for (let i = 0; i < noktalar.length; i++) {
           for (let j = i + 1; j < noktalar.length; j++) {
             const dx = noktalar[i].x - noktalar[j].x;

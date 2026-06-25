@@ -6,10 +6,8 @@ export default function OrderSuccess() {
   const loc = useLocation();
   const siparis = loc.state;
 
-  // Direkt URL ile gelinmisse anasayfaya yonlendir
   if (!siparis?.siparisId) return <Navigate to="/" replace />;
 
-  // Konfeti efekti: kucuk parlayan noktalar
   useEffect(() => {
     const konfeti = document.querySelectorAll('.kk-parca');
     konfeti.forEach((el, i) => {

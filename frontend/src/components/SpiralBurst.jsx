@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Sayfada herhangi bir yere tiklayinca 14 parcacik spiral seklinde
-// disa firlayarak donerek kaybolur. Tek bir patlama ~1.2sn.
 const PARCA_SAYISI = 14;
 
 export default function SpiralBurst() {
@@ -12,7 +10,6 @@ export default function SpiralBurst() {
 
     let sayac = 0;
     const onClick = (e) => {
-      // Form input ve textarea uzerinde tetikleme - kullanim engellenmesin
       if (e.target.closest('input, textarea, select, label')) return;
       const id = sayac++;
       setPatlamalar((p) => [...p, { id, x: e.clientX, y: e.clientY, renk: Math.random() > 0.5 ? 'pembe' : 'mor' }]);

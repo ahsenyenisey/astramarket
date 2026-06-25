@@ -1,6 +1,3 @@
-// Tum arka planda uçuşan AstraMarket yildiz sembolleri.
-// Her yildiz farkli boyut, pozisyon ve animasyon timing - 8 adet floating star.
-// Pure CSS animasyon (float + spin), GPU dostu.
 
 function StarSembol() {
   return (
@@ -13,7 +10,6 @@ function StarSembol() {
   );
 }
 
-// Sayı 8 → 5 (performans icin azaltildi)
 const YILDIZLAR = [
   { top: '14%', left: '8%',  boyut: 64, gecikme: '0s',   renk: 'pembe', sure: 14 },
   { top: '22%', left: '78%', boyut: 80, gecikme: '-2s',  renk: 'mor',   sure: 18 },

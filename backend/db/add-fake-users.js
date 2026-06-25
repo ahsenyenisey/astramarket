@@ -1,5 +1,3 @@
-// Mevcut kullanicilara ek olarak 14 fake musteri ekler (toplam 20 yapar).
-// Calistirma: cd backend && node db/add-fake-users.js
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();

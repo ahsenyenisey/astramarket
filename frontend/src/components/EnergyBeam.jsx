@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Rastgele araliklarla ekranin solundan sagina dogru parlak enerji isigi sweep yapar.
-// Her sweep ~700ms surer, aralar 8-15 saniye.
 export default function EnergyBeam() {
   const [aktif, setAktif] = useState([]);
 
@@ -22,9 +20,7 @@ export default function EnergyBeam() {
       }, 1100);
     };
 
-    // Ilk sweep hemen
     const ilk = setTimeout(sweep, 1500);
-    // Sonra her 4-8sn'de bir
     let timeout;
     const planla = () => {
       const sure = 4000 + Math.random() * 4000;

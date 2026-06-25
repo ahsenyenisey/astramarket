@@ -41,7 +41,6 @@ export default function App() {
   const adminAlani = loc.pathname.startsWith('/admin');
   const loginAlani = loc.pathname === '/login';
   const sadeSayfa = loginAlani;
-  // Immersive efektler sadece musteri tarafinda
   const immersiveEfektler = !adminAlani;
 
   return (

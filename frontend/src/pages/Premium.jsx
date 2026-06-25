@@ -158,7 +158,6 @@ export default function Premium() {
         })}
       </Row>
 
-      {/* Iptal Onay Modal */}
       <Modal show={iptalAcik} onHide={() => setIptalAcik(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Üyeliği iptal et?</Modal.Title>

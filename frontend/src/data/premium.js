@@ -1,4 +1,3 @@
-// Premium planlari - Premium.jsx ve PremiumCheckout.jsx tarafindan paylasilir
 export const PLANLAR = [
   {
     id: 'aylik',

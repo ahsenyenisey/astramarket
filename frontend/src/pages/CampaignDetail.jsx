@@ -16,7 +16,6 @@ export default function CampaignDetail() {
         </Link>
       </div>
 
-      {/* HERO */}
       <section className={`kampanya-detay-hero fade-up ${kampanya.renk}`}>
         <div className="kdh-emoji">{kampanya.emoji}</div>
         <div className="kdh-icerik">
@@ -30,7 +29,6 @@ export default function CampaignDetail() {
         </div>
       </section>
 
-      {/* AVANTAJLAR */}
       <div className="bolum-baslik fade-up" style={{ animationDelay: '0.1s' }}>
         <div>
           <h3>Kampanya Avantajları</h3>
@@ -50,7 +48,6 @@ export default function CampaignDetail() {
         ))}
       </Row>
 
-      {/* DETAY + SARTLAR */}
       <Row className="g-4 stagger mb-5">
         <Col lg={7} className="fade-up">
           <div className="cam-kart" style={{ padding: 32 }}>
@@ -94,7 +91,6 @@ export default function CampaignDetail() {
         </Col>
       </Row>
 
-      {/* CTA */}
       <div className="text-center fade-up" style={{ animationDelay: '0.2s', marginBottom: 40 }}>
         <h4 className="mb-3">Kampanyadan yararlanmak için hazır mısın?</h4>
         <div className="d-flex gap-3 justify-content-center flex-wrap">

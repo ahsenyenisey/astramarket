@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Cocugu butonu cursor'a magnetik cekme efekti.
-// Cursor element yakininda gezerken buton hafifce kayar; ayrildiginda yumusakca yerine doner.
-// Children olarak herhangi bir element gelir; ref attribute'u children'a forward edilir.
 export default function MagneticButton({ children, kuvvet = 0.35, esik = 90, className = '' }) {
   const ref = useRef(null);
 

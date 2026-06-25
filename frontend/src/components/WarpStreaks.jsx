@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Hizli scroll edince ekranin solunda ve saginda dikey isik cizgileri zip yapar.
-// Threshold: 1.0px/ms scroll hizi. Yavas scrollda gozukmez.
 export default function WarpStreaks() {
   const ref = useRef(null);
 
@@ -25,7 +23,6 @@ export default function WarpStreaks() {
       lastT = now;
 
       if (hiz > 1.0) {
-        // Scroll yonu: asagi (dy>0) veya yukari (dy<0)
         const yon = dy >= 0 ? 'asagi' : 'yukari';
         el.classList.remove('yukari', 'asagi');
         el.classList.add('aktif', yon);
@@ -54,7 +51,6 @@ export default function WarpStreaks() {
 
   return (
     <div ref={ref} className="warp-streaks" aria-hidden="true">
-      {/* Sol 4 + sag 4 - performans icin azaltildi (eskiden 16'ydi) */}
       <div className="ws-yan ws-sol">
         {Array.from({ length: 4 }).map((_, i) => (
           <span key={i} className="ws-cizgi" style={{ '--i': i }} />

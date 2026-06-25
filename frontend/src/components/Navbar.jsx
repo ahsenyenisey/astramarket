@@ -7,8 +7,6 @@ import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
 import api from '../api/axios';
 
-// Basit, garantili calisan custom dropdown.
-// Tiklayinca acilir, disariya tiklayinca kapanir.
 function CustomDropdown({ label, children }) {
   const [acik, setAcik] = useState(false);
   const ref = useRef(null);

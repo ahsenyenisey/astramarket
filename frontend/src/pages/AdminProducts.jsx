@@ -89,7 +89,7 @@ export default function AdminProducts() {
             {urunler.map((u) => (
               <tr key={u.id}>
                 <td>{u.id}</td>
-                <td><Image src={u.resim_url} rounded style={{ width: 50, height: 50, objectFit: 'cover' }} /></td>
+                <td><Image src={u.resim_url || `https://picsum.photos/seed/urun-${u.id}/50/50`} rounded style={{ width: 50, height: 50, objectFit: 'cover' }} onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = `https://picsum.photos/seed/urun-${u.id}/50/50`; }}} /></td>
                 <td>{u.ad}</td>
                 <td><Badge className="badge-pudra">{u.kategori_ad || '-'}</Badge></td>
                 <td>{Number(u.fiyat).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</td>

@@ -58,7 +58,6 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  // URL'den ?kategori=ID okunup otomatik filtre uygula + urunlere kaydir
   useEffect(() => {
     const kat = searchParams.get('kategori');
     if (kat === 'tum') {
@@ -92,7 +91,6 @@ export default function Home() {
 
   return (
     <Container className="my-4 my-md-5">
-      {/* HERO */}
       <section className="hero-banner fade-up">
         <HoloField gridLines={true} />
         <CosmicOrbit hero={true} />
@@ -125,7 +123,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ARAMA + KATEGORI PILL'LERI */}
       <div className="fade-up" style={{ animationDelay: '0.1s' }}>
         <Row className="g-3 align-items-center mb-3">
           <Col md={6} lg={5}>
@@ -164,10 +161,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* HOLO LINE - cyber gecisi */}
       <div className="holo-line fade-up" style={{ animationDelay: '0.18s' }} />
 
-      {/* BOLUM BASLIK */}
       <RevealOnScroll as="div" yon="left" className="bolum-baslik" {...{ id: 'urunler-bolum' }}>
         <div>
           <h3 className="glitch-text" data-text="Öne Çıkan Ürünler">Öne Çıkan Ürünler</h3>

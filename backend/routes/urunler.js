@@ -4,7 +4,6 @@ const { adminRequired } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Liste (opsiyonel kategori filtresi ve arama)
 router.get('/', async (req, res) => {
   const { kategoriId, q } = req.query;
   let sql = `SELECT u.*, k.ad AS kategori_ad
@@ -22,7 +21,6 @@ router.get('/', async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Detay (yorumlar dahil)
 router.get('/:id', async (req, res) => {
   try {
     const [urunRows] = await pool.query(
@@ -41,7 +39,6 @@ router.get('/:id', async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Yeni urun (admin)
 router.post('/', adminRequired, async (req, res) => {
   const { ad, fiyat, stok, kategori_id, resim_url, aciklama } = req.body;
   try {
@@ -53,7 +50,6 @@ router.post('/', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Guncelle (admin)
 router.put('/:id', adminRequired, async (req, res) => {
   const { ad, fiyat, stok, kategori_id, resim_url, aciklama } = req.body;
   try {
@@ -65,7 +61,6 @@ router.put('/:id', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Sil (admin)
 router.delete('/:id', adminRequired, async (req, res) => {
   try {
     await pool.query('DELETE FROM urunler WHERE id=?', [req.params.id]);

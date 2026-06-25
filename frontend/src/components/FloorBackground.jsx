@@ -1,6 +1,3 @@
-// Tum arka plan: yukarida tavan + asagida zemin seklinde 2 perspektifli grid floor.
-// .floor-kirpi: overflow:hidden ile izgaranin tasmasini engeller
-// .floor-izgara: transform: translateY ile GPU'da akar (background-position yerine)
 export default function FloorBackground() {
   return (
     <div className="floor-bg" aria-hidden="true">

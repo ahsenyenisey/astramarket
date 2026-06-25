@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-// Verilen elementin uzerinde mouse hareketine 3D tilt uygular.
-// prefers-reduced-motion acik kullanicilarda kapali.
 export default function useMouseTilt(ref, { maxAngle = 8, scale = 1.02 } = {}) {
   useEffect(() => {
     const el = ref.current;
@@ -26,7 +24,6 @@ export default function useMouseTilt(ref, { maxAngle = 8, scale = 1.02 } = {}) {
     };
 
     const tick = () => {
-      // Yumusak gecis
       curRx += (targetRx - curRx) * 0.12;
       curRy += (targetRy - curRy) * 0.12;
       el.style.transform = `perspective(1000px) rotateX(${curRx.toFixed(2)}deg) rotateY(${curRy.toFixed(2)}deg) scale(${scale})`;

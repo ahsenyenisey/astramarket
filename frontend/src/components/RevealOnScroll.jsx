@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// IntersectionObserver ile scroll-triggered reveal.
-// yon: 'up' (default) | 'left' | 'right' | 'zoom' | 'tilt'
-// CSS'te .reveal-on-scroll.gorunur ve .reveal-yon-X kuralina tabi.
 export default function RevealOnScroll({ children, as = 'div', gecikme = 0, yon = 'up', className = '', ...rest }) {
   const ref = useRef(null);
 

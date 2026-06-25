@@ -2,7 +2,6 @@ import { Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-// Stok ID'sine gore deterministik indirim hesabi (gosterim icin)
 function indirimHesapla(urun) {
   const seed = urun.id % 10;
   if (seed < 3) return { yuzde: 0 };

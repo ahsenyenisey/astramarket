@@ -1,5 +1,3 @@
-// AstraMarket logo - SVG ile cizilmis, neon gradient
-// Boyutlar: 'sm' (24px ikon), 'md' (32px), 'lg' (48px), 'xl' (64px)
 
 const BOYUTLAR = {
   sm: { ikon: 24, yazi: '1rem', bosluk: 8 },
@@ -43,7 +41,6 @@ export default function Logo({
           </radialGradient>
         </defs>
 
-        {/* Dis halka (orbit) */}
         <circle
           cx="32" cy="32" r="26"
           stroke={`url(#${benzersizId}-grad)`}
@@ -51,7 +48,6 @@ export default function Logo({
           opacity="0.55"
         />
 
-        {/* Acili ic halka */}
         <ellipse
           cx="32" cy="32" rx="26" ry="10"
           stroke={`url(#${benzersizId}-grad2)`}
@@ -60,17 +56,14 @@ export default function Logo({
           transform="rotate(-30 32 32)"
         />
 
-        {/* Merkez yildiz - 4 isinli */}
         <path
           d="M32 14 L34 28 L48 30 L34 32 L32 50 L30 32 L16 30 L30 28 Z"
           fill={`url(#${benzersizId}-grad)`}
         />
 
-        {/* Merkez parlak nokta */}
         <circle cx="32" cy="32" r="4" fill={`url(#${benzersizId}-glow)`} />
         <circle cx="32" cy="32" r="2.5" fill="#fff" opacity="0.9" />
 
-        {/* Kucuk yildizlar (uydular) */}
         <circle cx="54" cy="20" r="1.6" fill="#fb7185" opacity="0.95" />
         <circle cx="12" cy="46" r="1.2" fill="#c084fc" opacity="0.85" />
         <circle cx="50" cy="48" r="1" fill="#fda4af" opacity="0.85" />

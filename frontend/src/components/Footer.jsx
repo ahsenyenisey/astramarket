@@ -101,7 +101,9 @@ export default function Footer() {
           </Col>
         </Row>
         <div className="footer-alt">
-          © 2026 AstraMarket. Tüm hakları saklıdır. Bu site bir ders projesi olarak geliştirilmiştir.
+          © 2026 AstraMarket. Tüm hakları saklıdır.
+          <br />
+          Ahsen Yenisey (1306230123) · Furkan Fuat Küçükbayrak (1306230124) · Egehan Mercan (1306230125)
         </div>
       </Container>
     </footer>

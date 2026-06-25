@@ -1,13 +1,11 @@
 :root,
 [data-theme="dark"] {
-  /* Koyu sinematik palet */
   --bg-deep: #0a0a12;
   --bg-deeper: #050509;
   --bg-card: rgba(20, 14, 30, 0.55);
   --bg-card-hover: rgba(30, 18, 45, 0.75);
   --bg-input: rgba(15, 12, 25, 0.6);
 
-  /* Neon vurgular */
   --bordo: #e11d48;
   --bordo-acik: #fb7185;
   --pembe: #fb7185;
@@ -17,17 +15,14 @@
   --indigo: #6366f1;
   --siyan: #22d3ee;
 
-  /* Metin */
   --metin-parlak: #f8fafc;
   --metin-orta: #cbd5e1;
   --metin-sonuk: #94a3b8;
   --metin-koyu: #64748b;
 
-  /* Kenarlik */
   --neon-border: rgba(232, 121, 249, 0.22);
   --neon-border-strong: rgba(232, 121, 249, 0.45);
 
-  /* Gradient'ler */
   --grad-neon: linear-gradient(135deg, #e11d48 0%, #a855f7 55%, #6366f1 100%);
   --grad-neon-soft: linear-gradient(135deg, rgba(225, 29, 72, 0.85), rgba(168, 85, 247, 0.85));
   --grad-text: linear-gradient(135deg, #fb7185 0%, #c084fc 50%, #a5b4fc 100%);
@@ -38,7 +33,6 @@
                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.35) 0%, transparent 50%),
                linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0f0f1e 100%);
 
-  /* Neon glow */
   --glow-pembe: 0 0 28px rgba(251, 113, 133, 0.45), 0 0 60px rgba(251, 113, 133, 0.18);
   --glow-mor: 0 0 28px rgba(168, 85, 247, 0.45), 0 0 60px rgba(168, 85, 247, 0.18);
   --glow-bordo: 0 0 30px rgba(225, 29, 72, 0.5), 0 0 70px rgba(225, 29, 72, 0.18);
@@ -72,7 +66,6 @@ body {
   background-attachment: fixed;
 }
 
-/* ===================== BLOB ARKA PLAN (neon) ===================== */
 .blob-arka-plan {
   position: fixed;
   inset: 0;
@@ -163,11 +156,9 @@ body {
 }
 
 .app-root > *:not(.blob-arka-plan):not(.particle-bg) { position: relative; z-index: 1; }
-/* Navbar mutlaka sayfa icerinin uzerinde olmalı (dropdown menusu hero'nun arkasinda kalmasin) */
 .app-root > .navbar-bordo,
 .app-root > nav.navbar-bordo { z-index: 1050 !important; }
 
-/* ===================== PARTIKUL CANVAS ===================== */
 .particle-bg {
   position: absolute;
   inset: 0;
@@ -180,8 +171,6 @@ body {
   display: block;
 }
 
-/* ===================== NAVBAR ===================== */
-/* PERF: blur(12px+24px) saturate scroll'da pahaliydi - 8px ve saturate kaldirildi */
 .navbar-bordo {
   background: rgba(10, 10, 18, 0.85) !important;
   backdrop-filter: blur(8px);
@@ -237,7 +226,6 @@ body {
   80% { transform: scale(1.1); }
 }
 
-/* ===================== BUTONLAR ===================== */
 .btn-primary, .btn-bordo {
   background: var(--grad-neon) !important;
   border: none !important;
@@ -328,7 +316,6 @@ body {
 a { color: var(--pembe); text-decoration: none; transition: all 0.2s; }
 a:hover { color: var(--pembe-acik); text-shadow: 0 0 12px rgba(251, 113, 133, 0.45); }
 
-/* ===================== TIPOGRAFI ===================== */
 h1, h2, h3, h4, h5, h6 { color: var(--metin-parlak); font-weight: 700; letter-spacing: -0.5px; }
 p, span, div { color: inherit; }
 .text-muted { color: var(--metin-sonuk) !important; }
@@ -348,7 +335,6 @@ p, span, div { color: inherit; }
   filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4));
 }
 
-/* ===================== URUN KARTI (koyu cam) ===================== */
 .product-card {
   border: 1px solid var(--neon-border) !important;
   border-radius: var(--r-md) !important;
@@ -472,7 +458,6 @@ p, span, div { color: inherit; }
   text-decoration: line-through;
 }
 
-/* ===================== BADGE'LER ===================== */
 .badge-pudra {
   background: rgba(168, 85, 247, 0.18) !important;
   color: var(--pembe-acik) !important;
@@ -489,7 +474,6 @@ p, span, div { color: inherit; }
   box-shadow: 0 0 12px rgba(225, 29, 72, 0.4);
 }
 
-/* ===================== HERO ===================== */
 .hero-banner {
   background: var(--grad-hero);
   color: #fff;
@@ -586,14 +570,12 @@ p, span, div { color: inherit; }
   margin-top: 4px;
 }
 
-/* Mouse tilt'i icin tilt-wrapper */
 .tilt-3d {
   transform-style: preserve-3d;
   will-change: transform;
   transition: transform 0.2s ease-out;
 }
 
-/* ===================== KATEGORI PILL'LERI ===================== */
 .kategori-pills {
   display: flex;
   gap: 10px;
@@ -627,7 +609,6 @@ p, span, div { color: inherit; }
   transform: translateY(-1px);
 }
 
-/* ===================== ADMIN (sade, koyu) ===================== */
 .admin-layout { display: flex; min-height: calc(100vh - 76px); position: relative; z-index: 1; }
 .admin-sidebar {
   width: 260px;
@@ -664,7 +645,6 @@ p, span, div { color: inherit; }
 .admin-content { flex: 1; padding: 32px; background: var(--bg-deep); color: var(--metin-parlak); }
 .admin-content h3 { color: var(--pembe) !important; }
 
-/* ===================== FORM ===================== */
 .form-control, .form-select {
   border-radius: 12px !important;
   border: 1px solid var(--neon-border) !important;
@@ -683,7 +663,6 @@ p, span, div { color: inherit; }
 }
 .form-label { color: var(--metin-orta); font-weight: 500; }
 
-/* ===================== TABLO ===================== */
 .table {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -713,7 +692,6 @@ p, span, div { color: inherit; }
 }
 .table tbody td { padding: 12px 14px; vertical-align: middle; color: var(--metin-parlak); }
 
-/* ===================== BOS DURUM ===================== */
 .empty-state {
   text-align: center;
   padding: 80px 24px;
@@ -739,7 +717,6 @@ p, span, div { color: inherit; }
 }
 .empty-state p { color: var(--metin-sonuk); }
 
-/* ===================== AUTH / LOGIN ===================== */
 .login-evren {
   position: relative;
   min-height: 100vh;
@@ -809,7 +786,6 @@ p, span, div { color: inherit; }
   border-bottom: 2px solid var(--pembe);
 }
 
-/* ===================== YORUM ===================== */
 .yorum-item {
   background: var(--bg-card);
   backdrop-filter: blur(15px);
@@ -822,11 +798,9 @@ p, span, div { color: inherit; }
 }
 .yildiz { color: #fbbf24; text-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
 
-/* ===================== CAROUSEL ===================== */
 .carousel-inner { border-radius: var(--r-lg); }
 .carousel-inner img { border-radius: var(--r-lg); max-height: 380px; object-fit: cover; }
 
-/* ===================== RAPORLAR ===================== */
 .rapor-card {
   background: var(--bg-card) !important;
   backdrop-filter: blur(20px);
@@ -859,7 +833,6 @@ p, span, div { color: inherit; }
 }
 .sql-yorum pre { color: var(--metin-orta); }
 
-/* ===================== OZET KART ===================== */
 .ozet-kart {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -892,7 +865,6 @@ p, span, div { color: inherit; }
   text-transform: uppercase;
 }
 
-/* ===================== STAGGERED FADE-IN ===================== */
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
@@ -911,7 +883,6 @@ p, span, div { color: inherit; }
 .stagger > *:nth-child(8) { animation-delay: 0.40s; }
 .stagger > *:nth-child(n+9) { animation-delay: 0.45s; }
 
-/* Sayfa gecisi (route degisince zoom + fade) */
 .sayfa-gecis {
   animation: sayfaGecis 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
@@ -920,7 +891,6 @@ p, span, div { color: inherit; }
   to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
 }
 
-/* ===================== SKELETON ===================== */
 .skeleton {
   background: linear-gradient(90deg,
     rgba(232, 121, 249, 0.05) 0%,
@@ -947,7 +917,6 @@ p, span, div { color: inherit; }
 .skeleton-card .body { padding: 18px; }
 .skeleton-card .line { height: 12px; margin-bottom: 8px; }
 
-/* ===================== FOOTER ===================== */
 .footer {
   background: linear-gradient(180deg, transparent 0%, var(--bg-deeper) 40%);
   color: var(--metin-parlak);
@@ -1020,7 +989,6 @@ p, span, div { color: inherit; }
   font-size: 0.85rem;
 }
 
-/* ===================== ARAMA KUTUSU ===================== */
 .arama-kutu {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -1060,7 +1028,6 @@ p, span, div { color: inherit; }
 }
 .arama-btn:hover { transform: scale(1.05); }
 
-/* ===================== BOLUM BASLIK ===================== */
 .bolum-baslik {
   display: flex;
   align-items: center;
@@ -1081,7 +1048,6 @@ p, span, div { color: inherit; }
 }
 .bolum-baslik .alt { color: var(--metin-sonuk); font-size: 0.95rem; margin-top: 2px; }
 
-/* ===================== SAYFA BASLIK ===================== */
 .sayfa-baslik {
   background: var(--grad-hero);
   color: var(--metin-parlak);
@@ -1109,7 +1075,6 @@ p, span, div { color: inherit; }
   z-index: 1;
 }
 
-/* ===================== DURUM ROZETI ===================== */
 .durum-rozet {
   display: inline-flex;
   align-items: center;
@@ -1134,7 +1099,6 @@ p, span, div { color: inherit; }
 .durum-teslim_edildi { background: rgba(34, 197, 94, 0.10); color: #4ade80; border-color: rgba(74, 222, 128, 0.3); }
 .durum-iptal        { background: rgba(239, 68, 68, 0.10); color: #f87171; border-color: rgba(248, 113, 113, 0.3); }
 
-/* ===================== ADET KUTU ===================== */
 .adet-kutu {
   display: inline-flex;
   align-items: center;
@@ -1160,7 +1124,6 @@ p, span, div { color: inherit; }
 .adet-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .adet-deger { min-width: 32px; text-align: center; font-weight: 700; color: var(--metin-parlak); }
 
-/* ===================== GLASS KART (genel) ===================== */
 .cam-kart {
   background: var(--bg-card) !important;
   backdrop-filter: blur(24px) saturate(180%);
@@ -1171,7 +1134,6 @@ p, span, div { color: inherit; }
   color: var(--metin-parlak);
 }
 
-/* ===================== ACCORDION ===================== */
 .accordion-item, .accordion-button {
   background: transparent !important;
   color: var(--metin-parlak) !important;
@@ -1186,7 +1148,6 @@ p, span, div { color: inherit; }
   filter: invert(70%) sepia(40%) saturate(800%) hue-rotate(290deg);
 }
 
-/* ===================== MODAL ===================== */
 .modal-content {
   background: var(--bg-card) !important;
   backdrop-filter: blur(30px);
@@ -1197,7 +1158,6 @@ p, span, div { color: inherit; }
 .modal-header, .modal-footer { border-color: var(--neon-border) !important; }
 .btn-close { filter: invert(1) brightness(1.5) sepia(0.3) hue-rotate(290deg); }
 
-/* ===================== PAGINATION ===================== */
 .pagination { margin-top: 40px; }
 .page-item .page-link {
   border: 1px solid var(--neon-border);
@@ -1218,7 +1178,6 @@ p, span, div { color: inherit; }
 }
 .page-item.disabled .page-link { background: transparent; color: var(--metin-koyu); border-color: rgba(232, 121, 249, 0.1); }
 
-/* ===================== ALERT ===================== */
 .alert {
   border: 1px solid var(--neon-border);
   background: var(--bg-card);
@@ -1230,7 +1189,6 @@ p, span, div { color: inherit; }
 .alert-danger { background: rgba(239, 68, 68, 0.10); color: #fca5a5; border-color: rgba(248, 113, 113, 0.3); }
 .alert-warning { background: rgba(245, 158, 11, 0.10); color: #fde68a; border-color: rgba(251, 191, 36, 0.3); }
 
-/* ===================== Navbar Zenginlestirilmis Menu ===================== */
 .navbar-genel-menu { gap: 4px; }
 .navbar-genel-menu .nav-link {
   padding: 8px 14px !important;
@@ -1239,7 +1197,6 @@ p, span, div { color: inherit; }
   white-space: nowrap;
 }
 
-/* Suuper Fiyat - parlak gradient vurgulu */
 .nav-vurgu-link {
   background: linear-gradient(135deg, rgba(225, 29, 72, 0.18), rgba(168, 85, 247, 0.18));
   border: 1px solid rgba(232, 121, 249, 0.35);
@@ -1272,7 +1229,6 @@ p, span, div { color: inherit; }
   50% { transform: scale(1.08) rotate(2deg); }
 }
 
-/* Kampanyalar - subtle hover */
 .nav-kampanya-link {
   font-weight: 500 !important;
 }
@@ -1280,7 +1236,6 @@ p, span, div { color: inherit; }
   background: rgba(232, 121, 249, 0.10);
 }
 
-/* Premium menu item - altın vurgu */
 .custom-dropdown-item.premium-item {
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.12));
   border: 1px solid rgba(251, 191, 36, 0.35);
@@ -1310,7 +1265,6 @@ p, span, div { color: inherit; }
   text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
 }
 
-/* Light theme overrides */
 [data-theme="light"] .nav-vurgu-link {
   background: linear-gradient(135deg, rgba(225, 29, 72, 0.10), rgba(168, 85, 247, 0.10));
   border-color: rgba(159, 18, 57, 0.25);
@@ -1324,7 +1278,6 @@ p, span, div { color: inherit; }
   border-color: rgba(245, 158, 11, 0.40);
 }
 
-/* Mobilde dikey sigsin (lg breakpoint altinda) */
 @media (max-width: 991px) {
   .navbar-genel-menu .nav-link,
   .nav-vurgu-link,
@@ -1338,7 +1291,6 @@ p, span, div { color: inherit; }
   }
 }
 
-/* ===================== Custom Dropdown ===================== */
 .custom-dropdown {
   position: relative;
   display: inline-block;
@@ -1415,7 +1367,6 @@ p, span, div { color: inherit; }
   margin: 8px 4px;
 }
 
-/* Light theme overrides */
 [data-theme="light"] .custom-dropdown-toggle { color: #1a0b14; }
 [data-theme="light"] .custom-dropdown-menu {
   background-color: #ffffff;
@@ -1432,7 +1383,6 @@ p, span, div { color: inherit; }
 [data-theme="light"] .custom-dropdown-itemtext { color: #475569; }
 [data-theme="light"] .custom-dropdown-divider { background: rgba(159, 18, 57, 0.18); }
 
-/* ===================== Bootstrap Dropdown (kalan kullanimlar icin) ===================== */
 .dropdown-menu {
   background-color: #0f0c19 !important;
   border: 1px solid rgba(232, 121, 249, 0.45) !important;
@@ -1451,7 +1401,6 @@ p, span, div { color: inherit; }
   color: #fda4af !important;
 }
 
-/* ===================== SUPER FIYAT SAYFASI ===================== */
 .super-fiyat-hero {
   background:
     radial-gradient(circle at 20% 30%, rgba(251, 113, 133, 0.30), transparent 50%),
@@ -1511,7 +1460,6 @@ p, span, div { color: inherit; }
 .gs-etiket { font-size: 0.65rem; color: var(--metin-sonuk); letter-spacing: 0.5px; font-weight: 600; }
 .gs-iki-nokta { font-size: 1.5rem; color: var(--pembe); padding-bottom: 16px; font-weight: 800; }
 
-/* ===================== KAMPANYALAR ===================== */
 .kampanya-kart {
   background: var(--bg-card);
   backdrop-filter: blur(20px);
@@ -1567,7 +1515,6 @@ p, span, div { color: inherit; }
 .gradient-altin::before { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
 .gradient-gul::before { background: linear-gradient(135deg, #f472b6, #e879f9); }
 
-/* ===================== PREMIUM SAYFASI ===================== */
 .premium-hero {
   background:
     radial-gradient(circle at 15% 25%, rgba(251, 191, 36, 0.30), transparent 50%),
@@ -1714,7 +1661,6 @@ p, span, div { color: inherit; }
 .pp-aylik { color: var(--metin-sonuk); font-size: 0.85rem; }
 .pp-not { color: var(--metin-sonuk); font-size: 0.8rem; margin-top: 10px; font-style: italic; }
 
-/* ===================== IADE SAYFASI ===================== */
 .iade-adim {
   display: flex;
   gap: 16px;
@@ -1739,7 +1685,6 @@ p, span, div { color: inherit; }
 .is-ok { color: #4ade80; }
 .is-no { color: #f87171; }
 
-/* ===================== KARGO TAKIP ===================== */
 .kargo-zaman-cizgisi { position: relative; padding-left: 32px; }
 .kargo-zaman-cizgisi::before {
   content: '';
@@ -1774,7 +1719,6 @@ p, span, div { color: inherit; }
 .kzc-adim.aktif .kzc-durum { color: var(--pembe); }
 .kzc-detay { color: var(--metin-orta); font-size: 0.88rem; }
 
-/* ===================== ILETISIM ===================== */
 .iletisim-blok {
   display: flex;
   gap: 14px;
@@ -1812,7 +1756,6 @@ a.ib-deger.ib-link:hover {
   -webkit-text-fill-color: transparent;
 }
 
-/* ===================== AURORA OVERLAY ===================== */
 .aurora-overlay {
   position: fixed;
   inset: 0;
@@ -1834,7 +1777,6 @@ a.ib-deger.ib-link:hover {
 }
 [data-theme="light"] .aurora-overlay { opacity: 0.25; }
 
-/* ===================== SCAN LINES OVERLAY ===================== */
 .scan-lines {
   position: fixed;
   inset: 0;
@@ -1856,9 +1798,7 @@ a.ib-deger.ib-link:hover {
 }
 [data-theme="light"] .scan-lines { display: none; }
 
-/* Custom cursor kaldırıldı - default browser cursor kullanılıyor */
 
-/* ===================== LOGO BREATHING GLOW ===================== */
 .astra-logo svg {
   animation: logo-breathe 4s ease-in-out infinite;
 }
@@ -1867,7 +1807,6 @@ a.ib-deger.ib-link:hover {
   50%      { filter: drop-shadow(0 0 22px rgba(251, 113, 133, 0.85)) drop-shadow(0 0 38px rgba(168, 85, 247, 0.35)); }
 }
 
-/* ===================== HOLOGRAPHIC TEXT SHIMMER ===================== */
 .holo-text {
   background: linear-gradient(
     110deg,
@@ -1885,7 +1824,6 @@ a.ib-deger.ib-link:hover {
   to   { background-position: -200% 0; }
 }
 
-/* ===================== ENHANCED DEPTH KARTLAR ===================== */
 .product-card {
   background:
     linear-gradient(135deg, rgba(168, 85, 247, 0.03) 0%, transparent 50%, rgba(225, 29, 72, 0.03) 100%),
@@ -1907,7 +1845,6 @@ a.ib-deger.ib-link:hover {
 }
 .product-card:hover::before { opacity: 1; }
 
-/* Hero icindeki deko kartlara ekstra holo border */
 .hero-dekor-kart {
   background:
     linear-gradient(135deg, rgba(168, 85, 247, 0.06), transparent 50%),
@@ -1926,7 +1863,6 @@ a.ib-deger.ib-link:hover {
 }
 .hero-dekor-kart:hover::after { opacity: 1; }
 
-/* ===================== ENHANCED PAGE TRANSITION ===================== */
 .sayfa-gecis {
   animation: sayfa-gecis-cinematic 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
@@ -1936,7 +1872,6 @@ a.ib-deger.ib-link:hover {
   100% { opacity: 1; transform: scale(1) translateY(0) translateZ(0); filter: blur(0) brightness(1); }
 }
 
-/* ===================== SCROLL REVEAL ===================== */
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(40px);
@@ -1948,7 +1883,6 @@ a.ib-deger.ib-link:hover {
   transform: translateY(0);
 }
 
-/* ===================== HERO BANNER HOLO EKLEMELERI ===================== */
 .hero-banner::after {
   content: '';
   position: absolute;
@@ -1961,14 +1895,11 @@ a.ib-deger.ib-link:hover {
   50%      { opacity: 1; transform: translateY(380px); }
 }
 
-/* Buton'larda chromatic aberration hint */
 .btn-cta:active,
 .btn-bordo:active {
   filter: drop-shadow(2px 0 0 rgba(225, 29, 72, 0.45)) drop-shadow(-2px 0 0 rgba(99, 102, 241, 0.45));
 }
 
-/* ===================== INTRO LOADER (sinematik acilis) ===================== */
-/* CSS spesifiklik: .app-root > * kuralini ezmek icin !important sart */
 .intro-loader {
   position: fixed !important;
   inset: 0 !important;
@@ -1979,9 +1910,6 @@ a.ib-deger.ib-link:hover {
   justify-content: center !important;
   overflow: hidden !important;
 }
-/* Intro acikken:
-   - body scroll kilitli
-   - app icerigi gizli (homepage flash olmasin)  */
 body.intro-aktif { overflow: hidden !important; }
 body.intro-aktif .app-root > *:not(.intro-loader) {
   visibility: hidden !important;
@@ -2073,7 +2001,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Intro butonlari */
 .il-butonlar {
   display: flex;
   flex-direction: column;
@@ -2152,7 +2079,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   text-decoration: underline;
 }
 
-/* ===================== FILM GRAIN ===================== */
 .film-grain {
   position: fixed;
   inset: -100%;
@@ -2179,7 +2105,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .film-grain { opacity: 0.08; mix-blend-mode: multiply; }
 
-/* ===================== VIGNETTE ===================== */
 .vignette {
   position: fixed;
   inset: 0;
@@ -2201,7 +2126,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   );
 }
 
-/* ===================== CINEMATIC TYPOGRAPHY ===================== */
 .hero-banner h1 {
   font-size: clamp(2rem, 5.5vw, 4.5rem) !important;
   line-height: 0.95 !important;
@@ -2211,18 +2135,15 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
     0 4px 30px rgba(225, 29, 72, 0.25) !important;
 }
 
-/* Bolum baslik daha buyuk */
 .bolum-baslik h3 {
   font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
 }
 
-/* Sayfa basliklarinin tipografisi gerin */
 .sayfa-baslik h2 {
   font-size: clamp(1.8rem, 4vw, 3rem) !important;
   letter-spacing: -1px !important;
 }
 
-/* ===================== LETTER REVEAL (hero/baslik kullanim) ===================== */
 .letter-reveal { display: inline-block; }
 .letter-reveal > span {
   display: inline-block;
@@ -2234,7 +2155,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { opacity: 1; transform: translateY(0) rotateX(0); }
 }
 
-/* ===================== LOGO ARKA PLAN (yer degistiren) ===================== */
 .logo-arkaplan {
   position: fixed !important;
   inset: 0 !important;
@@ -2246,18 +2166,15 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos {
   position: absolute;
   will-change: transform;
-  /* contain: paint logoyu kendi kutusuna kirpiyordu - kaldirildi */
   contain: layout style;
   --mx: 0px;
   --my: 0px;
   --isik: 0;
-  /* Tek katman glow - performans icin sadelestirildi (eskiden 3 katman vardi) */
   filter: drop-shadow(0 0 calc(10px + var(--isik) * 40px) rgba(232, 121, 249, calc(0.40 + var(--isik) * 0.55)));
   transition: filter 0.35s ease, opacity 0.35s ease;
   overflow: visible;
 }
 .lab-pos svg { width: 100%; height: 100%; display: block; }
-/* Mouse repulsion + parlama katmani */
 .lab-mouse {
   width: 100%;
   height: 100%;
@@ -2267,7 +2184,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   transition: transform 0.30s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: transform;
 }
-/* SVG brightness/saturate (parlama) - cok daha guclu */
 .lab-float svg {
   filter:
     brightness(calc(1 + var(--isik, 0) * 1.20))
@@ -2281,7 +2197,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   animation: lab-float 9s ease-in-out infinite;
   will-change: transform;
 }
-/* SVG icine surekli kendi ekseninde donme - her logo farkli hiz ve yonde */
 .lab-float svg {
   width: 100%;
   height: 100%;
@@ -2300,8 +2215,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { transform: rotate(360deg); }
 }
 
-/* 7 logo: her biri farkli pozisyon, boyut, opaklik, scroll yonu ve hizi.
-   Scroll arttıkça birbirleriyle YER DEGISTIRIRLER. */
 
 .lab-pos-0 {
   top: 8%; left: 6%;
@@ -2430,7 +2343,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   ) rotate(calc(var(--scroll, 0) * -0.65deg));
 }
 
-/* Surekli idle floatlarin gecikmeleri (sankron olmamasi icin) */
 .lab-pos-0 .lab-float { animation-delay: 0s; }
 .lab-pos-1 .lab-float { animation-delay: -1.3s; animation-duration: 11s; }
 .lab-pos-2 .lab-float { animation-delay: -2.6s; animation-duration: 8s; }
@@ -2446,7 +2358,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .lab-pos-12 .lab-float { animation-delay: -5.7s; animation-duration: 12.5s; }
 .lab-pos-13 .lab-float { animation-delay: -8s; animation-duration: 10s; }
 
-/* Her logo SVG'si farkli hiz ve yonde sureli doner */
 .lab-pos-0 .lab-float svg { animation-duration: 18s; animation-direction: normal; }
 .lab-pos-1 .lab-float svg { animation-duration: 22s; animation-direction: reverse; }
 .lab-pos-2 .lab-float svg { animation-duration: 14s; animation-direction: normal; }
@@ -2466,11 +2377,9 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 
 @media (max-width: 992px) {
   .lab-pos { transform: scale(0.7) !important; }
-  /* Tablet'te 14'ten 8'e dus */
   .lab-pos-2, .lab-pos-6, .lab-pos-9, .lab-pos-11, .lab-pos-12, .lab-pos-13 { display: none; }
 }
 @media (max-width: 600px) {
-  /* Mobilde 4 logo */
   .lab-pos-3, .lab-pos-4, .lab-pos-5, .lab-pos-7, .lab-pos-8, .lab-pos-10 { display: none; }
   .lab-pos { transform: scale(0.5) !important; opacity: 0.18 !important; }
 }
@@ -2481,7 +2390,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .lab-float svg { animation: none !important; }
 }
 
-/* ===================== COSMIC GEM (3D dönen oktahedron) ===================== */
 .cosmic-gem {
   position: fixed !important;
   bottom: 40px !important;
@@ -2517,7 +2425,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.7));
 }
 
-/* Oktahedron'un 8 ucgen yuzu (2 piramit birlestirilmis) */
 .cg-yuz {
   position: absolute;
   width: 0;
@@ -2529,7 +2436,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   transform-style: preserve-3d;
   backface-visibility: visible;
 }
-/* Ust piramit (4 yuzu) - tepesi yukari bakar */
 .cg-ust-1, .cg-ust-2, .cg-ust-3, .cg-ust-4 {
   border-bottom: 42px solid rgba(225, 29, 72, 0.35);
   margin-left: -30px;
@@ -2539,7 +2445,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .cg-ust-2 { transform: rotateY(90deg)  translateZ(15px); border-bottom-color: rgba(168, 85, 247, 0.45); }
 .cg-ust-3 { transform: rotateY(180deg) translateZ(15px); border-bottom-color: rgba(99, 102, 241, 0.45); }
 .cg-ust-4 { transform: rotateY(270deg) translateZ(15px); border-bottom-color: rgba(251, 113, 133, 0.45); }
-/* Alt piramit (4 yuzu) - tepesi asagi bakar */
 .cg-alt-1, .cg-alt-2, .cg-alt-3, .cg-alt-4 {
   border-top: 42px solid rgba(225, 29, 72, 0.35);
   margin-left: -30px;
@@ -2550,7 +2455,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .cg-alt-3 { transform: rotateY(180deg) translateZ(15px); border-top-color: rgba(99, 102, 241, 0.35); }
 .cg-alt-4 { transform: rotateY(270deg) translateZ(15px); border-top-color: rgba(251, 113, 133, 0.35); }
 
-/* Yorungeli uydu (gem etrafinda surekli doner) */
 .cg-yorunge {
   position: absolute;
   inset: 0;
@@ -2574,11 +2478,9 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { transform: rotate(360deg); }
 }
 
-/* Light tema */
 [data-theme="light"] .cosmic-gem { filter: brightness(0.85) saturate(1.2); }
 [data-theme="light"] .cg-yorunge { border-color: rgba(159, 18, 57, 0.30); }
 
-/* Responsive */
 @media (max-width: 992px) {
   .cosmic-gem {
     width: 80px !important;
@@ -2614,7 +2516,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .cg-yorunge { animation: none !important; transform: rotateX(25deg) !important; }
 }
 
-/* Her halka farkli hiz ve yonde - scroll'a gore donen */
 .ss-ring,
 .ss-spiral {
   transform-origin: center;
@@ -2627,7 +2528,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .ss-ring-4 { transform: rotate(calc(var(--scroll, 0) * -0.95deg)); }
 .ss-spiral { transform: rotate(calc(var(--scroll, 0) * 0.55deg)); }
 
-/* Merkez sürekli yumusak pulse */
 .spiral-scroll svg > circle:last-of-type {
   animation: spiral-core-pulse 2.2s ease-in-out infinite;
   transform-origin: center;
@@ -2637,10 +2537,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   50%      { opacity: 0.6; transform: scale(1.4); }
 }
 
-/* Light tema'da hafif sonuk */
 [data-theme="light"] .spiral-scroll { opacity: 0.55; }
 
-/* Tablet'te kucult, mobilde gizle */
 @media (max-width: 992px) {
   .spiral-scroll {
     width: 120px !important;
@@ -2658,7 +2556,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .spiral-scroll svg > circle:last-of-type { animation: none; }
 }
 
-/* ===================== CHECKOUT STEPPER ===================== */
 .checkout-stepper {
   display: flex;
   align-items: center;
@@ -2713,7 +2610,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .cs-cizgi.tamamlandi { background: rgba(74, 222, 128, 0.5); }
 
-/* ===================== ODEME OPSIYONLARI ===================== */
 .odeme-secim { display: flex; flex-direction: column; gap: 10px; }
 .odeme-opt {
   display: flex;
@@ -2736,7 +2632,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .odeme-ikon { font-size: 1.6rem; }
 .odeme-not { font-size: 0.82rem; color: var(--metin-sonuk); margin-top: 2px; }
 
-/* ===================== CHECKOUT URUN OZETI ===================== */
 .checkout-urun-listesi {
   max-height: 280px;
   overflow-y: auto;
@@ -2772,7 +2667,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   flex-shrink: 0;
 }
 
-/* ===================== ORDER SUCCESS PAGE ===================== */
 .basari-konfeti {
   position: fixed;
   inset: 0;
@@ -2835,7 +2729,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: var(--metin-parlak);
 }
 
-/* ===================== STATUS INDICATOR (HUD canli rozet) ===================== */
 .status-ind {
   display: inline-flex;
   align-items: center;
@@ -2875,7 +2768,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .status-pembe .status-nokta { background: #fb7185; box-shadow: 0 0 8px #fb7185; }
 
-/* ===================== TRON GRID FLOOR ===================== */
 .tron-grid {
   position: relative;
   width: 100%;
@@ -2918,7 +2810,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 [data-theme="light"] .tron-yatay { background-image: linear-gradient(to bottom, transparent, rgba(159, 18, 57, 0.30), transparent); }
 [data-theme="light"] .tron-dikey { background-image: repeating-linear-gradient(to right, transparent 0, transparent 59px, rgba(159, 18, 57, 0.20) 60px); }
 
-/* ===================== HUD FRAME (kose cerceveli sarmalayici) ===================== */
 .hud-frame {
   position: relative;
   padding: 28px 24px;
@@ -2952,7 +2843,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .hud-sol-alt { bottom: -1px; left: -1px; border-right: none; border-top: none; }
 .hud-sag-alt { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-/* ===================== URUN KARTI - HUD KOSE EKLENTILERI ===================== */
 .product-card::after {
   content: '';
   position: absolute;
@@ -2985,7 +2875,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   border-color: rgba(232, 121, 249, 0.65);
 }
 
-/* ===================== GLITCH TEXT EFEKTI ===================== */
 .glitch-text {
   position: relative;
   display: inline-block;
@@ -3033,7 +2922,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   100% { transform: translate(0, 0); }
 }
 
-/* ===================== CYBER BUTTON (acili kose kesim) ===================== */
 .btn-cyber {
   position: relative;
   display: inline-block;
@@ -3063,7 +2951,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: #fff;
   transform: translateY(-2px);
 }
-/* Outline (cam) varyant - sepetime git icin */
 .btn-cyber.btn-cyber-outline {
   background: rgba(15, 12, 25, 0.55);
   backdrop-filter: blur(12px);
@@ -3082,7 +2969,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: var(--metin-parlak);
 }
 
-/* ===================== HOLO LINE (animasyonlu çizgi) ===================== */
 .holo-line {
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, rgba(232, 121, 249, 0.7) 50%, transparent 100%);
@@ -3109,10 +2995,8 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { background-position: 100% 0; }
 }
 
-/* HERO HUD KOSE BRACKETS - kaldirildi */
 .hero-icerik { position: relative; }
 
-/* ===================== TECH SPINNER (cok halkali yukleme) ===================== */
 .tech-spinner {
   display: inline-block;
   position: relative;
@@ -3140,7 +3024,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 @keyframes tech-spin { to { transform: rotate(360deg); } }
 
-/* ===================== KATEGORI PILL CYBER STIL ===================== */
 .kategori-pill {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 0.78rem;
@@ -3151,13 +3034,11 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .kategori-pill.aktif { letter-spacing: 2px; }
 
-/* ===================== HERO ROZET MONOSPACE ===================== */
 .hero-rozet {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   letter-spacing: 2px !important;
 }
 
-/* ===================== KAMPANYA DETAY HERO ===================== */
 .kampanya-detay-hero {
   display: flex;
   gap: 32px;
@@ -3225,7 +3106,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .kdh-tarih strong { color: var(--metin-parlak); }
 
-/* Kampanya avantaj kart */
 .kampanya-avantaj-kart {
   background: var(--bg-card);
   backdrop-filter: blur(15px);
@@ -3244,7 +3124,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .kampanya-avantaj-kart h5 { color: var(--metin-parlak); font-weight: 700; margin-bottom: 4px; font-size: 1rem; }
 .kampanya-avantaj-kart p { color: var(--metin-sonuk); font-size: 0.85rem; margin: 0; }
 
-/* Bilgi grid */
 .kd-bilgi-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -3266,7 +3145,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   font-size: 1rem;
 }
 
-/* Sartlar listesi */
 .kd-sartlar {
   list-style: none;
   padding: 0;
@@ -3289,7 +3167,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   font-size: 1.05rem;
 }
 
-/* ===================== PREMIUM CHECKOUT ===================== */
 .premium-checkout-hero {
   text-align: center;
   padding: 40px 24px;
@@ -3322,7 +3199,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .premium-avantaj-list li:last-child { border-bottom: none; }
 
-/* ===================== MEDYA & ERISILEBILIRLIK ===================== */
 @media (max-width: 992px) {
   .blob-5, .blob-6 { display: none; }
   .hero-banner { padding: 50px 30px; min-height: auto; }
@@ -3348,7 +3224,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .particle-canvas { display: none; }
 }
 
-/* ===================== TEMA TOGGLE BUTONU ===================== */
 .tema-btn {
   width: 38px;
   height: 38px;
@@ -3374,7 +3249,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   box-shadow: var(--glow-pembe);
 }
 
-/* ===================== LIGHT MODE ===================== */
 [data-theme="light"] {
   --bg-deep: #fff7f5;
   --bg-deeper: #fef2f4;
@@ -3580,7 +3454,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 [data-theme="light"] .ozet-kart .etiket { color: var(--metin-orta); }
 
 
-/* ===================== Navbar Premium Belirti ===================== */
 .user-label {
   display: inline-flex;
   align-items: center;
@@ -3666,7 +3539,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   -webkit-text-fill-color: transparent;
 }
 
-/* ===================== Uyelik Yonetim Paneli ===================== */
 .uyelik-yonetim {
   display: flex;
   align-items: center;
@@ -3733,7 +3605,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   box-shadow: 0 0 16px rgba(239, 68, 68, 0.35) !important;
 }
 
-/* ===================== Aktif (Secili) Plan Karti ===================== */
 .premium-plan-kart.aktif-plan {
   border: 2px solid #fbbf24 !important;
   background:
@@ -3790,7 +3661,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   animation: aktif-rozet-puls 2s ease-in-out infinite;
 }
 
-/* Secili plan butonu - disabled gri yerine yesil aktif gorunum */
 .premium-plan-kart.aktif-plan .btn-outline-bordo {
   background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(16, 185, 129, 0.12)) !important;
   border: 2px solid rgba(52, 211, 153, 0.55) !important;
@@ -3821,7 +3691,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: #047857 !important;
 }
 
-/* ===================== Iptal Modal ===================== */
 .iptal-kayip-listesi {
   list-style: none;
   padding: 0;
@@ -3834,7 +3703,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .iptal-kayip-listesi li:last-child { border-bottom: none; }
 
-/* Light tema */
 [data-theme="light"] .uyelik-yonetim {
   background: linear-gradient(135deg, #fffbeb, #fef3c7);
   border-color: rgba(245, 158, 11, 0.45);
@@ -3864,7 +3732,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   border-bottom-color: rgba(159, 18, 57, 0.12);
 }
 
-/* ===================== Siparislerim - Detay Tasarimi ===================== */
 .siparis-body-cyber {
   background: linear-gradient(135deg,
     rgba(15, 12, 25, 0.5) 0%,
@@ -4003,7 +3870,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   opacity: 0.85;
 }
 
-/* Ozet kart */
 .siparis-ozet-card {
   background:
     radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.12), transparent 60%),
@@ -4057,7 +3923,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.45));
 }
 
-/* Mobil */
 @media (max-width: 575px) {
   .siparis-urun-satir {
     grid-template-columns: 56px 1fr;
@@ -4072,7 +3937,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .siparis-urun-satir .sus-toplam { grid-area: toplam; text-align: left; font-size: 1rem; }
 }
 
-/* Light tema */
 [data-theme="light"] .siparis-body-cyber {
   background: linear-gradient(135deg, #fff7f5, #fef3f2) !important;
   border-top-color: rgba(159, 18, 57, 0.18);
@@ -4121,7 +3985,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: none;
 }
 
-/* ===================== KOMET YAGMURU ===================== */
 .komet-katmani {
   position: fixed;
   inset: 0;
@@ -4176,7 +4039,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   90% { opacity: 1; }
   100% { transform: translate(140vw, 140vh) rotate(var(--rot, 30deg)); opacity: 0; }
 }
-/* Rotation transform yukaridaki style attribute icinde, animasyon translate'e ek olur */
 .komet {
   animation-name: komet-translate;
 }
@@ -4187,7 +4049,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   100% { translate: 140vw 90vh;     opacity: 0; }
 }
 
-/* ===================== PORTAL RING - Donen Enerji Halkasi ===================== */
 .portal-ring {
   position: relative;
   pointer-events: none;
@@ -4249,7 +4110,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   50% { transform: scale(1.25); opacity: 1; }
 }
 
-/* Hero icindeki portal pozisyon - sag tarafta, dekor kartlarinin arkasinda */
 .hero-portal {
   position: absolute !important;
   right: -80px;
@@ -4263,7 +4123,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .hero-portal { display: none; }
 }
 
-/* ===================== SAYFA WIPE PERDE ===================== */
 .page-wipe {
   position: fixed;
   inset: 0;
@@ -4296,21 +4155,16 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   100% { transform: translateX(100%); }
 }
 
-/* ===================== SCRAMBLE TEXT ===================== */
 .scramble-text {
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.05em;
 }
 
-/* ===================== COUNTER ===================== */
 .counter-deger {
   display: inline-block;
   font-variant-numeric: tabular-nums;
 }
 
-/* ===================== HOLO SHIMMER - kartlar uzerinde gecen parlama ===================== */
-/* Premium plan kartlarinda KULLANMA - aktif plan ::after ile cakisiyor +
-   .pp-populer-rozet / .pp-aktif-rozet kart sinirini astigi icin overflow:hidden uygulanamaz */
 .product-card, .kampanya-kart, .premium-avantaj-kart {
   position: relative;
   overflow: hidden;
@@ -4343,7 +4197,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   opacity: 1;
 }
 
-/* Light tema icin shimmer */
 [data-theme="light"] .product-card::after,
 [data-theme="light"] .kampanya-kart::after,
 [data-theme="light"] .premium-avantaj-kart::after {
@@ -4356,13 +4209,10 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   );
 }
 
-/* ===================== Reduced motion ===================== */
 @media (prefers-reduced-motion: reduce) {
   .komet-katmani, .page-wipe, .pr-halka, .pr-orbit, .pr-merkez { animation: none !important; }
 }
 
-/* ===================== HOLO HELIX - Donen Cift Sarmal ===================== */
-/* !important sart - .app-root > * kurali position/z-index'i eziyor */
 .holo-helix {
   position: fixed !important;
   top: 80px !important;
@@ -4376,8 +4226,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 .holo-helix-sag { right: 20px !important; }
 .holo-helix-sol { left: 20px !important; }
-/* Sol helix biraz farkli timing - ayna gibi gozukmesin, daha canli olsun.
-   Animation-direction: reverse keepsi seamless loop'u korur (sadece yon degisir) */
 .holo-helix-sol .hh-saramal { animation-direction: reverse; animation-duration: 22s; }
 .holo-helix-sol .hh-parca-grup { animation-direction: reverse; animation-duration: 3.8s; }
 .hh-saramal {
@@ -4387,8 +4235,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   animation: hh-akis 18s linear infinite;
   will-change: transform;
 }
-/* Seamless loop: 2 set parca yan yana, animasyon tam yari kadar kayar -
-   loop noktasinda 2. set, 1. setin baslangic pozisyonunda oldugu icin atlama olmaz */
 @keyframes hh-akis {
   from { transform: translateY(0%); }
   to   { transform: translateY(-50%); }
@@ -4450,8 +4296,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 @media (max-width: 1399px) { .holo-helix { width: 100px !important; opacity: 0.75 !important; } }
 @media (max-width: 991px)  { .holo-helix { display: none !important; } }
 
-/* ===================== ENERJI ISIN SWEEP ===================== */
-/* !important sart - .app-root > * kurali position/z-index'i eziyor */
 .enerji-isin-katmani {
   position: fixed !important;
   inset: 0 !important;
@@ -4496,12 +4340,10 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   100% { transform: translateX(120%) scaleX(0.4); opacity: 0; }
 }
 
-/* ===================== MAGNETIK BUTON ===================== */
 .magnetic-wrap {
   transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ===================== NEON PULSE - CTA halkasi ===================== */
 .btn-neon-pulse {
   position: relative;
 }
@@ -4540,7 +4382,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   100% { background-position: 200% 50%; }
 }
 
-/* ===================== REVEAL ON SCROLL - Yonlu Varyantlar ===================== */
 .reveal-on-scroll {
   opacity: 0;
   transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -4560,21 +4401,17 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .reveal-yon-right.gorunur { transform: translateX(0) skewX(0); }
 .reveal-yon-tilt.gorunur  { transform: perspective(800px) rotateX(0) translateY(0); }
 
-/* ===================== Reduced motion ===================== */
 @media (prefers-reduced-motion: reduce) {
   .holo-helix, .enerji-isin-katmani, .btn-neon-pulse::before { display: none !important; }
   .magnetic-wrap { transition: none; }
 }
 
-/* ===================== COSMIC ORBIT - Gezegen Sistemi ===================== */
 .cosmic-orbit {
   position: fixed !important;
-  /* Sag alt koseye yerlestirildi - icerigi kapatmasin diye yarisi off-screen */
   bottom: -260px !important;
   right: -240px !important;
   width: 760px !important;
   height: 760px !important;
-  /* Scroll'a gore degisen CSS degiskenleri */
   --scroll-rx: 0deg;
   --scroll-ry: 0deg;
   --scroll-rz: 0deg;
@@ -4593,7 +4430,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   opacity: 0.60;
   will-change: transform;
 }
-/* Mobilde tamamen gizle - kose yer kaplamasin */
 @media (max-width: 991px) {
   .cosmic-orbit {
     width: 480px !important;
@@ -4604,7 +4440,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   }
 }
 
-/* Tum sistem de hafifce kendi etrafinda salinir */
 .cosmic-orbit::before {
   content: '';
   position: absolute;
@@ -4644,7 +4479,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   50% { transform: scale(1.25); opacity: 1; }
 }
 
-/* Halkalar - her biri farkli boyut + tilt */
 .co-halka {
   position: absolute;
   top: 50%; left: 50%;
@@ -4682,7 +4516,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { transform: rotateX(var(--tilt)) rotateZ(345deg); }
 }
 
-/* Halka cizimi (ellipse stroke gorunumu) */
 .co-halka-cizim {
   position: absolute;
   inset: 0;
@@ -4695,12 +4528,10 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 .co-halka-2 .co-halka-cizim { border-color: rgba(168, 85, 247, 0.30); }
 .co-halka-3 .co-halka-cizim { border-color: rgba(232, 121, 249, 0.22); }
 
-/* Halka uzerinde logo gezdirme yorunge containeri */
 .co-yorunge {
   position: absolute;
   inset: 0;
 }
-/* Her logo halka kenarinda farkli aci ile baslar */
 .co-logo-konum {
   position: absolute;
   top: 50%;
@@ -4715,7 +4546,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   top: -19px;
   left: 50%;
   transform: translateX(-50%);
-  /* Halka radius'unun yarisi kadar yukari kaydir = halka uzerine oturt */
 }
 .co-halka-1 .co-logo-konum .co-mini-logo { top: -180px; }
 .co-halka-2 .co-logo-konum .co-mini-logo { top: -290px; }
@@ -4736,7 +4566,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   cursor: pointer;
 }
 
-/* Hover: buyu, parlaklik artir, glow patlat */
 .co-pembe:hover {
   transform: scale(2.1) rotate(15deg);
   filter:
@@ -4756,7 +4585,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   z-index: 5;
 }
 
-/* Mobilde halkalari da kucult (boyut/pozisyon ust kuralda zaten yapildi) */
 @media (max-width: 991px) {
   .co-halka-1 { width: 180px; height: 180px; margin: -90px 0 0 -90px; }
   .co-halka-2 { width: 280px; height: 280px; margin: -140px 0 0 -140px; }
@@ -4773,7 +4601,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .cosmic-orbit { display: none !important; }
 }
 
-/* ===================== OGRENCI DOGRULAMA - Premium Checkout ===================== */
 .ogrenci-dogrulama {
   padding: 22px 24px;
   border-radius: 18px;
@@ -4882,7 +4709,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   color: #fecaca;
 }
 
-/* Light tema */
 [data-theme="light"] .ogrenci-dogrulama {
   background: linear-gradient(135deg, #ecfeff, #f0f9ff);
   border-color: rgba(8, 145, 178, 0.30);
@@ -4902,7 +4728,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .od-dosya-ikon { color: #0e7490; }
 
-/* ===================== SPIRAL BURST - Click Patlamasi ===================== */
 .spiral-burst-katmani {
   position: fixed !important;
   inset: 0 !important;
@@ -4938,7 +4763,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   border-radius: 50%;
   background: radial-gradient(circle, #fff 0%, var(--pembe) 50%, rgba(232, 121, 249, 0) 80%);
   box-shadow: 0 0 12px var(--pembe), 0 0 26px rgba(232, 121, 249, 0.75);
-  /* Her parcacik kendi acisi ile spiral cizer */
   --aci: calc(var(--i, 0) / var(--toplam, 14) * 360deg);
   animation: sb-spiral 1.2s cubic-bezier(0.22, 0.85, 0.30, 1) forwards;
   transform-origin: 50% 50%;
@@ -4962,7 +4786,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   }
 }
 
-/* ===================== WARP STREAKS - Hizli Scroll'da Isik Cizgileri ===================== */
 .warp-streaks {
   position: fixed !important;
   inset: 0 !important;
@@ -5020,8 +4843,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .spiral-burst-katmani, .warp-streaks { display: none !important; }
 }
 
-/* ===================== LIGHT TEMA - Karanlik hero'lari aydinlat ===================== */
-/* Premium hero */
 [data-theme="light"] .premium-hero {
   background:
     radial-gradient(circle at 15% 25%, rgba(251, 191, 36, 0.18), transparent 55%),
@@ -5032,8 +4853,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .premium-hero h1 { color: #422006 !important; }
 [data-theme="light"] .premium-hero p { color: #78350f !important; }
-/* background-image longhand kullaniyoruz - 'background:' shorthand !important ile
-   background-clip'i border-box'a sifirliyor, gradient yazi yerine solid kutu cikiyor */
 [data-theme="light"] .ph-altin {
   background-image: linear-gradient(135deg, #b45309, #f59e0b, #d97706) !important;
   -webkit-background-clip: text !important;
@@ -5050,7 +4869,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .ph-rakamlar span { color: #92400e !important; }
 
-/* Premium checkout hero */
 [data-theme="light"] .premium-checkout-hero {
   background:
     radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.18), transparent 60%),
@@ -5060,7 +4878,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 [data-theme="light"] .premium-checkout-hero h2 { color: #422006 !important; }
 [data-theme="light"] .premium-checkout-hero p { color: #78350f !important; }
 
-/* Kampanya detay hero - karanlik gradientleri aydinlat */
 [data-theme="light"] .kampanya-detay-hero {
   background: linear-gradient(135deg, #ffffff, #fff7f5) !important;
   border: 1px solid rgba(159, 18, 57, 0.18) !important;
@@ -5075,7 +4892,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
 }
 [data-theme="light"] .kampanya-detay-hero .kd-tarihler { opacity: 0.78; }
 
-/* Cosmic orbit light tema'da sonuk */
 [data-theme="light"] .cosmic-orbit { opacity: 0.32; }
 [data-theme="light"] .cosmic-orbit .co-yildiz {
   background: radial-gradient(circle, #fff 0%, #f59e0b 35%, #b45309 60%, transparent 80%);
@@ -5093,8 +4909,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.55)) drop-shadow(0 0 18px rgba(124, 58, 237, 0.30));
 }
 
-/* ===================== FLOOR BACKGROUND - Tunel Perspektif Grid ===================== */
-/* z-index 0 - star-float ve content (z-1) altinda kalir */
 .floor-bg {
   position: fixed !important;
   inset: 0 !important;
@@ -5108,7 +4922,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   position: absolute;
   left: -25%;
   width: 150%;
-  /* Yari viewport - iki yuzey tam ortada (ufuk cizgisinde) birbirine deginsin */
   height: 50vh;
   transform-style: preserve-3d;
 }
@@ -5122,14 +4935,11 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   transform-origin: center bottom;
   transform: rotateX(-72deg);
 }
-/* floor-kirpi: izgaranin perspektif yuzey icinde tasmasini engeller */
 .floor-kirpi {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
-/* PERF: animasyon kaldirildi - sustained re-paint scroll'u yavaslatiyordu.
-   Statik grid ile perspektif hissi yine var */
 .floor-izgara {
   position: absolute;
   inset: 0;
@@ -5138,7 +4948,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
     repeating-linear-gradient(to bottom, transparent 0, transparent 79px, rgba(168, 85, 247, 0.28) 80px);
   background-size: 80px 80px, 80px 80px;
 }
-/* Merkez ufuk cizgisi parlama (iki yuzeyin birlestigi yer) */
 .floor-ufuk {
   position: absolute;
   top: 50%;
@@ -5156,7 +4965,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   filter: blur(0.5px);
 }
 
-/* Light tema - mor yerine bordo tonlar */
 [data-theme="light"] .floor-izgara {
   background-image:
     repeating-linear-gradient(to right, transparent 0, transparent 79px, rgba(159, 18, 57, 0.22) 80px),
@@ -5167,9 +4975,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   box-shadow: 0 0 18px rgba(159, 18, 57, 0.35);
 }
 
-/* ===================== STAR FLOAT - Ucusan Yildizlar ===================== */
-/* z-index 0 - urun kartlari ve diger icerigin (z-index 1) ALTINDA kalir,
-   sadece bos alanlarda gozukur */
 .star-float-katmani {
   position: fixed !important;
   inset: 0 !important;
@@ -5177,8 +4982,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   z-index: 0 !important;
   overflow: hidden;
 }
-/* PERF: spin animasyonu kaldirildi - 5 yildizin 25s'lik surekli rotasyonu
-   her frame'de filter+drop-shadow ile beraber pahaliydi. Float kalir */
 .sf-yildiz {
   position: absolute;
   animation: sf-float 16s ease-in-out infinite;
@@ -5201,7 +5004,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
 }
-/* Tek katman drop-shadow - surekli donme + 2-layer filter pahaliydi */
 .sf-pembe .sf-svg {
   color: var(--pembe);
   filter: drop-shadow(0 0 14px rgba(232, 121, 249, 0.70));
@@ -5235,7 +5037,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   to { transform: rotate(360deg); }
 }
 
-/* Light tema - bordo/mor yerine bordo ve violet */
 [data-theme="light"] .sf-pembe .sf-svg {
   color: var(--bordo);
   filter: drop-shadow(0 0 6px rgba(159, 18, 57, 0.55)) drop-shadow(0 0 14px rgba(159, 18, 57, 0.30));
@@ -5252,8 +5053,6 @@ body.intro-aktif .app-root > *:not(.intro-loader) {
   .star-float-katmani { display: none !important; }
 }
 
-/* ===================== COSMIC ORBIT - HERO MODE ===================== */
-/* Hero icine yerlesen kucuk versiyon - mevcut .hero-portal pozisyonu yerine kullanilir */
 .cosmic-orbit-hero {
   position: absolute !important;
   top: 50% !important;

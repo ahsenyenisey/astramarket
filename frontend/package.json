@@ -1,6 +1,8 @@
 {
   "name": "eticaret-frontend",
   "version": "1.0.0",
+  "description": "AstraMarket — E-ticaret frontend (React + Vite + Bootstrap)",
+  "author": "Ahsen Yenisey, Furkan Fuat Küçükbayrak, Egehan Mercan",
   "type": "module",
   "scripts": {
     "dev": "vite",

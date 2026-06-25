@@ -4,11 +4,6 @@ const { adminRequired } = require('../middleware/auth');
 
 const router = express.Router();
 
-// ---------------------------------------------------------------
-// SORGU 1: GROUP BY + JOIN
-// Her kategorideki urun sayisi ve toplam satis tutari.
-// LEFT JOIN ile satilmamis kategoriler de 0 ile gelir.
-// ---------------------------------------------------------------
 router.get('/kategori-satislari', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -25,10 +20,6 @@ router.get('/kategori-satislari', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// ---------------------------------------------------------------
-// SORGU 2: IC ICE SORGU (SUBQUERY)
-// Tum urunlerin ortalama fiyatinin uzerindeki urunler.
-// ---------------------------------------------------------------
 router.get('/ortalama-uzeri-urunler', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -42,10 +33,6 @@ router.get('/ortalama-uzeri-urunler', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// ---------------------------------------------------------------
-// SORGU 3: GROUP BY + HAVING
-// 3'ten fazla siparis veren musteriler (en aktif musteriler).
-// ---------------------------------------------------------------
 router.get('/aktif-musteriler', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -62,10 +49,6 @@ router.get('/aktif-musteriler', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// ---------------------------------------------------------------
-// SORGU 4: IC ICE SORGU + JOIN
-// En cok yorum alan urunler ve ortalama puanlari.
-// ---------------------------------------------------------------
 router.get('/cok-yorumlu-urunler', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -81,10 +64,6 @@ router.get('/cok-yorumlu-urunler', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// ---------------------------------------------------------------
-// BONUS SORGU 5: IC ICE NOT IN
-// Hic siparis edilmemis urunler (satilamayan urunler analizi).
-// ---------------------------------------------------------------
 router.get('/satilmayan-urunler', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -98,7 +77,6 @@ router.get('/satilmayan-urunler', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Genel ozet kartlari icin (ek istatistikler)
 router.get('/ozet', adminRequired, async (req, res) => {
   try {
     const [[a]] = await pool.query('SELECT COUNT(*) AS toplam_urun FROM urunler');

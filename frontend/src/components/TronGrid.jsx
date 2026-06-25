@@ -1,4 +1,3 @@
-// Perspektifli Tron grid floor - sayfa altinda fütüristik zemin hissi
 export default function TronGrid({ tepede = false }) {
   return (
     <div className={`tron-grid ${tepede ? 'tepede' : ''}`} aria-hidden="true">

@@ -1,4 +1,3 @@
-// Kampanyalar - Campaigns.jsx ve CampaignDetail.jsx tarafindan paylasilir
 export const KAMPANYALAR = [
   {
     id: 1,

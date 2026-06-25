@@ -5,7 +5,6 @@ const { adminRequired } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Tum kullanicilari listele (admin)
 router.get('/', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT id, ad, email, rol, olusturma_tarihi FROM kullanicilar ORDER BY id');
@@ -13,7 +12,6 @@ router.get('/', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Yeni kullanici (admin)
 router.post('/', adminRequired, async (req, res) => {
   const { ad, email, sifre, rol } = req.body;
   try {
@@ -29,7 +27,6 @@ router.post('/', adminRequired, async (req, res) => {
   }
 });
 
-// Guncelle (admin)
 router.put('/:id', adminRequired, async (req, res) => {
   const { ad, email, rol } = req.body;
   try {
@@ -38,7 +35,6 @@ router.put('/:id', adminRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Sil (admin)
 router.delete('/:id', adminRequired, async (req, res) => {
   try {
     await pool.query('DELETE FROM kullanicilar WHERE id=?', [req.params.id]);

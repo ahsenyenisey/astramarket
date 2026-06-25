@@ -2,8 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 
 const KARAKTERLER = '!<>-_\\/[]{}—=+*^?#█▓▒░0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-// Verilen metni decode/scramble animasyonu ile yazar.
-// Tek seferlik calisir (mount edildiginde).
 export default function ScrambleText({ text, className = '', as: Tag = 'span', delay = 0, sure = 1100 }) {
   const [goster, setGoster] = useState('');
   const rafRef = useRef();

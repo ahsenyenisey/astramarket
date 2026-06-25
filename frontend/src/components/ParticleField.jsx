@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Saf canvas partikul ag. Yavasca suzulen noktalar, birbirine ince cizgilerle
-// baglanir, mouse'tan hafifce uzaklasir. Mobilde otomatik olarak sayisi azalir.
-// prefers-reduced-motion acik kullanicilarda gorunmez.
 export default function ParticleField({
   density = 90,
   color = 'rgba(251, 113, 133, 1)',
@@ -36,9 +33,7 @@ export default function ParticleField({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
-    // Animasyon/layout sonrasi tekrar olcum yap (containing block degisikligi vs. icin)
     const lateResize = requestAnimationFrame(() => requestAnimationFrame(resize));
-    // ResizeObserver ile parent boyutu degisirse otomatik guncelle
     let ro;
     if (typeof ResizeObserver !== 'undefined') {
       ro = new ResizeObserver(() => resize());
@@ -75,7 +70,6 @@ export default function ParticleField({
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
 
-      // Partikulleri guncelle + ciz
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -84,7 +78,6 @@ export default function ParticleField({
         if (p.y < 0) { p.y = 0; p.vy *= -1; }
         if (p.y > h) { p.y = h; p.vy *= -1; }
 
-        // Mouse'tan hafifce uzaklas
         if (mouse.active) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
@@ -106,7 +99,6 @@ export default function ParticleField({
       }
       ctx.shadowBlur = 0;
 
-      // Cizgileri ciz
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;

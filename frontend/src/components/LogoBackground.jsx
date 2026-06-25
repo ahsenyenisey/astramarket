@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// AstraMarket logosu (yildiz + orbit) - yazisiz versiyon
 function LogoIkon({ idx }) {
   const id = `bg-logo-${idx}`;
   return (
@@ -29,10 +28,6 @@ function LogoIkon({ idx }) {
   );
 }
 
-// 7 logo arka planda dagilmis. 3 katmanli hareket:
-// - lab-pos: scroll'a gore translate + rotate (sayfa kayinca)
-// - lab-mouse: imlec yaklasinca repulsion (kacma) hareketi
-// - lab-float + svg: surekli idle floating + kendi ekseninde donme
 export default function LogoBackground() {
   const refler = useRef([]);
 
@@ -44,7 +39,6 @@ export default function LogoBackground() {
     let mouseRaf = null;
     let mouseX = -9999, mouseY = -9999;
 
-    // Scroll listener
     const scrollGuncelle = () => {
       scrollRaf = null;
       const y = window.scrollY;
@@ -57,8 +51,6 @@ export default function LogoBackground() {
       scrollRaf = requestAnimationFrame(scrollGuncelle);
     };
 
-    // Mouse listener - her logoyu imlecten uzaklastir + parlat
-    // PERFORMANS: viewport disindaki logolari atla, sadece gerekiyorsa style.setProperty cagri
     const mouseGuncelle = () => {
       mouseRaf = null;
       const ESIK = 220;
@@ -69,7 +61,6 @@ export default function LogoBackground() {
       refler.current.forEach((el) => {
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        // Viewport disindaysa atla (etki olamaz)
         if (rect.bottom < -50 || rect.top > vh + 50 || rect.right < -50 || rect.left > vw + 50) {
           if (el.dataset.aktif === '1') {
             el.style.setProperty('--mx', '0px');

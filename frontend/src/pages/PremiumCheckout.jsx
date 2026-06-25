@@ -21,7 +21,6 @@ export default function PremiumCheckout() {
 
   if (!user) return <Navigate to="/login" state={{ from: '/premium' }} replace />;
   if (!plan) return <Navigate to="/premium" replace />;
-  // Ayni plana tekrar gecis engellensin
   if (premium && premiumPlan === planId) return <Navigate to="/premium" replace />;
 
   const planDegisiyor = premium && premiumPlan !== planId;
@@ -68,7 +67,6 @@ export default function PremiumCheckout() {
     }
     setHata('');
     setYukleniyor(true);
-    // Demo - 1.2sn gecikme + basari sayfasi
     setTimeout(() => {
       setPremium(true, planId);
       nav('/premium/basari', { replace: true, state: { plan, planDegisikligi: planDegisiyor } });
@@ -102,7 +100,6 @@ export default function PremiumCheckout() {
       )}
 
       <Row className="g-4">
-        {/* SOL: Kart formu */}
         <Col lg={7} className="fade-up">
           <div className="cam-kart" style={{ padding: 32 }}>
             <h4 className="mb-4" style={{ color: 'var(--pembe)' }}>💳 Ödeme Bilgileri</h4>
@@ -247,7 +244,6 @@ export default function PremiumCheckout() {
           </div>
         </Col>
 
-        {/* SAG: Plan ozeti */}
         <Col lg={5} className="fade-up" style={{ animationDelay: '0.1s' }}>
           <div className="cam-kart" style={{ padding: 28, position: 'sticky', top: 100 }}>
             <div className="premium-plan-kart populer" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>

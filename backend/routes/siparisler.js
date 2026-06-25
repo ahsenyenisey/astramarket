@@ -4,7 +4,6 @@ const { authRequired, adminRequired } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Sepetten siparis olustur (transaction ile stok dusur)
 router.post('/', authRequired, async (req, res) => {
   const { urunler } = req.body; // [{ urun_id, adet }]
   if (!Array.isArray(urunler) || !urunler.length) {
@@ -14,7 +13,6 @@ router.post('/', authRequired, async (req, res) => {
   try {
     await conn.beginTransaction();
 
-    // Urunleri kilitleyerek getir, stok yeterli mi kontrol et
     const ids = urunler.map(u => u.urun_id);
     const placeholders = ids.map(() => '?').join(',');
     const [rows] = await conn.query(
@@ -30,14 +28,12 @@ router.post('/', authRequired, async (req, res) => {
       toplam += Number(u.fiyat) * item.adet;
     }
 
-    // Siparis kaydi
     const [siparisR] = await conn.query(
       'INSERT INTO siparisler (kullanici_id, toplam_tutar, durum) VALUES (?, ?, ?)',
       [req.user.id, toplam, 'hazirlaniyor']
     );
     const siparisId = siparisR.insertId;
 
-    // Detaylar + stok guncelle
     for (const item of urunler) {
       const u = urunMap.get(item.urun_id);
       await conn.query(
@@ -57,7 +53,6 @@ router.post('/', authRequired, async (req, res) => {
   }
 });
 
-// Kendi siparislerim
 router.get('/benim', authRequired, async (req, res) => {
   try {
     const [siparisler] = await pool.query(
@@ -84,7 +79,6 @@ router.get('/benim', authRequired, async (req, res) => {
   } catch (e) { res.status(500).json({ hata: e.message }); }
 });
 
-// Admin: tum siparisler
 router.get('/', adminRequired, async (req, res) => {
   try {
     const [rows] = await pool.query(

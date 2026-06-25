@@ -28,7 +28,6 @@ export default function Checkout() {
   const kargo = toplam >= 500 ? 0 : 29.9;
   const genelToplam = toplam + kargo;
 
-  // Sepet bos veya giris yapilmamissa yonlendir
   if (!user) return <Navigate to="/login" state={{ from: '/checkout' }} replace />;
   if (items.length === 0) return <Navigate to="/sepet" replace />;
 
@@ -77,7 +76,6 @@ export default function Checkout() {
 
   return (
     <Container className="my-4 my-md-5">
-      {/* Stepper */}
       <div className="checkout-stepper fade-up">
         <Link to="/sepet" className="cs-adim tamamlandi">
           <div className="cs-no">✓</div>
@@ -101,7 +99,6 @@ export default function Checkout() {
       </div>
 
       <Row className="g-4">
-        {/* SOL: Form */}
         <Col lg={8}>
           {hata && <Alert variant="danger" className="fade-up">{hata}</Alert>}
 
@@ -314,7 +311,6 @@ export default function Checkout() {
           )}
         </Col>
 
-        {/* SAG: Siparis Ozeti */}
         <Col lg={4}>
           <div className="cam-kart fade-up" style={{ padding: 24, position: 'sticky', top: 100, animationDelay: '0.1s' }}>
             <h5 style={{ fontWeight: 700, marginBottom: 16 }}>Sipariş Özeti</h5>

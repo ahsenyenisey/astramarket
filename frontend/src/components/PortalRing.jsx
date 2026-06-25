@@ -1,5 +1,3 @@
-// Donen enerji halkasi - 3 ic ice donen halka + orbit edip duran parcaciklar.
-// Pure CSS, sadece transform animasyonu, GPU dostu.
 export default function PortalRing({ boyut = 240, className = '' }) {
   return (
     <div className={`portal-ring ${className}`} style={{ width: boyut, height: boyut }} aria-hidden="true">

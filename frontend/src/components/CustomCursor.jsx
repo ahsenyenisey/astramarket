@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Neon glow trailli ozel imlec. Sadece pointer destekleyen
-// (touch olmayan) cihazlarda gorunur. prefers-reduced-motion'da kapali.
 export default function CustomCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
@@ -37,17 +35,14 @@ export default function CustomCursor() {
 
     let raf;
     const tik = () => {
-      // dot anlık takip
       dx += (mx - dx) * 0.85;
       dy += (my - dy) * 0.85;
-      // ring biraz gecikmeli
       rx += (mx - rx) * 0.18;
       ry += (my - ry) * 0.18;
 
       if (dotRef.current) dotRef.current.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
       if (ringRef.current) ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
 
-      // Trail noktalari kademeli takip
       let px = mx, py = my;
       for (let i = 0; i < trail.length; i++) {
         const speed = 0.30 - i * 0.05;

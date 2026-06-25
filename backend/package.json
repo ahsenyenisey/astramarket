@@ -1,7 +1,8 @@
 {
   "name": "eticaret-backend",
   "version": "1.0.0",
-  "description": "E-ticaret backend (Node.js + Express + MySQL)",
+  "description": "AstraMarket — E-ticaret backend (Node.js + Express + MySQL)",
+  "author": "Ahsen Yenisey, Furkan Fuat Küçükbayrak, Egehan Mercan",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -18,7 +18,6 @@ router.post('/', authRequired, async (req, res) => {
 
 router.delete('/:id', authRequired, async (req, res) => {
   try {
-    // Kendi yorumunu silebilir veya admin tum yorumlari silebilir
     const [rows] = await pool.query('SELECT kullanici_id FROM yorumlar WHERE id = ?', [req.params.id]);
     if (!rows.length) return res.status(404).json({ hata: 'Yorum bulunamadı' });
     if (rows[0].kullanici_id !== req.user.id && req.user.rol !== 'admin') {

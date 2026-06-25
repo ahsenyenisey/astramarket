@@ -33,7 +33,6 @@ export function AuthProvider({ children }) {
     }
     const aktifMi = okuPremium(user.id);
     let plan = okuPlan(user.id);
-    // Migrasyon: eski premium kayitlarinda planId olmayabilir -> varsayilan yillik
     if (aktifMi && !plan) {
       plan = 'yillik';
       localStorage.setItem(planKey(user.id), plan);
@@ -42,7 +41,6 @@ export function AuthProvider({ children }) {
     setPremiumPlanState(plan);
   }, [user?.id]);
 
-  // setPremium(true, 'yillik')  veya  setPremium(false)
   const setPremium = (yes, planId = null) => {
     if (!user) return;
     if (yes) {

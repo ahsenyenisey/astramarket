@@ -4,12 +4,6 @@ import Logo from './Logo';
 
 const TAGLINE = 'EVREN · İN · ALIŞVERİŞİ';
 
-// Sayfa ilk acildiginda tum ekrani kaplayan sinematik karsilama.
-// Logo + tagline animasyonu bittikten sonra 3 secenek butonu cikar:
-// - Giris Yap   -> /login
-// - Kayit Ol    -> /login (register tab acik)
-// - Misafir Devam-> mevcut sayfada kalir, sadece intro kapanir
-// sessionStorage ile ayni oturumda tekrar gosterilmez.
 export default function IntroLoader() {
   const [aktif, setAktif] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -21,9 +15,7 @@ export default function IntroLoader() {
 
   useEffect(() => {
     if (!aktif) return;
-    // Body scroll kilitle
     document.body.classList.add('intro-aktif');
-    // Logo (0.3s) + tagline (1.4s) sonrasi butonlar
     const t = setTimeout(() => setButonlarHazir(true), 2100);
     return () => {
       clearTimeout(t);
@@ -34,10 +26,8 @@ export default function IntroLoader() {
   const kapat = (yer, state) => {
     if (kapaniyor) return;
     setKapaniyor(true);
-    // Navigasyonu HEMEN yap, intro hala ustte kapaniyor; alttaki sayfa hazirlaniyor.
     if (yer) nav(yer, { state });
     sessionStorage.setItem('astra-intro-gosterildi', '1');
-    // Animasyon bitince intro'yu kaldir, alttaki dogru sayfa gorunur
     setTimeout(() => setAktif(false), 700);
   };
 

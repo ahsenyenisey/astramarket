@@ -1,29 +1,18 @@
-// DummyJSON'dan gercek urunler cekip mevcut 100 urunu UPDATE eder.
-// ID'ler degismedigi icin siparisler ve yorumlar bozulmaz.
-// Calistirma: node db/replace-products.js
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-// DummyJSON kategorileri -> AstraMarket kategori_id eslemesi
 const KATEGORI_MAP = {
-  // Elektronik (1) - 17 urun
   1: ['smartphones', 'laptops', 'tablets', 'mobile-accessories', 'mens-watches'],
-  // Giyim (2) - 17 urun
   2: ['mens-shirts', 'mens-shoes', 'womens-dresses', 'womens-shoes', 'tops', 'sunglasses', 'womens-bags'],
-  // Ev & Yasam (3) - 17 urun
   3: ['furniture', 'home-decoration', 'kitchen-accessories', 'groceries'],
-  // Kitap (4) - 16 urun - DummyJSON'da kitap yok, mevcutta kalacak
   4: null,
-  // Spor (5) - 16 urun
   5: ['sports-accessories', 'motorcycle'],
-  // Kozmetik (6) - 17 urun
   6: ['beauty', 'fragrances', 'skin-care'],
 };
 
 const KAT_URUN_SAYISI = { 1: 17, 2: 17, 3: 17, 4: 16, 5: 16, 6: 17 };
 const USD_TO_TL = 32; // 2026 yaklasik kur
 
-// Kitaplar icin manuel liste (DummyJSON'da yok)
 const KITAPLAR = [
   { ad: 'Suç ve Ceza', fiyat: 89, ac: 'Dostoyevski - klasik Rus romanı' },
   { ad: 'Yapay Zekaya Giriş', fiyat: 149, ac: 'Yapay zeka temel kavramları kitabı' },
@@ -43,7 +32,6 @@ const KITAPLAR = [
   { ad: 'Felsefe Tarihi', fiyat: 249, ac: 'Antik çağdan günümüze felsefe' },
 ];
 
-// Kitap gorselleri Pixabay'den
 const KITAP_GORSELLERI = [
   'https://cdn.pixabay.com/photo/2016/11/23/15/40/old-books-1853890_1280.jpg',
   'https://cdn.pixabay.com/photo/2017/08/10/03/47/people-2616588_1280.jpg',
@@ -71,7 +59,6 @@ async function main() {
     console.log(`  Kategori ${katId}: ${urunHavuzu[katId].length} ürün havuzda`);
   }
 
-  // Veritabanına bağlan
   const conn = await mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
@@ -79,11 +66,9 @@ async function main() {
     database: process.env.DB_NAME || 'eticaret_db',
   });
 
-  // Mevcut urunleri ID + kategori sirasiyla al
   const [mevcut] = await conn.query('SELECT id, kategori_id FROM urunler ORDER BY id');
   console.log(`\n${mevcut.length} mevcut ürün güncelleniyor...`);
 
-  // Her kategoriye yeni urunler dagit
   const kategoriPointerlar = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
   let guncellenen = 0;
   let kitapGuncellenen = 0;
@@ -95,7 +80,6 @@ async function main() {
     let ad, fiyat, foto, ac;
 
     if (katId === 4) {
-      // Kitap: manuel listeden cek
       const idx = kategoriPointerlar[4]++;
       const k = KITAPLAR[idx % KITAPLAR.length];
       ad = k.ad;
@@ -104,7 +88,6 @@ async function main() {
       ac = k.ac;
       kitapGuncellenen++;
     } else {
-      // Diger kategoriler: DummyJSON'dan cek
       const havuz = urunHavuzu[katId];
       if (!havuz || havuz.length === 0) continue;
       const idx = kategoriPointerlar[katId]++;
@@ -126,7 +109,6 @@ async function main() {
   console.log(`  - Kitap (manuel): ${kitapGuncellenen}`);
   console.log(`  - DummyJSON: ${guncellenen - kitapGuncellenen}`);
 
-  // Ornek kontrol
   const [ornekler] = await conn.query(
     'SELECT id, ad, fiyat, kategori_id FROM urunler WHERE id IN (1, 18, 35, 52, 68, 84) ORDER BY id'
   );

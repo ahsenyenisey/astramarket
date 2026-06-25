@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Sayiyi 0'dan hedef degere kadar animasyonla sayar.
-// Viewport icine girdiginde tetiklenir.
-// hedef sayi, ondalik basamak, son ek (TL, +, %), baslangic gecikmesi alir.
 export default function Counter({ hedef, ondalik = 0, sonEk = '', onEk = '', sure = 1400, gecikme = 0, className = '' }) {
   const [deger, setDeger] = useState(0);
   const ref = useRef();
@@ -27,7 +24,6 @@ export default function Counter({ hedef, ondalik = 0, sonEk = '', onEk = '', sur
               const tikla = (zaman) => {
                 const gecen = zaman - baslangic;
                 const yuzde = Math.min(gecen / sure, 1);
-                // easeOutExpo
                 const ease = yuzde === 1 ? 1 : 1 - Math.pow(2, -10 * yuzde);
                 setDeger(hedef * ease);
                 if (yuzde < 1) requestAnimationFrame(tikla);

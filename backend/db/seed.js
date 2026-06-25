@@ -1,17 +1,9 @@
-// Veritabanini sifirdan kurar ve ornek veri ekler.
-// Calistirma: npm run init-db
 const fs = require('fs');
 const path = require('path');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-// ============================================================
-// GORSEL: Pixabay API ile her urun icin anahtar kelime aramasi
-// yapilarak gercek stock urun fotografi getirilir.
-// PIXABAY_API_KEY .env'de tanimliysa kullanilir;
-// yoksa kategori-renkli placeholder fallback olur.
-// ============================================================
 const PIXABAY_KEY = process.env.PIXABAY_API_KEY;
 
 const KATEGORI_RENGI = {
@@ -29,9 +21,6 @@ function placeholderFoto(katId, ad) {
   return `https://placehold.co/400x300/${bg}/${text}?text=${encodedAd}&font=poppins`;
 }
 
-// Pixabay'den keyword + category ile foto cek.
-// category filter sayesinde "cologne" icin manzara yerine
-// gercek urun/sise fotograflari geliyor.
 async function pixabayFoto(query, category, retry = true) {
   if (!PIXABAY_KEY) return null;
   try {
@@ -55,7 +44,6 @@ async function pixabayFoto(query, category, retry = true) {
     if (data.hits && data.hits.length > 0) {
       return data.hits[0].webformatURL;
     }
-    // Category ile bulamadiysa kategori-siz tekrar dene
     if (category && retry) return pixabayFoto(query, null, false);
     return null;
   } catch (e) {
@@ -64,7 +52,6 @@ async function pixabayFoto(query, category, retry = true) {
   }
 }
 
-// Her kategori icin Pixabay category eslemesi
 const PIXABAY_KATEGORI = {
   1: 'computer',   // Elektronik
   2: 'fashion',    // Giyim
@@ -74,15 +61,9 @@ const PIXABAY_KATEGORI = {
   6: 'fashion',    // Kozmetik (beauty yok, fashion en yakini)
 };
 
-// Stub
 function ufoto() { return null; }
 
-// ============================================================
-// URUN LISTESI - 100 urun, 6 kategoriye dagitilmis
-// foto alani: Unsplash photo ID (dogrulanmis 200 OK donenler)
-// ============================================================
 const URUNLER = [
-  // ELEKTRONIK (1) - 17 urun
   { k: 1, ad: 'iPhone 15 Pro',                 foto: ufoto('1592286927505-1def25115558'), fiyat: 54999, stok: 25,  ac: 'Apple iPhone 15 Pro 256 GB Titanium gri' },
   { k: 1, ad: 'Samsung Galaxy S24 Ultra',      foto: ufoto('1610945265064-0e34e5519bbf'), fiyat: 49999, stok: 30,  ac: 'Samsung Galaxy S24 Ultra 256 GB siyah' },
   { k: 1, ad: 'MacBook Air M3 13"',            foto: ufoto('1517336714731-489689fd1ca8'), fiyat: 44999, stok: 15,  ac: 'Apple MacBook Air 13 inç M3 çipli, 8GB/256GB' },
@@ -101,7 +82,6 @@ const URUNLER = [
   { k: 1, ad: 'Anker 20000mAh Powerbank',      foto: ufoto('1573739022854-abceaeb585dc'), fiyat: 899,   stok: 120, ac: 'Hızlı şarj, USB-C PD 30W, çift port' },
   { k: 1, ad: 'Xiaomi Redmi Note 13 Pro',      foto: ufoto('1546435770-a3e426bf472b'),    fiyat: 8999,  stok: 65,  ac: '200MP kamera, 5G, 256GB depolama' },
 
-  // GIYIM (2) - 17 urun
   { k: 2, ad: 'Erkek Polo Tişört',             foto: ufoto('1586790170083-2f9ceadc732d'), fiyat: 299,   stok: 150, ac: 'Pamuklu erkek polo yaka tişört, lacivert' },
   { k: 2, ad: 'Kadın Trençkot',                foto: ufoto('1539109136881-3be0616acf4b'), fiyat: 1499,  stok: 40,  ac: 'Bej rengi klasik kadın trençkot, su geçirmez' },
   { k: 2, ad: 'Erkek Slim Fit Kot Pantolon',   foto: ufoto('1542272604-787c3835535d'),    fiyat: 599,   stok: 80,  ac: 'Mavi slim fit kot pantolon, esnek kumaş' },
@@ -120,7 +100,6 @@ const URUNLER = [
   { k: 2, ad: 'Eşofman Takımı',                foto: ufoto('1556905055-8f358a7a47b2'),    fiyat: 999,   stok: 65,  ac: 'Pamuk-poliester karışım, gri' },
   { k: 2, ad: 'Çorap 5\'li Set',               foto: ufoto('1620712943543-bcc4688e7485'), fiyat: 149,   stok: 250, ac: 'Pamuklu erkek çorap 5\'li paket' },
 
-  // EV & YASAM (3) - 17 urun
   { k: 3, ad: 'Ahşap Yemek Masası',            foto: ufoto('1577140917170-285929fb55b7'), fiyat: 4999,  stok: 10,  ac: '6 kişilik meşe masa, doğal kaplama' },
   { k: 3, ad: 'Çift Kişilik Yatak Örtüsü Seti',foto: ufoto('1505693416388-ac5ce068fe85'), fiyat: 899,   stok: 60,  ac: 'Pamuklu, nevresim + 2 yastık + lastik' },
   { k: 3, ad: 'Espresso Kahve Makinesi',       foto: ufoto('1495474472287-4d71bcdd2085'), fiyat: 2799,  stok: 30,  ac: 'Otomatik öğütücülü, 15 bar basınç' },
@@ -139,7 +118,6 @@ const URUNLER = [
   { k: 3, ad: 'Buhar Kazanı',                  foto: ufoto('1574269909862-7e1d70bb8078'), fiyat: 999,   stok: 40,  ac: 'Tencere altına, 1500W, dikey' },
   { k: 3, ad: 'Dyson V11 Süpürge',             foto: ufoto('1556228852-80b6e5eeff06'),    fiyat: 14999, stok: 10,  ac: 'Şarjlı, kablosuz, 60 dk pil ömrü' },
 
-  // KITAP (4) - 16 urun
   { k: 4, ad: 'Suç ve Ceza',                   foto: ufoto('1544947950-fa07a98d237f'),    fiyat: 89,    stok: 200, ac: 'Dostoyevski - klasik Rus romanı' },
   { k: 4, ad: 'Yapay Zekaya Giriş',            foto: ufoto('1532012197267-da84d127e765'), fiyat: 149,   stok: 80,  ac: 'Yapay zeka temel kavramları kitabı' },
   { k: 4, ad: 'Sefiller',                      foto: ufoto('1457369804613-52c61a468e7d'), fiyat: 119,   stok: 150, ac: 'Victor Hugo - Fransız edebiyatı klasiği' },
@@ -157,7 +135,6 @@ const URUNLER = [
   { k: 4, ad: 'Çocuk Masalları Seti',          foto: ufoto('1474932430478-367dbb6832c1'), fiyat: 159,   stok: 110, ac: '5 kitaplık klasik masallar seti' },
   { k: 4, ad: 'Felsefe Tarihi',                foto: ufoto('1457369804613-52c61a468e7d'), fiyat: 249,   stok: 55,  ac: 'Antik çağdan günümüze felsefe' },
 
-  // SPOR (5) - 16 urun
   { k: 5, ad: 'Nike Air Zoom Pegasus 40',      foto: ufoto('1530549387789-4c1017266635'), fiyat: 1899,  stok: 70,  ac: 'Profesyonel koşu ayakkabısı' },
   { k: 5, ad: 'Kaymaz Yoga Matı',              foto: ufoto('1601925260368-ae2f83cf8b7f'), fiyat: 399,   stok: 120, ac: 'Kalın 6mm TPE, taşıma kayışlı' },
   { k: 5, ad: 'Dambıl Seti 2x5 kg',            foto: ufoto('1518611012118-696072aa579a'), fiyat: 599,   stok: 60,  ac: 'Vinil kaplama, çift dambıl' },
@@ -175,7 +152,6 @@ const URUNLER = [
   { k: 5, ad: 'Wilson Tenis Raketi',           foto: ufoto('1622279457486-62dcc4a431d6'), fiyat: 1899,  stok: 25,  ac: 'Yarışma raketi, başlangıç-orta seviye' },
   { k: 5, ad: 'Mikasa Voleybol Topu',          foto: ufoto('1622279457486-62dcc4a431d6'), fiyat: 349,   stok: 100, ac: 'Sentetik deri, kapalı saha' },
 
-  // KOZMETIK (6) - 17 urun
   { k: 6, ad: 'Unisex Parfüm 100ml',           foto: ufoto('1541643600914-78b084683601'), fiyat: 1299,  stok: 50,  ac: 'Eau de parfum, kalıcı oryantal koku' },
   { k: 6, ad: 'Hyaluronic Nemlendirici',       foto: ufoto('1556228720-195a672e8a03'),    fiyat: 249,   stok: 180, ac: '50ml, tüm cilt tipleri için' },
   { k: 6, ad: 'Vücut Şampuanı 500ml',          foto: ufoto('1612817288484-6f916006741a'), fiyat: 89,    stok: 300, ac: 'Lavanta kokulu, doğal içerikli' },
@@ -195,11 +171,7 @@ const URUNLER = [
   { k: 6, ad: 'Saç Boyası Set',                foto: ufoto('1561214115-f2f134cc4912'),    fiyat: 99,    stok: 160, ac: 'Doğal koyu kahve, amonyak içermez' },
 ];
 
-// ============================================================
-// SIPARISLER - kullanici_id [2..6], 1-3 urun, durum cesitli
-// ============================================================
 function siparisOlustur() {
-  // [kullanici_id, [urun_id'leri], durum, tarih_offset_gun]
   return [
     [2, [1], 'teslim_edildi', -35],
     [2, [4], 'teslim_edildi', -30],
@@ -238,9 +210,6 @@ function siparisOlustur() {
   ];
 }
 
-// ============================================================
-// YORUMLAR - deterministik dagitim, her urunde 0-3 yorum
-// ============================================================
 const YORUM_METINLERI = [
   { puan: 5, m: 'Harika ürün, çok memnunum!' },
   { puan: 5, m: 'Beklediğimden çok daha kaliteli, tavsiye ederim.' },
@@ -273,9 +242,6 @@ function yorumOlustur() {
   return yorumlar;
 }
 
-// ============================================================
-// MAIN
-// ============================================================
 async function main() {
   const dbName = process.env.DB_NAME || 'eticaret_db';
 
@@ -320,34 +286,27 @@ async function main() {
     ]]
   );
 
-  // Her urun icin Ingilizce anahtar kelime (Pixabay aramasi icin)
   const URUN_KEYWORDS = [
-    // Elektronik (1-17)
     'iphone', 'samsung galaxy phone', 'macbook laptop', 'headphones', 'smartwatch',
     'bluetooth speaker', 'tablet ipad', 'wireless earbuds', 'laptop computer', 'tv television',
     'drone quadcopter', 'camera dslr', 'computer mouse', 'mechanical keyboard', 'tablet android',
     'power bank', 'smartphone',
-    // Giyim (18-34)
     'polo shirt', 'trench coat', 'jeans denim', 'dress shirt formal', 'silk blouse',
     'summer dress', 'winter jacket', 'puffer jacket', 'sneakers shoes', 'high heels',
     'leather boots', 'knit sweater', 'white tshirt', 'cargo shorts', 'midi skirt',
     'tracksuit', 'cotton socks',
-    // Ev & Yasam (35-51)
     'wooden dining table', 'bed sheet linen', 'espresso machine', 'sofa couch', 'tv stand',
     'bedroom furniture', 'kids bedroom', 'dishwasher', 'microwave oven', 'tea kettle',
     'cookware pots', 'carpet rug', 'mattress bed', 'chandelier light', 'garden furniture',
     'steam iron', 'vacuum cleaner',
-    // Kitap (52-67)
     'open book novel', 'tech book reading', 'classic literature book', 'old book', 'history book',
     'self help book', 'children book illustrated', 'novel book', 'reading book', 'coloring book children',
     'programming book', 'computer science book', 'cookbook recipes', 'world atlas map', 'fairy tale book',
     'philosophy book',
-    // Spor (68-83)
     'running shoes nike', 'yoga mat', 'dumbbell weights', 'gym bag', 'resistance band',
     'pilates ball', 'city bicycle', 'fitness gloves', 'sports tshirt', 'sweatpants athletic',
     'water bottle thermos', 'sport shorts', 'trail running shoes', 'swim shorts', 'tennis racket',
     'volleyball ball',
-    // Kozmetik (84-100)
     'perfume bottle', 'moisturizer cream', 'body wash bottle', 'shampoo bottle', 'hair mask',
     'skincare set', 'makeup cosmetics', 'red lipstick', 'mascara', 'eyeshadow palette',
     'face cleanser', 'body lotion', 'shaving cream', 'electric razor', 'toothpaste',

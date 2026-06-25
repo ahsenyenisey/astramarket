@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Sayfa degisiminde tum ekrana hizli kayan gradient perde efekti.
-// Sadece 700ms; ust katmanda, pointer-events: none.
 export default function PageWipe() {
   const loc = useLocation();
   const [aktif, setAktif] = useState(false);
