@@ -1,13 +1,5 @@
 # AstraMarket — Web Tabanlı E-Ticaret Otomasyonu
 
-**Web Programlama Dersi — Dönem Projesi**
-
-| Ad Soyad | Öğrenci No |
-|---|---|
-| Ahsen Yenisey | 1306230123 |
-| Furkan Fuat Küçükbayrak | 1306230124 |
-| Egehan Mercan | 1306230125 |
-
 Hepsiburada benzeri, **React + Node.js/Express + MySQL** kullanan tam yığın bir
 e-ticaret uygulaması. Ders projesi olarak hazırlanmıştır.
 
